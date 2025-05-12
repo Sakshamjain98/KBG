@@ -1,35 +1,55 @@
-'use client';
-import { use, useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { Home, FileText, User, Menu, X, ChevronRight, Edit, Loader, Download, Eye, ArrowRight, ArrowLeft, CheckCircle } from 'lucide-react';
-import { collection, doc, getDoc, getDocs, query, updateDoc, where } from 'firebase/firestore';
-import {  onAuthStateChanged } from 'firebase/auth';
-import { auth, db } from '../../../lib/firebase';
-import axios from 'axios';
-import IsoForm from '@/components/forms/iso';
+"use client";
+import { use, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import {
+  Home,
+  FileText,
+  User,
+  Menu,
+  X,
+  ChevronRight,
+  Edit,
+  Loader,
+  Download,
+  Eye,
+  ArrowRight,
+  ArrowLeft,
+  CheckCircle,
+} from "lucide-react";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth, db } from "../../../lib/firebase";
+import axios from "axios";
+import IsoForm from "@/components/forms/iso";
 
 // Layout Component
 export default function Dashboard() {
-  const [activeTab, setActiveTab] = useState('open-forms');
+  const [activeTab, setActiveTab] = useState("open-forms");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const searchParams = useSearchParams();
 
-  
-
   useEffect(() => {
-  const tab = searchParams.get('tab');
-  if (tab === 'profile') setActiveTab('profile');
-  if (tab === 'your-forms') setActiveTab('your-forms');
-  if (tab === 'open-forms') setActiveTab('open-forms');
-}, [searchParams]);
+    const tab = searchParams.get("tab");
+    if (tab === "profile") setActiveTab("profile");
+    if (tab === "your-forms") setActiveTab("your-forms");
+    if (tab === "open-forms") setActiveTab("open-forms");
+  }, [searchParams]);
 
-const handleTabChange = (tab) => {
-  setActiveTab(tab);
-  window.history.pushState({}, '', `?tab=${tab}`);
-};
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+    window.history.pushState({}, "", `?tab=${tab}`);
+  };
 
- const toggleSidebar = () => {
+  const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
 
@@ -46,11 +66,11 @@ const handleTabChange = (tab) => {
       </div> */}
 
       {/* Sidebar - responsive */}
-   <div
-      className={`fixed inset-y-0 left-0 z-50 transform lg:relative lg:translate-x-0 transition duration-200 ease-in-out w-64 bg-white shadow-lg ${
-        sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
-      }`}
-    >
+      <div
+        className={`fixed inset-y-0 left-0 z-50 transform lg:relative lg:translate-x-0 transition duration-200 ease-in-out w-64 bg-white shadow-lg ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+        }`}
+      >
         <div className="p-6">
           <h1 className="text-2xl font-bold text-orange-500">Dashboard</h1>
         </div>
@@ -58,45 +78,84 @@ const handleTabChange = (tab) => {
         <nav className="mt-6">
           <div
             className={`flex items-center px-6 py-3 cursor-pointer ${
-              activeTab === 'open-forms' ? 'bg-orange-100 border-r-4 border-orange-500' : 'hover:bg-orange-50'
+              activeTab === "open-forms"
+                ? "bg-orange-100 border-r-4 border-orange-500"
+                : "hover:bg-orange-50"
             }`}
             onClick={() => {
-              setActiveTab('open-forms');
+              setActiveTab("open-forms");
               if (window.innerWidth < 1024) setSidebarOpen(false);
             }}
           >
-            <Home size={20} className={activeTab === 'open-forms' ? 'text-orange-500' : 'text-gray-600'} />
-            <span className={`ml-4 ${activeTab === 'open-forms' ? 'font-medium text-orange-600' : 'text-gray-700'}`}>
+            <Home
+              size={20}
+              className={
+                activeTab === "open-forms" ? "text-orange-500" : "text-gray-600"
+              }
+            />
+            <span
+              className={`ml-4 ${
+                activeTab === "open-forms"
+                  ? "font-medium text-orange-600"
+                  : "text-gray-700"
+              }`}
+            >
               Open Forms
             </span>
           </div>
 
           <div
             className={`flex items-center px-6 py-3 cursor-pointer ${
-              activeTab === 'your-forms' ? 'bg-orange-100 border-r-4 border-orange-500' : 'hover:bg-orange-50'
+              activeTab === "your-forms"
+                ? "bg-orange-100 border-r-4 border-orange-500"
+                : "hover:bg-orange-50"
             }`}
             onClick={() => {
-              setActiveTab('your-forms');
+              setActiveTab("your-forms");
               if (window.innerWidth < 1024) setSidebarOpen(false);
             }}
           >
-            <FileText size={20} className={activeTab === 'your-forms' ? 'text-orange-500' : 'text-gray-600'} />
-            <span className={`ml-4 ${activeTab === 'your-forms' ? 'font-medium text-orange-600' : 'text-gray-700'}`}>
+            <FileText
+              size={20}
+              className={
+                activeTab === "your-forms" ? "text-orange-500" : "text-gray-600"
+              }
+            />
+            <span
+              className={`ml-4 ${
+                activeTab === "your-forms"
+                  ? "font-medium text-orange-600"
+                  : "text-gray-700"
+              }`}
+            >
               Your Forms
             </span>
           </div>
 
           <div
             className={`flex items-center px-6 py-3 cursor-pointer ${
-              activeTab === 'profile' ? 'bg-orange-100 border-r-4 border-orange-500' : 'hover:bg-orange-50'
+              activeTab === "profile"
+                ? "bg-orange-100 border-r-4 border-orange-500"
+                : "hover:bg-orange-50"
             }`}
             onClick={() => {
-              setActiveTab('profile');
+              setActiveTab("profile");
               if (window.innerWidth < 1024) setSidebarOpen(false);
             }}
           >
-            <User size={20} className={activeTab === 'profile' ? 'text-orange-500' : 'text-gray-600'} />
-            <span className={`ml-4 ${activeTab === 'profile' ? 'font-medium text-orange-600' : 'text-gray-700'}`}>
+            <User
+              size={20}
+              className={
+                activeTab === "profile" ? "text-orange-500" : "text-gray-600"
+              }
+            />
+            <span
+              className={`ml-4 ${
+                activeTab === "profile"
+                  ? "font-medium text-orange-600"
+                  : "text-gray-700"
+              }`}
+            >
               Profile
             </span>
           </div>
@@ -104,50 +163,49 @@ const handleTabChange = (tab) => {
       </div>
 
       {/* Main Content */}
-       <div className="flex-1 flex flex-col overflow-hidden">
-      {/* Header/Breadcrumbs with mobile toggle integrated */}
-      <div className="bg-white shadow-sm z-10 sticky top-0">
-        <div className="px-6 py-4 flex items-center justify-between">
-          {/* Breadcrumbs - left side */}
-          <div className="flex items-center text-sm">
-            <span className="text-gray-600">Dashboard</span>
-            <ChevronRight size={16} className="mx-1 text-gray-400" />
-            <span className="font-medium text-orange-600">
-              {activeTab === 'open-forms' && 'Open Forms'}
-              {activeTab === 'your-forms' && 'Your Forms'}
-              {activeTab === 'profile' && 'Profile'}
-            </span>
+      <div className="flex-1 flex flex-col overflow-hidden">
+        {/* Header/Breadcrumbs with mobile toggle integrated */}
+        <div className="bg-white shadow-sm z-10 sticky top-0">
+          <div className="px-6 py-4 flex items-center justify-between">
+            {/* Breadcrumbs - left side */}
+            <div className="flex items-center text-sm">
+              <span className="text-gray-600">Dashboard</span>
+              <ChevronRight size={16} className="mx-1 text-gray-400" />
+              <span className="font-medium text-orange-600">
+                {activeTab === "open-forms" && "Open Forms"}
+                {activeTab === "your-forms" && "Your Forms"}
+                {activeTab === "profile" && "Profile"}
+              </span>
+            </div>
+
+            {/* Mobile Toggle - right side */}
+            <div className="lg:hidden z-50">
+              <button
+                onClick={toggleSidebar}
+                className="p-2 rounded-md bg-orange-500 text-white"
+              >
+                {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
+              </button>
+            </div>
           </div>
-          
-          {/* Mobile Toggle - right side */}
-          <div className="lg:hidden z-50">
-            <button
-              onClick={toggleSidebar}
-              className="p-2 rounded-md bg-orange-500 text-white"
-            >
-              {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
-          </div>
+        </div>
+
+        {/* Page Content */}
+        <div className="flex-1 overflow-auto  p-6">
+          {activeTab === "open-forms" && <OpenForms />}
+          {activeTab === "your-forms" && <YourForms />}
+          {activeTab === "profile" && <Profile />}
         </div>
       </div>
 
-      {/* Page Content */}
-      <div className="flex-1 overflow-auto  p-6">
-        {activeTab === 'open-forms' && <OpenForms />}
-        {activeTab === 'your-forms' && <YourForms />}
-        {activeTab === 'profile' && <Profile />}
-      </div>
+      {/* Overlay for mobile */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-[#00000066] bg-opacity-50 z-0 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
     </div>
-
-    {/* Overlay for mobile */}
-    {sidebarOpen && (
-      <div 
-        className="fixed inset-0 bg-[#00000066] bg-opacity-50 z-0 lg:hidden"
-        onClick={() => setSidebarOpen(false)}
-      />
-    )}
-  </div>
-
   );
 }
 
@@ -160,12 +218,13 @@ function OpenForms() {
 
   // Define all available forms with their metadata
   const availableForms = {
-    'Trademark-and-Iso': {
-      id: 'Trademark-and-Iso',
-      name: 'TRADEMARK & ISO DATA',
-      description: 'Application for trademark registration and ISO certification',
-      deadline: 'June 30, 2025',
-      component: IsoForm
+    "Trademark-and-Iso": {
+      id: "Trademark-and-Iso",
+      name: "TRADEMARK & ISO DATA",
+      description:
+        "Application for trademark registration and ISO certification",
+      deadline: "June 30, 2025",
+      component: IsoForm,
     },
     // Add more forms here as needed
     /*
@@ -195,15 +254,15 @@ function OpenForms() {
   const checkFormSubmissions = async (uid) => {
     try {
       const q = query(
-        collection(db, 'applications'),
-        where('userId', '==', uid)
+        collection(db, "applications"),
+        where("userId", "==", uid)
       );
       const querySnapshot = await getDocs(q);
-      
-      const filled = querySnapshot.docs.map(doc => doc.data().templateName);
+
+      const filled = querySnapshot.docs.map((doc) => doc.data().templateName);
       setFilledForms(filled);
     } catch (error) {
-      console.error('Error checking form submissions:', error);
+      console.error("Error checking form submissions:", error);
     } finally {
       setLoading(false);
     }
@@ -217,14 +276,16 @@ function OpenForms() {
   const handleFormSubmitSuccess = () => {
     setShowForm(false);
     if (selectedForm) {
-      setFilledForms(prev => [...prev, selectedForm]);
+      setFilledForms((prev) => [...prev, selectedForm]);
     }
   };
 
   if (loading) {
     return (
       <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">Available Forms</h2>
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+          Available Forms
+        </h2>
         <div className="flex justify-center items-center py-8">
           <Loader className="animate-spin text-orange-500" size={24} />
         </div>
@@ -236,7 +297,7 @@ function OpenForms() {
     const FormComponent = availableForms[selectedForm].component;
     return (
       <div className="bg-white rounded-lg shadow p-6">
-        <button 
+        <button
           onClick={() => setShowForm(false)}
           className="flex items-center text-gray-600 hover:text-orange-500 mb-4"
         >
@@ -250,21 +311,28 @@ function OpenForms() {
 
   // Filter out forms that user has already filled
   const unfilledForms = Object.values(availableForms).filter(
-    form => !filledForms.includes(form.id)
+    (form) => !filledForms.includes(form.id)
   );
 
   return (
     <div className="bg-white rounded-lg shadow p-6">
-      <h2 className="text-xl font-semibold text-gray-800 mb-6">Available Forms</h2>
-      
+      <h2 className="text-xl font-semibold text-gray-800 mb-6">
+        Available Forms
+      </h2>
+
       {unfilledForms.length > 0 ? (
         <div className="space-y-6">
-          {unfilledForms.map(form => (
-            <div key={form.id} className="border border-gray-200 rounded-xl overflow-hidden hover:shadow-md transition-shadow">
+          {unfilledForms.map((form) => (
+            <div
+              key={form.id}
+              className="border border-gray-200 rounded-xl overflow-hidden hover:shadow-md transition-shadow"
+            >
               <div className="p-6">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-gray-800 mb-1">{form.name}</h3>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-1">
+                      {form.name}
+                    </h3>
                     <p className="text-gray-600 text-sm mb-4">
                       {form.description}
                     </p>
@@ -305,7 +373,8 @@ function OpenForms() {
             No forms available at this time
           </h3>
           <p className="text-gray-600">
-            You've either filled all available forms or no forms are currently open.
+            You've either filled all available forms or no forms are currently
+            open.
           </p>
         </div>
       )}
@@ -314,16 +383,16 @@ function OpenForms() {
 }
 
 function YourForms() {
-   const [userId, setUserId] = useState(null);
+  const [userId, setUserId] = useState(null);
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUserId(user.uid);
-        console.log(user.uid)
+        console.log(user.uid);
         fetchApplications(user.uid);
       } else {
         setUserId(null);
@@ -335,10 +404,13 @@ function YourForms() {
 
   const fetchApplications = async (uid) => {
     try {
-      console.log("first")
-      const q = query(collection(db, 'applications'), where('userId', '==', uid));
+      console.log("first");
+      const q = query(
+        collection(db, "applications"),
+        where("userId", "==", uid)
+      );
       const querySnapshot = await getDocs(q);
-      
+
       const apps = [];
       querySnapshot.forEach((doc) => {
         apps.push({ id: doc.id, ...doc.data() });
@@ -347,82 +419,87 @@ function YourForms() {
       setApplications(apps);
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching applications:', error);
-      setError('Failed to load applications');
+      console.error("Error fetching applications:", error);
+      setError("Failed to load applications");
       setLoading(false);
     }
   };
 
   const handleDownload = async (applicationId, formData) => {
     if (!userId) {
-      setError('Please sign in to download the application');
+      setError("Please sign in to download the application");
       return;
     }
 
     try {
       setLoading(true);
-      setError('');
+      setError("");
 
       // Generate the DOCX document
-      const docxResponse = await axios.post('/api/fill-docx', formData, {
-        responseType: 'blob',
+      const docxResponse = await axios.post("/api/fill-docx", formData, {
+        responseType: "blob",
       });
-      
+
       const docxBlob = new Blob([docxResponse.data], {
-        type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
       });
 
       const url = window.URL.createObjectURL(docxBlob);
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.href = url;
-      link.setAttribute('download', `${formData.templateName} Form ${formData.INS_tm_full_name}.docx`);
+      link.setAttribute(
+        "download",
+        `${formData.templateName} Form ${formData.INS_tm_full_name}.docx`
+      );
       document.body.appendChild(link);
       link.click();
       link.parentNode.removeChild(link);
       window.URL.revokeObjectURL(url);
     } catch (error) {
-      console.error('Download failed:', error);
-      setError('Failed to download application');
+      console.error("Download failed:", error);
+      setError("Failed to download application");
     } finally {
       setLoading(false);
     }
   };
 
   const formatDate = (timestamp) => {
-    if (!timestamp) return 'N/A';
+    if (!timestamp) return "N/A";
     const date = timestamp.toDate();
-    return date.toLocaleDateString('en-US', {
-      day: 'numeric',
-      month: 'short',
-      year: 'numeric',
+    return date.toLocaleDateString("en-US", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
     });
   };
 
   const getFormName = (templateName) => {
-    if (templateName === 'Trademark-and-Iso') {
-      return 'TRADEMARK & ISO DATA';
+    if (templateName === "Trademark-and-Iso") {
+      return "TRADEMARK & ISO DATA";
     }
-    return templateName || 'Application Form';
+    return templateName || "Application Form";
   };
 
   const getStatusBadge = (status) => {
     switch (status) {
-      case 'Payment Pending':
-        return 'bg-yellow-100 text-yellow-600';
-      case 'In Review':
-        return 'bg-blue-100 text-blue-600';
-      case 'Completed':
-        return 'bg-green-100 text-green-600';
-      case 'Submitted':
+      case "Payment Pending":
+        return "bg-yellow-100 text-yellow-600";
+      case "In Review":
+        return "bg-blue-100 text-blue-600";
+      case "Completed":
+        return "bg-green-100 text-green-600";
+      case "Submitted":
       default:
-        return 'bg-gray-100 text-gray-600';
+        return "bg-gray-100 text-gray-600";
     }
   };
 
   if (loading && applications.length === 0) {
     return (
       <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">Your Submitted Forms</h2>
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+          Your Submitted Forms
+        </h2>
         <div className="flex justify-center items-center py-8">
           <Loader className="animate-spin text-orange-500" size={24} />
         </div>
@@ -433,7 +510,9 @@ function YourForms() {
   if (error) {
     return (
       <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">Your Submitted Forms</h2>
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+          Your Submitted Forms
+        </h2>
         <div className="text-red-500 p-4 bg-red-50 rounded-lg">{error}</div>
       </div>
     );
@@ -442,7 +521,9 @@ function YourForms() {
   if (applications.length === 0) {
     return (
       <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">Your Submitted Forms</h2>
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+          Your Submitted Forms
+        </h2>
         <div className="text-gray-500 p-4 bg-gray-50 rounded-lg">
           You haven't submitted any forms yet.
         </div>
@@ -452,23 +533,43 @@ function YourForms() {
 
   return (
     <div className="bg-white rounded-lg shadow p-6">
-      <h2 className="text-xl font-semibold text-gray-800 mb-4">Your Submitted Forms</h2>
+      <h2 className="text-xl font-semibold text-gray-800 mb-4">
+        Your Submitted Forms
+      </h2>
       <div className="space-y-4">
         {applications.map((app) => (
-          <div key={app.id} className="border border-gray-200 p-4 rounded-lg hover:border-orange-300 transition-colors">
+          <div
+            key={app.id}
+            className="border border-gray-200 p-4 rounded-lg hover:border-orange-300 transition-colors"
+          >
             <div className="flex justify-between items-start">
               <div>
-                <h3 className="font-medium text-gray-700">{getFormName(app.templateName)}</h3>
+                <h3 className=" font-semibold text-gray-700">
+                  {getFormName(app.templateName)}
+                </h3>
                 <p className="text-gray-500 text-sm mt-1">
-                  Submitted on {formatDate(app.createdAt)}
+                  Submitted on {formatDate(app.createdAt)} <b>||</b>{" "}
+                  <b className="text-orange-400">
+                    Updated on {formatDate(app.updatedAt)}
+                  </b>
                 </p>
               </div>
-              <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusBadge(app.status)}`}>
+
+              <span
+                className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusBadge(
+                  app.status
+                )}`}
+              >
                 {app.status}
               </span>
             </div>
 
             <div className="mt-4 flex flex-wrap gap-2">
+              {(app.comments || app.comments != "") && (
+                <div className="bg-gray-100 w-full  text-sm  mb-2 p-2 rounded-md">
+                  {app.comments}
+                </div>
+              )}
               <button
                 onClick={() => handleDownload(app.id, app)}
                 className="flex items-center px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors"
@@ -478,7 +579,7 @@ function YourForms() {
                 View
               </button>
 
-              {app.status === 'Payment Pending' && (
+              {app.status === "Payment Pending" && (
                 <button
                   className="flex items-center px-3 py-1 text-sm bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors"
                   disabled={loading}
@@ -487,31 +588,39 @@ function YourForms() {
                   Make Payment
                 </button>
               )}
+              {app.status === "Completed" && (
+                <button
+                  className="flex items-center px-3 py-1 text-sm bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors"
+                  disabled={loading}
+                >
+                  <ArrowRight size={16} className="mr-1" />
+                  Download Docs
+                </button>
+              )}
             </div>
           </div>
         ))}
       </div>
     </div>
-  )
+  );
 }
 
 function Profile() {
-  
   const [userId, setUserId] = useState(null);
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [editMode, setEditMode] = useState(false);
   const [formData, setFormData] = useState({
-    fullName: '',
-    phoneNumber: ''
+    fullName: "",
+    phoneNumber: "",
   });
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log(user)
+        console.log(user);
         setUserId(user.uid);
-        console.log(user.uid)
+        console.log(user.uid);
         fetchUserData(user.uid);
       } else {
         setUserId(null);
@@ -521,70 +630,68 @@ function Profile() {
     return () => unsubscribe();
   }, []);
 
-   const fetchUserData = async (uid) => {
+  const fetchUserData = async (uid) => {
     try {
-      const docRef = doc(db, 'users', uid);
+      const docRef = doc(db, "users", uid);
       const docSnap = await getDoc(docRef);
-      
+
       if (docSnap.exists()) {
         const data = docSnap.data();
         setUserData(data);
         setFormData({
-          fullName: data.fullName || '',
-          phoneNumber: data.phoneNumber || ''
+          fullName: data.fullName || "",
+          phoneNumber: data.phoneNumber || "",
         });
       }
 
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching user data:', error);
+      console.error("Error fetching user data:", error);
       setLoading(false);
     }
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
- 
-
-   const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Add your update logic here to save to Firebase
     // For example:
-    await updateDoc(doc(db, 'users', userId), {
+    await updateDoc(doc(db, "users", userId), {
       fullName: formData.fullName,
-      phoneNumber: formData.phoneNumber
+      phoneNumber: formData.phoneNumber,
     });
     setEditMode(false);
     // Optionally refresh the data
     if (userId) fetchUserData(userId);
   };
 
-
   const formatDate = (timestamp) => {
-    if (!timestamp) return 'N/A';
+    if (!timestamp) return "N/A";
     const date = timestamp.toDate();
-    return date.toLocaleDateString('en-US', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      timeZoneName: 'short'
+    return date.toLocaleDateString("en-US", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      timeZoneName: "short",
     });
   };
 
-  
   if (loading) {
     return (
       <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">Your Profile</h2>
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+          Your Profile
+        </h2>
         <div className="animate-pulse space-y-6">
           <div className="flex items-center">
             <div className="bg-gray-200 h-16 w-16 rounded-full"></div>
@@ -606,19 +713,23 @@ function Profile() {
   if (!userData) {
     return (
       <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">Your Profile</h2>
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+          Your Profile
+        </h2>
         <p className="text-gray-500">No user data found.</p>
       </div>
     );
   }
 
-  const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(userData.fullName || userData.email)}&background=random`;
+  const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(
+    userData.fullName || userData.email
+  )}&background=random`;
   return (
     <div className="bg-white rounded-lg shadow p-6">
       <div className="flex justify-between items-start mb-6">
         <h2 className="text-xl font-semibold text-gray-800">Your Profile</h2>
         {!editMode && (
-          <button 
+          <button
             onClick={() => setEditMode(true)}
             className="flex items-center px-3 py-1 text-sm bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors"
           >
@@ -631,9 +742,9 @@ function Profile() {
       {editMode ? (
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="flex items-center">
-            <img 
-              src={avatarUrl} 
-              alt="Profile" 
+            <img
+              src={avatarUrl}
+              alt="Profile"
               className="w-16 h-16 rounded-full object-cover"
             />
             <div className="ml-4">
@@ -644,7 +755,9 @@ function Profile() {
 
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Full Name
+              </label>
               <input
                 type="text"
                 name="fullName"
@@ -656,7 +769,9 @@ function Profile() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Phone Number
+              </label>
               <input
                 type="tel"
                 name="phoneNumber"
@@ -669,14 +784,14 @@ function Profile() {
           </div>
 
           <div className="flex space-x-3 pt-2">
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               className="px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors"
             >
               Save Changes
             </button>
-            <button 
-              type="button" 
+            <button
+              type="button"
               onClick={() => setEditMode(false)}
               className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
             >
@@ -687,9 +802,9 @@ function Profile() {
       ) : (
         <div className="space-y-6">
           <div className="flex items-center">
-            <img 
-              src={avatarUrl} 
-              alt="Profile" 
+            <img
+              src={avatarUrl}
+              alt="Profile"
               className="w-16 h-16 rounded-full object-cover"
             />
             <div className="ml-4">
@@ -697,9 +812,11 @@ function Profile() {
               <p className="text-gray-500 text-sm">{userData.email}</p>
             </div>
           </div>
-          
+
           <div>
-            <h3 className="text-sm font-medium text-gray-700 mb-2">Account Information</h3>
+            <h3 className="text-sm font-medium text-gray-700 mb-2">
+              Account Information
+            </h3>
             <div className="bg-gray-50 p-4 rounded-lg">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -712,16 +829,22 @@ function Profile() {
                 </div>
                 <div>
                   <p className="text-xs text-gray-500">Phone Number</p>
-                  <p className="text-sm text-gray-800">{userData.phoneNumber || 'Not provided'}</p>
+                  <p className="text-sm text-gray-800">
+                    {userData.phoneNumber || "Not provided"}
+                  </p>
                 </div>
                 <div>
                   <p className="text-xs text-gray-500">Role</p>
-                  <p className="text-sm text-gray-800 capitalize">{userData.role || 'user'}</p>
+                  <p className="text-sm text-gray-800 capitalize">
+                    {userData.role || "user"}
+                  </p>
                 </div>
                 <div className="md:col-span-2">
                   <p className="text-xs text-gray-500">Member Since</p>
                   <p className="text-sm text-gray-800">
-                    {userData.createdAt ? formatDate(userData.createdAt) : 'N/A'}
+                    {userData.createdAt
+                      ? formatDate(userData.createdAt)
+                      : "N/A"}
                   </p>
                 </div>
               </div>

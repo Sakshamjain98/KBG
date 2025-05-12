@@ -3,22 +3,50 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Phone, Menu, X, User, LogIn, LogOut, ChevronDown } from 'lucide-react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { auth } from '@/lib/firebase';
+import { auth, db } from '@/lib/firebase';
 import { useRouter } from 'next/navigation';
+import { collection, doc, getDoc } from 'firebase/firestore';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
-
+const [userData, setUserData] = useState(null);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
       setLoading(false);
+
+      if (user) {
+      const userData =  getUserData(user.uid);
+      if (userData) {
+        setUser({
+          ...user,
+          ...userData
+        });
+      }
+      }
+
     });
     return () => unsubscribe();
   }, []);
+
+  const getUserData = async (userId) => {
+    try {
+      const docRef = doc(db, "users", userId);
+const userDoc = await getDoc(docRef);
+      if (userDoc.exists()) {
+        setUserData(userDoc.data().role);
+        console.log(userDoc.data().role);
+        return userDoc.data();
+      } else {
+        console.log('No such document!');
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  }
 
   // Close mobile menu when clicking outside
   useEffect(() => {
@@ -89,16 +117,16 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-sm">
-              L
+              K
             </div>
-            <span className="ml-3 text-xl font-semibold text-gray-800 hidden sm:block">LogoName</span>
+            <span className="ml-3 text-xl font-semibold text-gray-800 hidden sm:block">KBG Online</span>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-2">
             <NavLink href="/">Home</NavLink>
             <NavLink href="/about">About</NavLink>
-            { !loading && user ? <NavLink href="/dashboard/user">Services</NavLink> : <NavLink href="/signin">Services</NavLink> }
+            { !loading && user ? <NavLink href={`/dashboard/${userData}`}>Services</NavLink> : <NavLink href="/signin">Services</NavLink> }
             <NavLink href="/custom-services">Custom Services</NavLink>
             {
                 !loading && user && (
@@ -183,9 +211,9 @@ export default function Header() {
                 <div className="flex items-center justify-between">
                   <Link href="/" className="flex items-center" onClick={() => setMobileMenuOpen(false)}>
                     <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-orange-600 rounded-md flex items-center justify-center text-white font-bold text-lg">
-                      L
+                      K
                     </div>
-                    <span className="ml-2 text-lg font-semibold text-gray-800">LogoName</span>
+                    <span className="ml-2 text-lg font-semibold text-gray-800">KBG Online</span>
                   </Link>
                   <button 
                     className="p-2 text-gray-600 hover:text-orange-500 focus:outline-none" 
