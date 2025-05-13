@@ -29,6 +29,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../../../lib/firebase";
 import axios from "axios";
 import IsoForm from "@/components/forms/iso";
+import IsoForm2 from "@/components/forms/iso2";
 
 // Layout Component
 export default function Dashboard() {
@@ -226,6 +227,13 @@ function OpenForms() {
       deadline: "June 30, 2025",
       component: IsoForm,
     },
+  "ISO Form":{
+      id: "iso",
+      name: "ISO Form",
+      description: "Application for ISO certification",
+      deadline: "June 30, 2025",
+      component: IsoForm2,
+  }    
     // Add more forms here as needed
     /*
     'Another_Form_Template': {
@@ -477,6 +485,9 @@ function YourForms() {
     if (templateName === "Trademark-and-Iso") {
       return "TRADEMARK & ISO DATA";
     }
+    if (templateName === "iso") {
+      return "ISO APPLICATION";
+    }
     return templateName || "Application Form";
   };
 
@@ -565,9 +576,13 @@ function YourForms() {
             </div>
 
             <div className="mt-4 flex flex-wrap gap-2">
-              {(app.comments || app.comments != "") && (
-                <div className="bg-gray-100 w-full  text-sm  mb-2 p-2 rounded-md">
+              {(app.comments ) ? (
+                <div className="bg-gray-100 w-full text-sm  mb-2 p-2 rounded-md">
                   {app.comments}
+                </div>
+              ) : (
+                <div className="bg-gray-100 hidden w-full text-sm  mb-2 p-2 rounded-md">
+                  No comments from the admin
                 </div>
               )}
               <button

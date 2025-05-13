@@ -385,6 +385,7 @@ function AllFormsTab() {
 
   const handleDownload = async (form) => {
     try {
+      console.log(form)
       const docxResponse = await axios.post('/api/fill-docx', form, {
         responseType: 'blob',
       });
