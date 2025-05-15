@@ -125,7 +125,9 @@ export default function HeroSection() {
             {/* CTAs */}
             <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 pt-4">
               <motion.button
-                className="group relative overflow-hidden bg-[#7F1C75] text-white px-8 py-4 rounded-lg font-semibold text-lg shadow-lg hover:shadow-xl transition-all"
+                              onClick={()=> window.location.href = "/signin"}
+
+                className="group relative  cursor-pointer overflow-hidden bg-[#7F1C75] text-white px-8 py-4 rounded-lg font-semibold text-lg shadow-lg hover:shadow-xl transition-all"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -137,7 +139,9 @@ export default function HeroSection() {
                 </span>
               </motion.button>
               <motion.button
-                className="group border-2 border-[#29146F] text-[#29146F] px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#29146F]/5 transition-colors"
+                              onClick={()=> window.location.href = "/about"}
+
+                className="group border-2 border-[#29146F] cursor-pointer text-[#29146F] px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#29146F]/5 transition-colors"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >

@@ -264,7 +264,7 @@ export default function AffidavitForm() {
             <button
               type="submit"
               disabled={loading || fileUploading}
-              className="bg-[#401B71] hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bg-[#401B71] hover:bg-[#7F1C75] text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <span className="flex items-center">

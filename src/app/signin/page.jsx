@@ -353,7 +353,7 @@ useEffect(() => {
               <div className="flex justify-end">
                 <Link
                   href="/forgot-password"
-                  className="text-sm font-medium text-[#401B71] hover:text-orange-700 transition-colors"
+                  className="text-sm font-medium text-[#401B71] hover:text-[#7F1C75] transition-colors"
                 >
                   Forgot password?
                 </Link>
@@ -367,7 +367,7 @@ useEffect(() => {
               className={`flex items-center justify-center w-full py-3 rounded-lg text-white font-medium transition-all duration-200 ${
                 loading
                   ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-gradient-to-r from-[#7F1C75] to-[#401B71] hover:from-[#401B71] hover:to-orange-700 shadow-sm hover:shadow"
+                  : "bg-gradient-to-r from-[#7F1C75] to-[#401B71] hover:from-[#401B71] hover:to-[#7F1C75] shadow-sm hover:shadow"
               }`}
             >
               {loading ? (
@@ -388,7 +388,7 @@ useEffect(() => {
               <button
                 type="button"
                 onClick={toggleAuthMode}
-                className="ml-1 font-medium text-[#401B71] hover:text-orange-700 transition-colors"
+                className="ml-1 font-medium text-[#401B71] hover:text-[#7F1C75] transition-colors"
               >
                 {isSignIn ? "Sign up" : "Sign in"}
               </button>

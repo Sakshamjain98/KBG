@@ -115,11 +115,8 @@ const userDoc = await getDoc(docRef);
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center">
-            <div className="w-10 h-10 bg-gradient-to-br from-[#7F1C75] to-[#401B71] rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-sm">
-              K
-            </div>
-            <span className="ml-3 text-xl font-semibold text-gray-800 hidden sm:block">KBG Online</span>
+          <Link  href="/" className="flex  items-center">
+              <img className="w-full h-15" src="/logo.png" alt="Logo"/>
           </Link>
 
           {/* Desktop Navigation */}
@@ -184,7 +181,7 @@ const userDoc = await getDoc(docRef);
 
             <Link 
               href="/contact" 
-              className="flex items-center px-4 py-2 bg-gradient-to-r from-[#7F1C75] to-[#401B71] text-white rounded-lg hover:from-[#401B71] hover:to-orange-700 transition-all duration-200 shadow-sm font-medium"
+              className="flex items-center px-4 py-2 bg-gradient-to-r from-[#7F1C75] to-[#401B71] text-white rounded-lg hover:from-[#401B71] hover:to-[#401B71] transition-all duration-200 shadow-sm font-medium"
             >
               <Phone size={16} className="mr-2" />
               Contact Us
@@ -272,7 +269,7 @@ const userDoc = await getDoc(docRef);
                   <div className="mt-6">
                     <Link 
                       href="/contact" 
-                      className="flex items-center justify-center px-4 py-3 bg-gradient-to-r from-[#7F1C75] to-[#401B71] text-white rounded-md hover:from-[#401B71] hover:to-orange-700 transition-all duration-200 shadow-sm font-medium"
+                      className="flex items-center justify-center px-4 py-3 bg-gradient-to-r from-[#7F1C75] to-[#401B71] text-white rounded-md hover:from-[#401B71] hover:to-[#7F1C75] transition-all duration-200 shadow-sm font-medium"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       <Phone size={16} className="mr-2" />

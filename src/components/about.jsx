@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { CheckCircle, Award, Eye, Lightbulb } from "lucide-react";
+import { motion } from "framer-motion";
 
 // Animation variants for motion components
 const containerVariants = {
@@ -50,8 +51,22 @@ const ValueCard = ({ icon, title, description }) => {
   };
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow-md border border-gray-100 transition-all duration-300 hover:shadow-lg hover:border-[#7F1C75]/20">
+    <div className="p-4 bg-white rounded-lg shadow-md border  border-gray-100 transition-all duration-300 hover:shadow-lg hover:border-[#7F1C75]/20">
+      
       <div className="flex items-start space-x-3">
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 " />
+        {/* Subtle background pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div 
+            className="w-full h-full"
+            style={{
+              backgroundImage: `radial-gradient(circle, #4D4948 1px, transparent 1px)`,
+              backgroundSize: '30px 30px',
+            }}
+          />
+        </div>
+      </div>
         <div className="mt-1">
           <Icon />
         </div>
@@ -99,25 +114,19 @@ const StatisticCard = ({ value, label, delay }) => {
 
 const AboutUs = () => {
   return (
-    <section id="about-us" className="relative py-14 bg-white overflow-hidden">
+    <section id="about-us" className="relative py-14 w-full bg-gradient-to-br from-[#7F1C75]/5 to-[#29146F]/5 overflow-hidden">
       {/* Subtle background grid pattern */}
-      <div className="absolute inset-0 opacity-5">
+      <div className="absolute w-full inset-0 opacity-5">
         <div 
           className="w-full h-full"
-          style={{
-            backgroundImage: `
-              linear-gradient(to right, #4D4948 1px, transparent 1px),
-              linear-gradient(to bottom, #4D4948 1px, transparent 1px)
-            `,
-            backgroundSize: '40px 40px',
-          }}
+          
         />
       </div>
       
       {/* Accent border */}
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#29146F] to-[#7F1C75]"></div>
       
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 md:py-0 py-12 relative z-10">
         <div>
           <SectionTitle subtitle="About Us" title="Who We Are" />
           
@@ -132,11 +141,36 @@ const AboutUs = () => {
               </p>
               
               {/* Statistics */}
-              <div className="grid grid-cols-3 gap-4 py-8 border-y border-gray-100 text-center my-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-6 md:py-8 border-y border-gray-100 text-center my-8">
                 <StatisticCard value="10,000" label="Clients Served" delay={0} />
                 <StatisticCard value="27" label="Indian States" delay={200} />
                 <StatisticCard value="22" label="Countries" delay={400} />
               </div>
+
+              <motion.button
+                onClick={() => (window.location.href = "/about")}
+                className="bg-[#7F1C75] cursor-pointer text-white px-8 py-4 rounded-lg font-semibold text-lg shadow-lg hover:shadow-xl transition-all"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <span className="flex items-center justify-center gap-2">
+                  About Us
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    />
+                  </svg>
+                </span>
+              </motion.button>
+
             </div>
             
             {/* Right column - Image */}
