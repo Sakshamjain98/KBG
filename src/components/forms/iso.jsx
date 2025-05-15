@@ -273,7 +273,7 @@ const router = useRouter();
                   name="INS_tm_title"
                   value={form.INS_tm_title}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                 >
                   <option value="Mr.">Mr.</option>
                   <option value="Mrs.">Mrs.</option>
@@ -289,7 +289,7 @@ const router = useRouter();
                   name="INS_tm_full_name"
                   value={form.INS_tm_full_name}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   required
                 />
               </div>
@@ -301,7 +301,7 @@ const router = useRouter();
                         name="INS_tm_designation"
                         value={form.INS_tm_designation}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                         required
                       />
                       </div>
@@ -313,7 +313,7 @@ const router = useRouter();
                         name="INS_tm_company_name"
                         value={form.INS_tm_company_name}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                         required
                       />
                       </div>
@@ -325,7 +325,7 @@ const router = useRouter();
                         name="INS_tm_house_name"
                         value={form.INS_tm_house_name}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                         required
                       />
                       </div>
@@ -337,7 +337,7 @@ const router = useRouter();
                         name="INS_tm_location"
                         value={form.INS_tm_location}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                         required
                       />
                       </div>
@@ -349,7 +349,7 @@ const router = useRouter();
                         name="INS_tm_landmark"
                         value={form.INS_tm_landmark}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                       />
                       </div>
 
@@ -360,7 +360,7 @@ const router = useRouter();
                         name="INS_tm_district"
                         value={form.INS_tm_district}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                         required
                       />
                       </div>
@@ -372,7 +372,7 @@ const router = useRouter();
                         name="INS_tm_pincode"
                         value={form.INS_tm_pincode}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                         required
                       />
                       </div>
@@ -384,7 +384,7 @@ const router = useRouter();
                         name="INS_tm_state"
                         value={form.INS_tm_state}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                         required
                       />
                       </div>
@@ -396,7 +396,7 @@ const router = useRouter();
                         name="INS_tm_contact_number"
                         value={form.INS_tm_contact_number}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                         required
                       />
                       </div>
@@ -408,7 +408,7 @@ const router = useRouter();
                         name="INS_tm_email"
                         value={form.INS_tm_email}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                         required
                       />
                       </div>
@@ -420,7 +420,7 @@ const router = useRouter();
                         name="INS_tm_brand_name"
                         value={form.INS_tm_brand_name}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                         required
                       />
                       </div>
@@ -432,7 +432,7 @@ const router = useRouter();
                         name="INS_tm_class"
                         value={form.INS_tm_class}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                         required
                       />
                       </div>
@@ -444,7 +444,7 @@ const router = useRouter();
                         name="INS_tm_goods_services"
                         value={form.INS_tm_goods_services}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                         required
                       />
                       </div>
@@ -456,7 +456,7 @@ const router = useRouter();
                         name="INS_tm_additional_goods_services"
                         value={form.INS_tm_additional_goods_services}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                       />
                       </div>
 
@@ -467,7 +467,7 @@ const router = useRouter();
                         name="INS_tm_brand_since"
                         value={form.INS_tm_brand_since}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                         required
                       />
                       </div>
@@ -479,7 +479,7 @@ const router = useRouter();
                   name="INS_tm_date"
                   value={form.INS_tm_date}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   required
                 />
               </div>
@@ -496,7 +496,7 @@ const router = useRouter();
                       file:mr-4 file:py-2 file:px-4
                       file:rounded-md file:border-0
                       file:text-sm file:font-semibold
-                      file:bg-orange-600 file:text-white
+                      file:bg-[#401B71] file:text-white
                       hover:file:bg-orange-700"
                     accept="image/*,.pdf"
                     disabled={fileUploading}
@@ -509,7 +509,7 @@ const router = useRouter();
                         href={form.INS_tm_signature_file} 
                         target="_blank" 
                         rel="noopener noreferrer" 
-                        className="text-orange-600 hover:underline text-sm"
+                        className="text-[#401B71] hover:underline text-sm"
                       >
                         View File
                       </a>
@@ -527,7 +527,7 @@ const router = useRouter();
                       file:mr-4 file:py-2 file:px-4
                       file:rounded-md file:border-0
                       file:text-sm file:font-semibold
-                      file:bg-orange-600 file:text-white
+                      file:bg-[#401B71] file:text-white
                       hover:file:bg-orange-700"
                     accept=".pdf,.doc,.docx,.jpg,.png"
                     disabled={fileUploading}
@@ -539,7 +539,7 @@ const router = useRouter();
                         href={form.INS_tm_support_doc_file} 
                         target="_blank" 
                         rel="noopener noreferrer" 
-                        className="text-orange-600 hover:underline text-sm"
+                        className="text-[#401B71] hover:underline text-sm"
                       >
                         View File
                       </a>
@@ -563,7 +563,7 @@ const router = useRouter();
                         name="INS_iso_client_name"
                         value={form.INS_iso_client_name}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                       />
                       </div>
                       
@@ -574,7 +574,7 @@ const router = useRouter();
                         name="INS_iso_district"
                         value={form.INS_iso_district}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                       />
                       </div>
 
@@ -585,7 +585,7 @@ const router = useRouter();
                         name="INS_iso_state"
                         value={form.INS_iso_state}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                       />
                       </div>
 
@@ -596,7 +596,7 @@ const router = useRouter();
                         name="INS_iso_standards"
                         value={form.INS_iso_standards}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                       />
                       </div>
 
@@ -607,7 +607,7 @@ const router = useRouter();
                         name="INS_iso_contact_person"
                         value={form.INS_iso_contact_person}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                       />
                       </div>
 
@@ -618,7 +618,7 @@ const router = useRouter();
                         name="INS_iso_contact_designation"
                         value={form.INS_iso_contact_designation}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                       />
                       </div>
 
@@ -629,7 +629,7 @@ const router = useRouter();
                         name="INS_iso_contact_number"
                         value={form.INS_iso_contact_number}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                       />
                       </div>
 
@@ -640,7 +640,7 @@ const router = useRouter();
                         name="INS_iso_contact_email"
                         value={form.INS_iso_contact_email}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                       />
                       </div>
 
@@ -651,7 +651,7 @@ const router = useRouter();
                         name="INS_iso_full_address"
                         value={form.INS_iso_full_address}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                       />
                       </div>
 
@@ -662,7 +662,7 @@ const router = useRouter();
                         name="INS_iso_pincode"
                         value={form.INS_iso_pincode}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                       />
                       </div>
 
@@ -673,7 +673,7 @@ const router = useRouter();
                         name="INS_iso_address_district"
                         value={form.INS_iso_address_district}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                       />
                       </div>
 
@@ -684,7 +684,7 @@ const router = useRouter();
                         name="INS_iso_address_state"
                         value={form.INS_iso_address_state}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                       />
                       </div>
 
@@ -695,7 +695,7 @@ const router = useRouter();
                         name="INS_iso_address_landmark"
                         value={form.INS_iso_address_landmark}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                       />
                       </div>
 
@@ -706,7 +706,7 @@ const router = useRouter();
                         name="INS_iso_org_type"
                         value={form.INS_iso_org_type}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                       />
                       </div>
 
@@ -717,7 +717,7 @@ const router = useRouter();
                         name="INS_iso_business_activities"
                         value={form.INS_iso_business_activities}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                       />
                       </div>
 
@@ -728,7 +728,7 @@ const router = useRouter();
                         name="INS_iso_branches"
                         value={form.INS_iso_branches}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                       />
                       </div>
 
@@ -739,7 +739,7 @@ const router = useRouter();
                         name="INS_iso_mgmt_level_employees"
                         value={form.INS_iso_mgmt_level_employees}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                         min="0"
                       />
                       </div>
@@ -751,7 +751,7 @@ const router = useRouter();
                         name="INS_iso_supervisory_employees"
                         value={form.INS_iso_supervisory_employees}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                         min="0"
                       />
                       </div>
@@ -763,7 +763,7 @@ const router = useRouter();
                         name="INS_iso_permanent_employees"
                         value={form.INS_iso_permanent_employees}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                         min="0"
                       />
                       </div>
@@ -775,7 +775,7 @@ const router = useRouter();
                         name="INS_iso_temp_employees"
                         value={form.INS_iso_temp_employees}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                         min="0"
                       />
                       </div>
@@ -787,7 +787,7 @@ const router = useRouter();
                         name="INS_iso_top_management_employees"
                         value={form.INS_iso_top_management_employees}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                         min="0"
                       />
                       </div>
@@ -799,7 +799,7 @@ const router = useRouter();
                         name="INS_iso_middle_mangement_employees"
                         value={form.INS_iso_middle_mangement_employees}
                         onChange={handleChange}
-                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                         min="0"
                       />
                       </div>
@@ -811,7 +811,7 @@ const router = useRouter();
                   name="INS_iso_total_employees"
                   value={form.INS_iso_total_employees}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   min="0"
                 />
               </div>
@@ -822,7 +822,7 @@ const router = useRouter();
             <button
               type="submit"
               disabled={loading || fileUploading}
-              className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bg-[#401B71] hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <span className="flex items-center">

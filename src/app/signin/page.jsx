@@ -194,12 +194,12 @@ useEffect(() => {
             <div className="flex">
               <div
                 className={`w-3 h-3 rounded-full ${
-                  isSignIn ? "bg-orange-500" : "bg-gray-300"
+                  isSignIn ? "bg-[#7F1C75]" : "bg-gray-300"
                 } mr-1`}
               ></div>
               <div
                 className={`w-3 h-3 rounded-full ${
-                  !isSignIn ? "bg-orange-500" : "bg-gray-300"
+                  !isSignIn ? "bg-[#7F1C75]" : "bg-gray-300"
                 }`}
               ></div>
             </div>
@@ -244,7 +244,7 @@ useEffect(() => {
                     placeholder="John Doe"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all text-gray-800 bg-white"
+                    className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75] transition-all text-gray-800 bg-white"
                     required
                   />
                 </div>
@@ -270,7 +270,7 @@ useEffect(() => {
                     placeholder="+91 9956784585"
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
-                    className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all text-gray-800 bg-white"
+                    className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75] transition-all text-gray-800 bg-white"
                     required
                   />
                 </div>
@@ -295,7 +295,7 @@ useEffect(() => {
                   placeholder="your@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all text-gray-800 bg-white"
+                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75] transition-all text-gray-800 bg-white"
                   required
                 />
               </div>
@@ -319,7 +319,7 @@ useEffect(() => {
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all text-gray-800 bg-white"
+                  className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75] transition-all text-gray-800 bg-white"
                   required
                   minLength={6}
                 />
@@ -353,7 +353,7 @@ useEffect(() => {
               <div className="flex justify-end">
                 <Link
                   href="/forgot-password"
-                  className="text-sm font-medium text-orange-600 hover:text-orange-700 transition-colors"
+                  className="text-sm font-medium text-[#401B71] hover:text-orange-700 transition-colors"
                 >
                   Forgot password?
                 </Link>
@@ -367,7 +367,7 @@ useEffect(() => {
               className={`flex items-center justify-center w-full py-3 rounded-lg text-white font-medium transition-all duration-200 ${
                 loading
                   ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shadow-sm hover:shadow"
+                  : "bg-gradient-to-r from-[#7F1C75] to-[#401B71] hover:from-[#401B71] hover:to-orange-700 shadow-sm hover:shadow"
               }`}
             >
               {loading ? (
@@ -388,7 +388,7 @@ useEffect(() => {
               <button
                 type="button"
                 onClick={toggleAuthMode}
-                className="ml-1 font-medium text-orange-600 hover:text-orange-700 transition-colors"
+                className="ml-1 font-medium text-[#401B71] hover:text-orange-700 transition-colors"
               >
                 {isSignIn ? "Sign up" : "Sign in"}
               </button>
@@ -400,11 +400,11 @@ useEffect(() => {
         <div className="text-center text-gray-500 text-sm">
           <p className="mb-2">
             By continuing, you agree to our{" "}
-            <Link href="/terms" className="text-orange-600 hover:underline">
+            <Link href="/terms" className="text-[#401B71] hover:underline">
               Terms of Service
             </Link>{" "}
             and{" "}
-            <Link href="/privacy" className="text-orange-600 hover:underline">
+            <Link href="/privacy" className="text-[#401B71] hover:underline">
               Privacy Policy
             </Link>
             .

@@ -234,7 +234,7 @@ export default function IsoForm2() {
                   name="INS_clientRefYear"
                   value={form.INS_clientRefYear}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   required
                 />
               </div>
@@ -245,7 +245,7 @@ export default function IsoForm2() {
                   name="INS_accreditationBody"
                   value={form.INS_accreditationBody}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   required
                 >
                   <option value="NABCB">NABCB</option>
@@ -263,7 +263,7 @@ export default function IsoForm2() {
                   name="INS_clientName"
                   value={form.INS_clientName}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   required
                 />
               </div>
@@ -275,7 +275,7 @@ export default function IsoForm2() {
                   name="INS_place"
                   value={form.INS_place}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   required
                 />
               </div>
@@ -286,7 +286,7 @@ export default function IsoForm2() {
                   name="INS_remarks"
                   value={form.INS_remarks}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   rows="2"
                 />
               </div>
@@ -298,7 +298,7 @@ export default function IsoForm2() {
                   name="INS_branch"
                   value={form.INS_branch}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   required
                 />
               </div>
@@ -310,7 +310,7 @@ export default function IsoForm2() {
                   name="INS_executedBy"
                   value={form.INS_executedBy}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   required
                 />
               </div>
@@ -322,7 +322,7 @@ export default function IsoForm2() {
                   name="INS_officeRef"
                   value={form.INS_officeRef}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   required
                 />
               </div>
@@ -334,7 +334,7 @@ export default function IsoForm2() {
                   multiple
                   value={form.INS_isoStandards}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500 h-auto min-h-[42px]"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75] h-auto min-h-[42px]"
                   required
                 >
                   {isoStandards.map((standard) => (
@@ -353,7 +353,7 @@ export default function IsoForm2() {
                   name="INS_contactPerson"
                   value={form.INS_contactPerson}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   required
                 />
               </div>
@@ -365,7 +365,7 @@ export default function IsoForm2() {
                   name="INS_designation"
                   value={form.INS_designation}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   required
                 />
               </div>
@@ -377,7 +377,7 @@ export default function IsoForm2() {
                   name="INS_mobile"
                   value={form.INS_mobile}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   required
                 />
               </div>
@@ -389,7 +389,7 @@ export default function IsoForm2() {
                   name="INS_landline"
                   value={form.INS_landline}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                 />
               </div>
               
@@ -400,7 +400,7 @@ export default function IsoForm2() {
                   name="INS_executionDate"
                   value={form.INS_executionDate}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   required
                 />
               </div>
@@ -412,7 +412,7 @@ export default function IsoForm2() {
                   name="INS_expDate"
                   value={form.INS_expDate}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   required
                 />
               </div>
@@ -424,7 +424,7 @@ export default function IsoForm2() {
                   name="INS_firstSurveillance"
                   value={form.INS_firstSurveillance}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   required
                 />
               </div>
@@ -436,7 +436,7 @@ export default function IsoForm2() {
                   name="INS_secondSurveillance"
                   value={form.INS_secondSurveillance}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   required
                 />
               </div>
@@ -447,7 +447,7 @@ export default function IsoForm2() {
                   name="INS_orgAddress"
                   value={form.INS_orgAddress}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   rows="3"
                   required
                 />
@@ -459,7 +459,7 @@ export default function IsoForm2() {
                   name="INS_managementType"
                   value={form.INS_managementType}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   required
                 >
                   <option value="Private Limited">Private Limited</option>
@@ -478,7 +478,7 @@ export default function IsoForm2() {
                   name="INS_businessActivities"
                   value={form.INS_businessActivities}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   rows="2"
                   required
                 />
@@ -490,7 +490,7 @@ export default function IsoForm2() {
                   name="INS_certificationScope"
                   value={form.INS_certificationScope}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   rows="2"
                   required
                 />
@@ -503,7 +503,7 @@ export default function IsoForm2() {
                   name="INS_branches"
                   value={form.INS_branches}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   required
                 />
               </div>
@@ -515,7 +515,7 @@ export default function IsoForm2() {
                   name="INS_totalEmployees"
                   value={form.INS_totalEmployees}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   min="1"
                   required
                 />
@@ -528,7 +528,7 @@ export default function IsoForm2() {
                   name="INS_topManagement"
                   value={form.INS_topManagement}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   min="0"
                   required
                 />
@@ -541,7 +541,7 @@ export default function IsoForm2() {
                   name="INS_middleManagement"
                   value={form.INS_middleManagement}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   min="0"
                   required
                 />
@@ -554,7 +554,7 @@ export default function IsoForm2() {
                   name="INS_permanentEmployees"
                   value={form.INS_permanentEmployees}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   min="0"
                   required
                 />
@@ -567,7 +567,7 @@ export default function IsoForm2() {
                   name="INS_otherEmployees"
                   value={form.INS_otherEmployees}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   min="0"
                   required
                 />
@@ -580,7 +580,7 @@ export default function IsoForm2() {
                   name="INS_additionalServices"
                   value={form.INS_additionalServices}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                 />
               </div>
               
@@ -591,7 +591,7 @@ export default function IsoForm2() {
                   name="INS_auditDate"
                   value={form.INS_auditDate}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   required
                 />
               </div>
@@ -603,7 +603,7 @@ export default function IsoForm2() {
                   name="INS_auditTime"
                   value={form.INS_auditTime}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   required
                 />
               </div>
@@ -615,7 +615,7 @@ export default function IsoForm2() {
                   name="INS_auditor"
                   value={form.INS_auditor}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   required
                 />
               </div>
@@ -626,7 +626,7 @@ export default function IsoForm2() {
                   name="INS_auditorType"
                   value={form.INS_auditorType}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   required
                 >
                   <option value="QCI Registered">QCI Registered</option>
@@ -642,7 +642,7 @@ export default function IsoForm2() {
                   name="INS_totalAmount"
                   value={form.INS_totalAmount}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   min="0"
                   required
                 />
@@ -655,7 +655,7 @@ export default function IsoForm2() {
                   name="INS_advanceReceived"
                   value={form.INS_advanceReceived}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   min="0"
                   required
                 />
@@ -668,7 +668,7 @@ export default function IsoForm2() {
                   name="INS_chequeNo"
                   value={form.INS_chequeNo}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                 />
               </div>
               
@@ -679,7 +679,7 @@ export default function IsoForm2() {
                   name="INS_balance"
                   value={form.INS_balance}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   min="0"
                   required
                 />
@@ -692,7 +692,7 @@ export default function IsoForm2() {
                   name="INS_paymentDate"
                   value={form.INS_paymentDate}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   required
                 />
               </div>
@@ -704,7 +704,7 @@ export default function IsoForm2() {
                   name="INS_bankAt"
                   value={form.INS_bankAt}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   required
                 />
               </div>
@@ -716,7 +716,7 @@ export default function IsoForm2() {
                   name="INS_firstSurveillanceFee"
                   value={form.INS_firstSurveillanceFee}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   min="0"
                   required
                 />
@@ -729,7 +729,7 @@ export default function IsoForm2() {
                   name="INS_secondSurveillanceFee"
                   value={form.INS_secondSurveillanceFee}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   min="0"
                   required
                 />
@@ -741,7 +741,7 @@ export default function IsoForm2() {
                   name="INS_paymentSchedule"
                   value={form.INS_paymentSchedule}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                  className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
                   rows="2"
                   required
                 />
@@ -757,7 +757,7 @@ export default function IsoForm2() {
                     file:mr-4 file:py-2 file:px-4
                     file:rounded-md file:border-0
                     file:text-sm file:font-semibold
-                    file:bg-orange-600 file:text-white
+                    file:bg-[#401B71] file:text-white
                     hover:file:bg-orange-700"
                   accept="image/*,.pdf"
                   disabled={fileUploading}
@@ -770,7 +770,7 @@ export default function IsoForm2() {
                       href={form.INS_authorizedSignature} 
                       target="_blank" 
                       rel="noopener noreferrer" 
-                      className="text-orange-600 hover:underline text-sm"
+                      className="text-[#401B71] hover:underline text-sm"
                     >
                       View Signature
                     </a>
@@ -784,7 +784,7 @@ export default function IsoForm2() {
             <button
               type="submit"
               disabled={loading || fileUploading}
-              className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bg-[#401B71] hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <span className="flex items-center">

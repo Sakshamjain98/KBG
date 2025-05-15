@@ -30,7 +30,7 @@ import { auth, db } from "../../../lib/firebase";
 import axios from "axios";
 import IsoForm from "@/components/forms/iso";
 import IsoForm2 from "@/components/forms/iso2";
-
+import AffidavitForm from "@/components/forms/iso3";
 // Layout Component
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("open-forms");
@@ -60,7 +60,7 @@ export default function Dashboard() {
       {/* <div className="lg:hidden fixed top-0 right-0 z-20 p-4">
         <button
           onClick={toggleSidebar}
-          className="p-2 rounded-md bg-orange-500 text-white"
+          className="p-2 rounded-md bg-[#7F1C75] text-white"
         >
           {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
@@ -73,14 +73,14 @@ export default function Dashboard() {
         }`}
       >
         <div className="p-6">
-          <h1 className="text-2xl font-bold text-orange-500">Dashboard</h1>
+          <h1 className="text-2xl font-bold text-[#7F1C75]">Dashboard</h1>
         </div>
 
         <nav className="mt-6">
           <div
             className={`flex items-center px-6 py-3 cursor-pointer ${
               activeTab === "open-forms"
-                ? "bg-orange-100 border-r-4 border-orange-500"
+                ? "bg-orange-100 border-r-4 border-[#7F1C75]"
                 : "hover:bg-orange-50"
             }`}
             onClick={() => {
@@ -91,13 +91,13 @@ export default function Dashboard() {
             <Home
               size={20}
               className={
-                activeTab === "open-forms" ? "text-orange-500" : "text-gray-600"
+                activeTab === "open-forms" ? "text-[#7F1C75]" : "text-gray-600"
               }
             />
             <span
               className={`ml-4 ${
                 activeTab === "open-forms"
-                  ? "font-medium text-orange-600"
+                  ? "font-medium text-[#401B71]"
                   : "text-gray-700"
               }`}
             >
@@ -108,7 +108,7 @@ export default function Dashboard() {
           <div
             className={`flex items-center px-6 py-3 cursor-pointer ${
               activeTab === "your-forms"
-                ? "bg-orange-100 border-r-4 border-orange-500"
+                ? "bg-orange-100 border-r-4 border-[#7F1C75]"
                 : "hover:bg-orange-50"
             }`}
             onClick={() => {
@@ -119,13 +119,13 @@ export default function Dashboard() {
             <FileText
               size={20}
               className={
-                activeTab === "your-forms" ? "text-orange-500" : "text-gray-600"
+                activeTab === "your-forms" ? "text-[#7F1C75]" : "text-gray-600"
               }
             />
             <span
               className={`ml-4 ${
                 activeTab === "your-forms"
-                  ? "font-medium text-orange-600"
+                  ? "font-medium text-[#401B71]"
                   : "text-gray-700"
               }`}
             >
@@ -136,7 +136,7 @@ export default function Dashboard() {
           <div
             className={`flex items-center px-6 py-3 cursor-pointer ${
               activeTab === "profile"
-                ? "bg-orange-100 border-r-4 border-orange-500"
+                ? "bg-orange-100 border-r-4 border-[#7F1C75]"
                 : "hover:bg-orange-50"
             }`}
             onClick={() => {
@@ -147,13 +147,13 @@ export default function Dashboard() {
             <User
               size={20}
               className={
-                activeTab === "profile" ? "text-orange-500" : "text-gray-600"
+                activeTab === "profile" ? "text-[#7F1C75]" : "text-gray-600"
               }
             />
             <span
               className={`ml-4 ${
                 activeTab === "profile"
-                  ? "font-medium text-orange-600"
+                  ? "font-medium text-[#401B71]"
                   : "text-gray-700"
               }`}
             >
@@ -172,7 +172,7 @@ export default function Dashboard() {
             <div className="flex items-center text-sm">
               <span className="text-gray-600">Dashboard</span>
               <ChevronRight size={16} className="mx-1 text-gray-400" />
-              <span className="font-medium text-orange-600">
+              <span className="font-medium text-[#401B71]">
                 {activeTab === "open-forms" && "Open Forms"}
                 {activeTab === "your-forms" && "Your Forms"}
                 {activeTab === "profile" && "Profile"}
@@ -183,7 +183,7 @@ export default function Dashboard() {
             <div className="lg:hidden z-50">
               <button
                 onClick={toggleSidebar}
-                className="p-2 rounded-md bg-orange-500 text-white"
+                className="p-2 rounded-md bg-[#7F1C75] text-white"
               >
                 {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
               </button>
@@ -233,6 +233,13 @@ function OpenForms() {
       description: "Application for ISO certification",
       deadline: "June 30, 2025",
       component: IsoForm2,
+  },
+  "USER AFFIDAVIT & POA":{
+      id: "USER AFFIDAVIT & POA",
+      name: "USER AFFIDAVIT & POA",
+      description: "Application for POA certification",
+      deadline: "June 30, 2025",
+      component: AffidavitForm,
   }    
     // Add more forms here as needed
     /*
@@ -295,7 +302,7 @@ function OpenForms() {
           Available Forms
         </h2>
         <div className="flex justify-center items-center py-8">
-          <Loader className="animate-spin text-orange-500" size={24} />
+          <Loader className="animate-spin text-[#7F1C75]" size={24} />
         </div>
       </div>
     );
@@ -307,7 +314,7 @@ function OpenForms() {
       <div className="bg-white rounded-lg shadow p-6">
         <button
           onClick={() => setShowForm(false)}
-          className="flex items-center text-gray-600 hover:text-orange-500 mb-4"
+          className="flex items-center text-gray-600 hover:text-[#7F1C75] mb-4"
         >
           <ArrowLeft className="h-5 w-5 mr-1" />
           Back to available forms
@@ -355,14 +362,14 @@ function OpenForms() {
                   </div>
                   <div className="ml-4 flex-shrink-0">
                     <div className="h-12 w-12 rounded-lg bg-orange-100 flex items-center justify-center">
-                      <FileText className="h-6 w-6 text-orange-600" />
+                      <FileText className="h-6 w-6 text-[#401B71]" />
                     </div>
                   </div>
                 </div>
                 <div className="mt-6">
                   <button
                     onClick={() => handleFillForm(form.id)}
-                    className="w-full md:w-auto inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+                    className="w-full md:w-auto inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#401B71] hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#7F1C75]"
                   >
                     Fill Form
                     <ArrowRight className="ml-2 -mr-1 h-4 w-4" />
@@ -512,7 +519,7 @@ function YourForms() {
           Your Submitted Forms
         </h2>
         <div className="flex justify-center items-center py-8">
-          <Loader className="animate-spin text-orange-500" size={24} />
+          <Loader className="animate-spin text-[#7F1C75]" size={24} />
         </div>
       </div>
     );
@@ -596,7 +603,7 @@ function YourForms() {
 
               {app.status === "Payment Pending" && (
                 <button
-                  className="flex items-center px-3 py-1 text-sm bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors"
+                  className="flex items-center px-3 py-1 text-sm bg-[#7F1C75] text-white rounded-md hover:bg-[#401B71] transition-colors"
                   disabled={loading}
                 >
                   <ArrowRight size={16} className="mr-1" />
@@ -605,7 +612,7 @@ function YourForms() {
               )}
               {app.status === "Completed" && (
                 <button
-                  className="flex items-center px-3 py-1 text-sm bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors"
+                  className="flex items-center px-3 py-1 text-sm bg-[#7F1C75] text-white rounded-md hover:bg-[#401B71] transition-colors"
                   disabled={loading}
                 >
                   <ArrowRight size={16} className="mr-1" />
@@ -746,7 +753,7 @@ function Profile() {
         {!editMode && (
           <button
             onClick={() => setEditMode(true)}
-            className="flex items-center px-3 py-1 text-sm bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors"
+            className="flex items-center px-3 py-1 text-sm bg-[#7F1C75] text-white rounded-md hover:bg-[#401B71] transition-colors"
           >
             <Edit size={16} className="mr-1" />
             Edit
@@ -778,7 +785,7 @@ function Profile() {
                 name="fullName"
                 value={formData.fullName}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#7F1C75]"
                 required
               />
             </div>
@@ -792,7 +799,7 @@ function Profile() {
                 name="phoneNumber"
                 value={formData.phoneNumber}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#7F1C75]"
                 required
               />
             </div>
@@ -801,7 +808,7 @@ function Profile() {
           <div className="flex space-x-3 pt-2">
             <button
               type="submit"
-              className="px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors"
+              className="px-4 py-2 bg-[#7F1C75] text-white rounded-md hover:bg-[#401B71] transition-colors"
             >
               Save Changes
             </button>

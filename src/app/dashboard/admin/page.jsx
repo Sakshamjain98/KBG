@@ -65,7 +65,7 @@ export default function AdminDashboard() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#7F1C75]"></div>
       </div>
     );
   }
@@ -90,7 +90,7 @@ export default function AdminDashboard() {
       <div className="lg:hidden fixed top-0 left-0 z-20 p-4">
         <button
           onClick={toggleSidebar}
-          className="p-2 rounded-md bg-orange-500 text-white"
+          className="p-2 rounded-md bg-[#7F1C75] text-white"
         >
           {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
@@ -103,7 +103,7 @@ export default function AdminDashboard() {
         }`}
       >
         <div className="p-6 border-b border-gray-200">
-          <h1 className="text-2xl font-bold text-orange-500">Admin Panel</h1>
+          <h1 className="text-2xl font-bold text-[#7F1C75]">Admin Panel</h1>
           <p className="text-sm text-gray-500 mt-1">{adminData.email}</p>
         </div>
 
@@ -111,7 +111,7 @@ export default function AdminDashboard() {
           <div
             className={`flex items-center px-6 py-3 cursor-pointer ${
               activeTab === "all-forms"
-                ? "bg-orange-100 border-r-4 border-orange-500"
+                ? "bg-orange-100 border-r-4 border-[#7F1C75]"
                 : "hover:bg-orange-50"
             }`}
             onClick={() => {
@@ -122,13 +122,13 @@ export default function AdminDashboard() {
             <FileText
               size={20}
               className={
-                activeTab === "all-forms" ? "text-orange-500" : "text-gray-600"
+                activeTab === "all-forms" ? "text-[#7F1C75]" : "text-gray-600"
               }
             />
             <span
               className={`ml-4 ${
                 activeTab === "all-forms"
-                  ? "font-medium text-orange-600"
+                  ? "font-medium text-[#401B71]"
                   : "text-gray-700"
               }`}
             >
@@ -139,7 +139,7 @@ export default function AdminDashboard() {
           <div
             className={`flex items-center px-6 py-3 cursor-pointer ${
               activeTab === "users"
-                ? "bg-orange-100 border-r-4 border-orange-500"
+                ? "bg-orange-100 border-r-4 border-[#7F1C75]"
                 : "hover:bg-orange-50"
             }`}
             onClick={() => {
@@ -150,13 +150,13 @@ export default function AdminDashboard() {
             <Users
               size={20}
               className={
-                activeTab === "users" ? "text-orange-500" : "text-gray-600"
+                activeTab === "users" ? "text-[#7F1C75]" : "text-gray-600"
               }
             />
             <span
               className={`ml-4 ${
                 activeTab === "users"
-                  ? "font-medium text-orange-600"
+                  ? "font-medium text-[#401B71]"
                   : "text-gray-700"
               }`}
             >
@@ -167,7 +167,7 @@ export default function AdminDashboard() {
           <div
             className={`flex items-center px-6 py-3 cursor-pointer ${
               activeTab === "payments"
-                ? "bg-orange-100 border-r-4 border-orange-500"
+                ? "bg-orange-100 border-r-4 border-[#7F1C75]"
                 : "hover:bg-orange-50"
             }`}
             onClick={() => {
@@ -178,13 +178,13 @@ export default function AdminDashboard() {
             <CreditCard
               size={20}
               className={
-                activeTab === "payments" ? "text-orange-500" : "text-gray-600"
+                activeTab === "payments" ? "text-[#7F1C75]" : "text-gray-600"
               }
             />
             <span
               className={`ml-4 ${
                 activeTab === "payments"
-                  ? "font-medium text-orange-600"
+                  ? "font-medium text-[#401B71]"
                   : "text-gray-700"
               }`}
             >
@@ -195,7 +195,7 @@ export default function AdminDashboard() {
           <div
             className={`flex items-center px-6 py-3 cursor-pointer ${
               activeTab === "profile"
-                ? "bg-orange-100 border-r-4 border-orange-500"
+                ? "bg-orange-100 border-r-4 border-[#7F1C75]"
                 : "hover:bg-orange-50"
             }`}
             onClick={() => {
@@ -206,13 +206,13 @@ export default function AdminDashboard() {
             <User
               size={20}
               className={
-                activeTab === "profile" ? "text-orange-500" : "text-gray-600"
+                activeTab === "profile" ? "text-[#7F1C75]" : "text-gray-600"
               }
             />
             <span
               className={`ml-4 ${
                 activeTab === "profile"
-                  ? "font-medium text-orange-600"
+                  ? "font-medium text-[#401B71]"
                   : "text-gray-700"
               }`}
             >
@@ -230,7 +230,7 @@ export default function AdminDashboard() {
             <div className="flex items-center text-sm">
               <span className="text-gray-600">Dashboard</span>
               <ChevronRight size={16} className="mx-1 text-gray-400" />
-              <span className="font-medium text-orange-600">
+              <span className="font-medium text-[#401B71]">
                 {activeTab === "all-forms" && "All Forms"}
                 {activeTab === "users" && "Users"}
                 {activeTab === "payments" && "Payments"}
@@ -240,7 +240,7 @@ export default function AdminDashboard() {
             <div className="flex items-center space-x-4">
               <span className="text-sm text-gray-600">Admin</span>
               <div className="h-8 w-8 rounded-full bg-orange-100 flex items-center justify-center">
-                <User size={16} className="text-orange-500" />
+                <User size={16} className="text-[#7F1C75]" />
               </div>
             </div>
           </div>
@@ -487,7 +487,7 @@ function AllFormsTab() {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#7F1C75]"></div>
       </div>
     );
   }
@@ -506,7 +506,7 @@ function AllFormsTab() {
             <input
               type="text"
               placeholder="Search by name or template..."
-              className="pl-10 pr-4 py-2 border border-gray-300 rounded-md w-full focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+              className="pl-10 pr-4 py-2 border border-gray-300 rounded-md w-full focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -515,7 +515,7 @@ function AllFormsTab() {
           <select
             value={selectedTemplate}
             onChange={(e) => setSelectedTemplate(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+            className="px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
           >
             {templateOptions.map(option => (
               <option key={option.value} value={option.value}>
@@ -526,7 +526,7 @@ function AllFormsTab() {
           
           <button 
             onClick={handleExport}
-            className="px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 flex items-center justify-center"
+            className="px-4 py-2 bg-[#7F1C75] text-white rounded-md hover:bg-[#401B71] flex items-center justify-center"
           >
             <Download className="h-4 w-4 mr-2" />
             Export
@@ -586,7 +586,7 @@ function AllFormsTab() {
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium flex space-x-2 items-center">
                     <button 
                       onClick={() => handleViewUser(form.userId)}
-                      className="text-orange-600 hover:text-orange-900 p-1 rounded hover:bg-orange-50"
+                      className="text-[#401B71] hover:text-orange-900 p-1 rounded hover:bg-orange-50"
                       title="View User"
                     >
                       <Eye size={16} />
@@ -602,7 +602,7 @@ function AllFormsTab() {
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <button 
                       onClick={() => handleOpenModal(form)}
-                      className="px-3 py-1 text-sm bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors"
+                      className="px-3 py-1 text-sm bg-[#7F1C75] text-white rounded-md hover:bg-[#401B71] transition-colors"
                       title="Update Form"
                     >
                       Update
@@ -638,7 +638,7 @@ function AllFormsTab() {
                   <select
                     value={formData.status}
                     onChange={handleStatusChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#7F1C75]"
                   >
                     <option value="Submitted">Submitted</option>
                     <option value="In Review">In Review</option>
@@ -655,7 +655,7 @@ function AllFormsTab() {
                     type="number"
                     value={formData.paymentAmount}
                     onChange={(e) => setFormData({...formData, paymentAmount: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#7F1C75]"
                     placeholder="Enter amount"
                   />
                 </div>
@@ -668,7 +668,7 @@ function AllFormsTab() {
                     <textarea
                       value={formData.comments}
                       onChange={(e) => setFormData({...formData, comments: e.target.value})}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#7F1C75]"
                       rows={3}
                       placeholder="Add payment instructions..."
                     />
@@ -687,7 +687,7 @@ function AllFormsTab() {
                 <button
                   type="button"
                   onClick={handleUpdateForm}
-                  className="px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors"
+                  className="px-4 py-2 bg-[#7F1C75] text-white rounded-md hover:bg-[#401B71] transition-colors"
                 >
                   Update
                 </button>
@@ -743,7 +743,7 @@ function UsersTab() {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#7F1C75]"></div>
       </div>
     );
   }
@@ -804,7 +804,7 @@ function UsersTab() {
                   {user.createdAt?.toDate().toLocaleDateString() || "N/A"}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                  <button className="text-orange-600 hover:text-orange-900">
+                  <button className="text-[#401B71] hover:text-orange-900">
                     {(user.role &&
                       user.role.charAt(0).toUpperCase() + user.role.slice(1)) ||
                       "N/A"}
@@ -857,7 +857,7 @@ function PaymentsTab() {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#7F1C75]"></div>
       </div>
     );
   }
@@ -961,7 +961,7 @@ function ProfileTab({ adminData }) {
         {!editMode && (
           <button
             onClick={() => setEditMode(true)}
-            className="flex items-center px-3 py-1 text-sm bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors"
+            className="flex items-center px-3 py-1 text-sm bg-[#7F1C75] text-white rounded-md hover:bg-[#401B71] transition-colors"
           >
             Edit Profile
           </button>
@@ -980,7 +980,7 @@ function ProfileTab({ adminData }) {
                 name="fullName"
                 value={formData.fullName}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#7F1C75]"
                 required
               />
             </div>
@@ -1005,7 +1005,7 @@ function ProfileTab({ adminData }) {
                 name="phoneNumber"
                 value={formData.phoneNumber}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#7F1C75]"
                 required
               />
             </div>
@@ -1014,7 +1014,7 @@ function ProfileTab({ adminData }) {
           <div className="flex space-x-3 pt-2">
             <button
               type="submit"
-              className="px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors"
+              className="px-4 py-2 bg-[#7F1C75] text-white rounded-md hover:bg-[#401B71] transition-colors"
             >
               Save Changes
             </button>
