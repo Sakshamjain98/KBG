@@ -7,6 +7,11 @@ const razorpay = new Razorpay({
   key_secret: process.env.RAZORPAY_SECRET,
 });
 
+if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_SECRET) {
+  throw new Error("Missing Razorpay environment variables");
+}
+
+
 export async function POST(request) {
   try {
     const { applicationId } = await request.json();
