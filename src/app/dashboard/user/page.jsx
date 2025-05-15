@@ -1,5 +1,5 @@
 "use client";
-import { use, useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   Home,
@@ -31,8 +31,9 @@ import axios from "axios";
 import IsoForm from "@/components/forms/iso";
 import IsoForm2 from "@/components/forms/iso2";
 import AffidavitForm from "@/components/forms/iso3";
+import PaymentButton from "@/components/PaymentButton";
 // Layout Component
-export default function Dashboard() {
+ function DashboardContent() {
   const [activeTab, setActiveTab] = useState("open-forms");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -227,20 +228,20 @@ function OpenForms() {
       deadline: "June 30, 2025",
       component: IsoForm,
     },
-  "ISO Form":{
+    "ISO Form": {
       id: "iso",
       name: "ISO Form",
       description: "Application for ISO certification",
       deadline: "June 30, 2025",
       component: IsoForm2,
-  },
-  "USER AFFIDAVIT & POA":{
+    },
+    "USER AFFIDAVIT & POA": {
       id: "USER AFFIDAVIT & POA",
       name: "USER AFFIDAVIT & POA",
       description: "Application for POA certification",
       deadline: "June 30, 2025",
       component: AffidavitForm,
-  }    
+    },
     // Add more forms here as needed
     /*
     'Another_Form_Template': {
@@ -369,7 +370,7 @@ function OpenForms() {
                 <div className="mt-6">
                   <button
                     onClick={() => handleFillForm(form.id)}
-                    className="w-full md:w-auto inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#401B71] hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#7F1C75]"
+                    className="w-full md:w-auto inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#401B71] hover:bg-[#7F1C75] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#7F1C75]"
                   >
                     Fill Form
                     <ArrowRight className="ml-2 -mr-1 h-4 w-4" />
@@ -402,6 +403,86 @@ function YourForms() {
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        setUserId(user.uid);
+        await fetchApplications(user.uid);
+        await fetchUserData(user.uid);
+      } else {
+        setUserId(null);
+        setLoading(false);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const fetchUserData = async (uid) => {
+    try {
+      const userDoc = await getDoc(doc(db, "users", uid));
+      if (userDoc.exists()) {
+        setUserData(userDoc.data());
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+   const handlePaymentSuccess = () => {
+    // Refresh applications after successful payment
+    if (userId) fetchApplications(userId);
+  };
+
+  const handlePayment = async (app) => {
+    try {
+      setLoading(true);
+
+      // Create order
+      const response = await axios.post("/api/payment", { app });
+      const order = response.data;
+
+      const options = {
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+        amount: order.amount,
+        currency: order.currency,
+        name: "Your Company Name",
+        description: "Payment for Application",
+        image: "/your-logo.png",
+        order_id: order.id,
+        handler: async function (response) {
+          // Verify payment
+          await axios.post("/api/verify-payment", {
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature,
+            applicationId: applicationId,
+          });
+
+          // Refresh applications
+          fetchApplications(userId);
+          alert("Payment successful!");
+        },
+        prefill: {
+          name: "test",
+          email: "test@gmail.com",
+          contact: "9999999999",
+        },
+        theme: {
+          color: "#7F1C75",
+        },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (error) {
+      console.error("Payment error:", error);
+      alert("Payment failed: " + error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -583,7 +664,7 @@ function YourForms() {
             </div>
 
             <div className="mt-4 flex flex-wrap gap-2">
-              {(app.comments ) ? (
+              {app.comments ? (
                 <div className="bg-gray-100 w-full text-sm  mb-2 p-2 rounded-md">
                   {app.comments}
                 </div>
@@ -602,15 +683,13 @@ function YourForms() {
               </button>
 
               {app.status === "Payment Pending" && (
-                <button
-                  className="flex items-center px-3 py-1 text-sm bg-[#7F1C75] text-white rounded-md hover:bg-[#401B71] transition-colors"
-                  disabled={loading}
-                >
-                  <ArrowRight size={16} className="mr-1" />
-                  Make Payment
-                </button>
+                <PaymentButton
+                  application={app}
+                  userData={userData}
+                  onPaymentSuccess={handlePaymentSuccess}
+                />
               )}
-              {app.status === "Completed" && (
+              {app.paymentStatus === "Paid" && (
                 <button
                   className="flex items-center px-3 py-1 text-sm bg-[#7F1C75] text-white rounded-md hover:bg-[#401B71] transition-colors"
                   disabled={loading}
@@ -875,5 +954,12 @@ function Profile() {
         </div>
       )}
     </div>
+  );
+}
+export default function Dashboard() {
+  return (
+    <Suspense fallback={<div>Loading dashboard...</div>}>
+      <DashboardContent />
+    </Suspense>
   );
 }

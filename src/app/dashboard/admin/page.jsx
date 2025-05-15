@@ -586,7 +586,7 @@ function AllFormsTab() {
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium flex space-x-2 items-center">
                     <button 
                       onClick={() => handleViewUser(form.userId)}
-                      className="text-[#401B71] hover:text-orange-900 p-1 rounded hover:bg-orange-50"
+                      className="text-[#401B71] hover:text-orange-900 p-1 rounded hover:bg-[#7F1C75]"
                       title="View User"
                     >
                       <Eye size={16} />
