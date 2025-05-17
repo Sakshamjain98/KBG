@@ -240,7 +240,7 @@ const userDoc = await getDoc(docRef);
                 <MobileNavLink href="/" onClick={() => setMobileMenuOpen(false)}>Home</MobileNavLink>
                 <MobileNavLink href="/about" onClick={() => setMobileMenuOpen(false)}>About</MobileNavLink>
                 <MobileNavLink href="/services" onClick={() => setMobileMenuOpen(false)}>Services</MobileNavLink>
-                <MobileNavLink href="/custom-services" onClick={() => setMobileMenuOpen(false)}>Custom Services</MobileNavLink>
+                <MobileNavLink href="/dashboard/user?tab=custom" onClick={() => setMobileMenuOpen(false)}>Custom Services</MobileNavLink>
                 
                 <div className="pt-4 mt-4 border-t border-gray-100">
                   {!loading && (
