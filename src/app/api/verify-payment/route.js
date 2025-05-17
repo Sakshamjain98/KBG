@@ -27,10 +27,10 @@ export async function POST(request) {
     // Update payment status in Firestore
     const applicationRef = doc(db, "applications", applicationId);
     await updateDoc(applicationRef, {
-      paymentStatus: "Done",
+      paymentStatus: "Paid",
       paymentId: razorpay_payment_id,
       paymentDate: new Date(),
-      status: "In Review", // Update status to "In Review" after payment
+      status: "Completed", // Update status to "In Review" after payment
     });
 
     return Response.json({ 

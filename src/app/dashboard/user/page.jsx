@@ -15,6 +15,7 @@ import {
   ArrowRight,
   ArrowLeft,
   CheckCircle,
+  IndianRupee,
 } from "lucide-react";
 import {
   collection,
@@ -22,6 +23,7 @@ import {
   getDoc,
   getDocs,
   query,
+  serverTimestamp,
   updateDoc,
   where,
 } from "firebase/firestore";
@@ -32,8 +34,9 @@ import IsoForm from "@/components/forms/iso";
 import IsoForm2 from "@/components/forms/iso2";
 import AffidavitForm from "@/components/forms/iso3";
 import PaymentButton from "@/components/PaymentButton";
+import PaymentButtonBulk from "@/components/PaymentButtonBulk";
 // Layout Component
- function DashboardContent() {
+function DashboardContent() {
   const [activeTab, setActiveTab] = useState("open-forms");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -44,6 +47,7 @@ import PaymentButton from "@/components/PaymentButton";
     if (tab === "profile") setActiveTab("profile");
     if (tab === "your-forms") setActiveTab("your-forms");
     if (tab === "open-forms") setActiveTab("open-forms");
+    if (tab === "custom") setActiveTab("custom");
   }, [searchParams]);
 
   const handleTabChange = (tab) => {
@@ -136,6 +140,34 @@ import PaymentButton from "@/components/PaymentButton";
 
           <div
             className={`flex items-center px-6 py-3 cursor-pointer ${
+              activeTab === "custom"
+                ? "bg-orange-100 border-r-4 border-[#7F1C75]"
+                : "hover:bg-orange-50"
+            }`}
+            onClick={() => {
+              setActiveTab("custom");
+              if (window.innerWidth < 1024) setSidebarOpen(false);
+            }}
+          >
+            <IndianRupee
+              size={20}
+              className={
+                activeTab === "custom" ? "text-[#7F1C75]" : "text-gray-600"
+              }
+            />
+            <span
+              className={`ml-4 ${
+                activeTab === "custom"
+                  ? "font-medium text-[#401B71]"
+                  : "text-gray-700"
+              }`}
+            >
+              Custom Services
+            </span>
+          </div>
+
+          <div
+            className={`flex items-center px-6 py-3 cursor-pointer ${
               activeTab === "profile"
                 ? "bg-orange-100 border-r-4 border-[#7F1C75]"
                 : "hover:bg-orange-50"
@@ -176,6 +208,7 @@ import PaymentButton from "@/components/PaymentButton";
               <span className="font-medium text-[#401B71]">
                 {activeTab === "open-forms" && "Open Forms"}
                 {activeTab === "your-forms" && "Your Forms"}
+                {activeTab === "custom" && "Custom Services"}
                 {activeTab === "profile" && "Profile"}
               </span>
             </div>
@@ -196,6 +229,7 @@ import PaymentButton from "@/components/PaymentButton";
         <div className="flex-1 overflow-auto  p-6">
           {activeTab === "open-forms" && <OpenForms />}
           {activeTab === "your-forms" && <YourForms />}
+          {activeTab === "custom" && <CustomService />}
           {activeTab === "profile" && <Profile />}
         </div>
       </div>
@@ -229,7 +263,7 @@ function OpenForms() {
       component: IsoForm,
     },
     "ISO Form": {
-      id: "iso",
+      id: "ISO Form",
       name: "ISO Form",
       description: "Application for ISO certification",
       deadline: "June 30, 2025",
@@ -242,6 +276,7 @@ function OpenForms() {
       deadline: "June 30, 2025",
       component: AffidavitForm,
     },
+   
     // Add more forms here as needed
     /*
     'Another_Form_Template': {
@@ -285,6 +320,7 @@ function OpenForms() {
   };
 
   const handleFillForm = (formId) => {
+    console.log(formId)
     setSelectedForm(formId);
     setShowForm(true);
   };
@@ -430,7 +466,7 @@ function YourForms() {
     }
   };
 
-   const handlePaymentSuccess = () => {
+  const handlePaymentSuccess = () => {
     // Refresh applications after successful payment
     if (userId) fetchApplications(userId);
   };
@@ -504,14 +540,15 @@ function YourForms() {
       const q = query(
         collection(db, "applications"),
         where("userId", "==", uid)
+        // .where("customService", "!=", true)
       );
-      const querySnapshot = await getDocs(q);
-
-      const apps = [];
-      querySnapshot.forEach((doc) => {
-        apps.push({ id: doc.id, ...doc.data() });
-      });
-
+     const querySnapshot = await getDocs(q);
+const apps = [];
+querySnapshot.forEach((doc) => {
+  const data = doc.data();
+    apps.push({ id: doc.id, ...data });
+  
+});
       setApplications(apps);
       setLoading(false);
     } catch (error) {
@@ -558,6 +595,8 @@ function YourForms() {
       setLoading(false);
     }
   };
+
+
 
   const formatDate = (timestamp) => {
     if (!timestamp) return "N/A";
@@ -682,20 +721,23 @@ function YourForms() {
                 View
               </button>
 
-              {app.status === "Payment Pending" && (
+              {(app.status === "Payment Pending" && app.customService == false ) && (
                 <PaymentButton
                   application={app}
                   userData={userData}
                   onPaymentSuccess={handlePaymentSuccess}
                 />
               )}
-              {app.paymentStatus === "Paid" && (
+              {(app.paymentStatus === "Paid" && app.attachments) && (
                 <button
                   className="flex items-center px-3 py-1 text-sm bg-[#7F1C75] text-white rounded-md hover:bg-[#401B71] transition-colors"
+                  onClick={() => {console.log(app.attachments);
+                    window.open(app.attachments, "_blank");
+                  }}
                   disabled={loading}
                 >
                   <ArrowRight size={16} className="mr-1" />
-                  Download Docs
+                  Download Docs 
                 </button>
               )}
             </div>
@@ -956,6 +998,428 @@ function Profile() {
     </div>
   );
 }
+
+function CustomService() {
+  const [userId, setUserId] = useState(null);
+  const [applications, setApplications] = useState([]);
+  const [selectedForms, setSelectedForms] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [userData, setUserData] = useState(null);
+  const [totalAmount, setTotalAmount] = useState(0);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        setUserId(user.uid);
+        await fetchApplications(user.uid);
+        await fetchUserData(user.uid);
+      } else {
+        setUserId(null);
+        setLoading(false);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const fetchUserData = async (uid) => {
+    try {
+      const userDoc = await getDoc(doc(db, "users", uid));
+      if (userDoc.exists()) {
+        setUserData(userDoc.data());
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+const fetchApplications = async (uid) => {
+  try {
+    // Create query with just userId filter
+    const q = query(
+      collection(db, "applications"),
+      where("userId", "==", uid)
+    );
+    
+    const querySnapshot = await getDocs(q);
+
+    const apps = [];
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      // Manually filter out custom service applications
+      if (data.customService !== true && data.status !== "In Review (Custom Service)" && data.status !== "Completed") {
+        apps.push({ id: doc.id, ...data });
+      }
+    });
+
+    setApplications(apps);
+    setLoading(false);
+  } catch (error) {
+    console.error("Error fetching applications:", error);
+    setError("Failed to load applications");
+    setLoading(false);
+  }
+};
+
+  const handleSelectForm = (formId, amount) => {
+    setSelectedForms((prev) => {
+      if (prev.includes(formId)) {
+        return prev.filter((id) => id !== formId);
+      } else {
+        return [...prev, formId];
+      }
+    });
+    setTotalAmount((prev) => {
+      if (selectedForms.includes(formId)) {
+        return prev - amount;
+      } else {
+        return prev + amount;
+      }
+    });
+  };
+
+  const handleSubmitCustomService = async () => {
+    if (selectedForms.length === 0) {
+      setError("Please select at least one form");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      setError("");
+
+      // Update each selected form to mark as custom service
+      const batchUpdates = selectedForms.map(async (formId) => {
+        const formRef = doc(db, "applications", formId);
+        await updateDoc(formRef, {
+          customService: true,
+          status: "In Review (Custom Service)",
+          updatedAt: serverTimestamp(),
+        });
+      });
+
+      await Promise.all(batchUpdates);
+
+      setSuccess("Custom service request submitted successfully!");
+      setSelectedForms([]);
+      setTotalAmount(0);
+
+      // Refresh applications
+      if (userId) {
+        await fetchApplications(userId);
+      }
+    } catch (error) {
+      console.error("Error submitting custom service:", error);
+      setError("Failed to submit custom service request");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handlePaymentSuccess = () => {
+    setSuccess("Payment successful! Your documents will be processed shortly.");
+    setSelectedForms([]);
+    setTotalAmount(0);
+    if (userId) fetchApplications(userId);
+  };
+
+  if (loading && applications.length === 0) {
+    return (
+      <div className="bg-white rounded-lg shadow p-6">
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+          Custom Service
+        </h2>
+        <div className="flex justify-center items-center py-8">
+          <Loader className="animate-spin text-[#7F1C75]" size={24} />
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-white rounded-lg shadow p-6">
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+          Custom Service
+        </h2>
+        <div className="text-red-500 p-4 bg-red-50 rounded-lg">{error}</div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-white rounded-lg shadow p-6">
+      <h2 className="text-xl font-semibold text-gray-800 mb-6">
+        Custom Service Request
+      </h2>
+
+      {success && (
+        <div className="bg-green-50 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded-md">
+          <p className="font-medium">Success</p>
+          <p>{success}</p>
+        </div>
+      )}
+
+      <div className="mb-6">
+        <p className="text-gray-600 mb-4">
+          Select the forms you want to include in your custom service package:
+        </p>
+
+        {applications.length > 0 ? (
+          <div className="space-y-4">
+            {applications.map((app) => (
+              <div
+                key={app.id}
+                className={`border rounded-lg p-4 ${
+                  selectedForms.includes(app.id)
+                    ? "border-[#7F1C75] bg-orange-50"
+                    : "border-gray-200 hover:border-gray-300"
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="font-medium text-gray-800">
+                      {app.templateName || "Application Form"}
+                    </h3>
+                    <p className="text-sm text-gray-500">
+                      Submitted on{" "}
+                      {new Date(app.createdAt?.toDate()).toLocaleDateString()}
+                    </p>
+                  </div>
+                  <div className="flex items-center">
+                    <span className="text-sm font-medium text-gray-700 mr-4">
+                      ₹{app.amount || 0}
+                    </span>
+                    <input
+                      type="checkbox"
+                      checked={selectedForms.includes(app.id)}
+                      onChange={() => handleSelectForm(app.id, app.amount || 0)}
+                      className="h-5 w-5 text-[#7F1C75] focus:ring-[#7F1C75] border-gray-300 rounded"
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-8">
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 mb-4">
+              <FileText className="h-6 w-6 text-gray-400" />
+            </div>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">
+              No forms available for custom service
+            </h3>
+            <p className="text-gray-600">
+              You don't have any submitted forms that can be included in a
+              custom service.
+            </p>
+          </div>
+        )}
+      </div>
+
+      {selectedForms.length > 0 && (
+        <div className="border-t border-gray-200 pt-6">
+          <div className="flex justify-between items-center mb-6">
+            <div>
+              <h3 className="font-medium text-gray-800">Total Selected</h3>
+              <p className="text-sm text-gray-500">
+                {selectedForms.length} form
+                {selectedForms.length !== 1 ? "s" : ""}
+              </p>
+            </div>
+            <div className="text-right">
+              <p className="text-sm text-gray-500">Total Amount</p>
+              <h3 className="text-2xl font-bold text-[#7F1C75]">
+                To Be Decided
+              </h3>
+            </div>
+          </div>
+
+          <div className="flex justify-end space-x-4">
+            <button
+              onClick={() => {
+                setSelectedForms([]);
+                setTotalAmount(0);
+              }}
+              className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+            >
+              Clear Selection
+            </button>
+            <button
+              onClick={handleSubmitCustomService}
+              className="px-4 py-2 bg-[#7F1C75] text-white rounded-md hover:bg-[#401B71] disabled:opacity-50"
+              disabled={loading}
+            >
+              {loading ? "Processing..." : "Submit Request"}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Custom Service Applications Section */}
+      <div className="mt-12">
+        <h3 className="text-lg font-semibold text-gray-800 mb-4">
+          Your Custom Service Applications
+        </h3>
+
+        <CustomServiceApplications
+          userId={userId}
+          userData={userData}
+          onPaymentSuccess={handlePaymentSuccess}
+        />
+      </div>
+    </div>
+  );
+}
+
+// Separate component for displaying custom service applications
+function CustomServiceApplications({ userId, userData, onPaymentSuccess }) {
+  const [customApps, setCustomApps] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (userId) {
+      fetchCustomApplications();
+    }
+  }, [userId]);
+
+  const fetchCustomApplications = async () => {
+    try {
+      const q = query(
+        collection(db, "applications"),
+        where("userId", "==", userId),
+        // where("customService", "==", true)
+      );
+     const querySnapshot = await getDocs(q);
+const apps = [];
+querySnapshot.forEach((doc) => {
+  const data = doc.data();
+  if (data.customService === true && data.status !== 'Completed') {  // Manual filtering
+    apps.push({ id: doc.id, ...data });
+  }
+});
+
+      setCustomApps(apps);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching custom applications:", error);
+      setError("Failed to load custom service applications");
+      setLoading(false);
+    }
+  };
+
+  const calculateTotal = () => {
+    return customApps.reduce((sum, app) => sum + (app.paymentAmount || 0), 0);
+  };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center py-8">
+        <Loader className="animate-spin text-[#7F1C75]" size={24} />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div className="text-red-500 p-4 bg-red-50 rounded-lg">{error}</div>;
+  }
+
+  if (customApps.length === 0) {
+    return (
+      <div className="text-center py-8">
+        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 mb-4">
+          <FileText className="h-6 w-6 text-gray-400" />
+        </div>
+        <h3 className="text-lg font-medium text-gray-900 mb-2">
+          No custom service applications
+        </h3>
+        <p className="text-gray-600">
+          You haven't submitted any custom service requests yet.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-6">
+      <div className="space-y-4">
+        {customApps.map((app) => (
+          <div
+            key={app.id}
+            className="border border-gray-200 p-4 rounded-lg hover:border-orange-300 transition-colors"
+          >
+            <div className="flex justify-between items-start">
+              <div>
+                <h3 className="font-semibold text-gray-700">
+                  {app.templateName || "Application Form"}
+                </h3>
+                <p className="text-gray-500 text-sm mt-1">
+                  Submitted on{" "}
+                  {new Date(app.createdAt?.toDate()).toLocaleDateString()}
+                </p>
+              </div>
+
+              <span className="px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-600">
+                Custom Service
+              </span>
+            </div>
+
+            <div className="mt-4 flex flex-wrap gap-2">
+              <div className="w-full">
+                <p className="text-sm text-gray-700">
+                  Status: <span className="font-medium">{app.status}</span>
+                </p>
+                <p className="text-sm text-gray-700">
+                  Amount:{" "}
+                  <span className="font-medium">₹{app.paymentAmount || 0}</span>
+                </p>
+              </div>
+
+              {app.paymentStatus === "Paid" && (
+                <button
+                  onClick={() => handleDownload(app.id, app)}
+                  className="flex items-center px-3 py-1 text-sm bg-[#7F1C75] text-white rounded-md hover:bg-[#401B71] transition-colors"
+                >
+                  <Download size={16} className="mr-1" />
+                  Download Docs
+                </button>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="border-t border-gray-200 pt-6">
+        <div className="flex justify-between items-center">
+          <div>
+            <h3 className="font-medium text-gray-800">Total Applications</h3>
+            <p className="text-sm text-gray-500">
+              {customApps.length} form{customApps.length !== 1 ? "s" : ""}
+            </p>
+          </div>
+          <div className="text-right">
+            <p className="text-sm text-gray-500">Total Amount</p>
+            <h3 className="text-2xl font-bold text-[#7F1C75]">
+              ₹{calculateTotal()}
+            </h3>
+          </div>
+        </div>
+
+        <div className="mt-6 flex justify-end">
+          <PaymentButtonBulk
+            application={customApps} // Pass all custom apps
+            userData={userData}
+            onPaymentSuccess={onPaymentSuccess}
+            label="Pay for All Services"
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Dashboard() {
   return (
     <Suspense fallback={<div>Loading dashboard...</div>}>

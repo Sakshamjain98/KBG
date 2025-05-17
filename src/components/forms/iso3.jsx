@@ -1,30 +1,38 @@
-'use client';
-import { useState, useRef, useEffect } from 'react';
-import axios from 'axios';
-import { collection, addDoc, serverTimestamp, query, where, getDocs } from 'firebase/firestore';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { db, auth } from '../../lib/firebase';
-import { useRouter } from 'next/navigation';
+"use client";
+import { useState, useRef, useEffect } from "react";
+import axios from "axios";
+import {
+  collection,
+  addDoc,
+  serverTimestamp,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { db, auth } from "../../lib/firebase";
+import { useRouter } from "next/navigation";
 
 export default function AffidavitForm() {
   const [form, setForm] = useState({
-    name: 'John Doe',
-    designation: 'Director',
-    companyName: 'TechNova Solutions Pvt. Ltd.',
-    address: '123 Business Park, Sector 5, Mumbai - 400001',
-    Date: new Date().toISOString().split('T')[0],
-    formClass: '35',
-    trademarkName: 'InnovateMark',
-    companyGoods: 'Software Development and IT Services',
-    trademarkDate: '2020-01-15',
-    deponent: 'John Doe',
-    templateName: 'USER AFFIDAVIT & POA',  
+    name: "John Doe",
+    designation: "Director",
+    companyName: "TechNova Solutions Pvt. Ltd.",
+    address: "123 Business Park, Sector 5, Mumbai - 400001",
+    Date: new Date().toISOString().split("T")[0],
+    formClass: "35",
+    trademarkName: "InnovateMark",
+    companyGoods: "Software Development and IT Services",
+    trademarkDate: "2020-01-15",
+    deponent: "John Doe",
+    templateName: "USER AFFIDAVIT & POA",
+    paymentAmount: 5000,
   });
 
   const [loading, setLoading] = useState(false);
   const [fileUploading, setFileUploading] = useState(false);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const signatureFileRef = useRef(null);
   const [userId, setUserId] = useState(null);
   const router = useRouter();
@@ -44,76 +52,83 @@ export default function AffidavitForm() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-
   const saveApplicationToFirebase = async (pdfUrl) => {
     if (!userId) {
-      throw new Error('User not authenticated');
+      throw new Error("User not authenticated");
     }
 
-    const applicationsRef = collection(db, 'applications');
+    const applicationsRef = collection(db, "applications");
     const q = query(
       applicationsRef,
-      where('userId', '==', userId),
-      where('templateName', '==', form.templateName)
+      where("userId", "==", userId),
+      where("templateName", "==", form.templateName)
     );
 
     const querySnapshot = await getDocs(q);
-    
+
     if (!querySnapshot.empty) {
-      throw new Error(`You've already submitted an Affidavit & POA application.`);
+      throw new Error(
+        `You've already submitted an Affidavit & POA application.`
+      );
     }
 
     const applicationData = {
       ...form,
       userId,
-      status: 'Submitted',
+      status: "Payment Pending",
+      customService: false,
+
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
       ...(pdfUrl && { generatedPdfUrl: pdfUrl }),
     };
 
-    const docRef = await addDoc(collection(db, 'applications'), applicationData);
+    const docRef = await addDoc(
+      collection(db, "applications"),
+      applicationData
+    );
     return { id: docRef.id, pdfUrl };
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!userId) {
-      setError('Please sign in to submit the application');
+      setError("Please sign in to submit the application");
       return;
     }
 
     setLoading(true);
-    setError('');
-    setSuccess('');
+    setError("");
+    setSuccess("");
 
     try {
-      const docxResponse = await axios.post('/api/fill-docx', form, {
-        responseType: 'blob',
+      const docxResponse = await axios.post("/api/fill-docx", form, {
+        responseType: "blob",
       });
-      
+
       const docxBlob = new Blob([docxResponse.data], {
-        type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
       });
 
       await saveApplicationToFirebase();
-      setSuccess('Affidavit & POA submitted successfully!');
+      setSuccess("Affidavit & POA submitted successfully!");
 
       setTimeout(() => {
-        window.location.href = '/dashboard/user?tab=your-forms';
+        window.location.href = "/dashboard/user?tab=your-forms";
       }, 2000);
-
     } catch (err) {
-      console.error('Failed to process application:', err);
-      setError(err.message || 'Failed to process application. Please try again.');
+      console.error("Failed to process application:", err);
+      setError(
+        err.message || "Failed to process application. Please try again."
+      );
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white p-6">
+    <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white md:p-6">
       <div className="max-w-7xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
         <form onSubmit={handleSubmit} className="p-8">
           {error && (
@@ -122,22 +137,24 @@ export default function AffidavitForm() {
               <p>{error}</p>
             </div>
           )}
-          
+
           {success && (
             <div className="bg-green-50 fixed right-10 bottom-10 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded-md">
               <p className="font-medium">Success</p>
               <p>{success}</p>
             </div>
           )}
-          
+
           <div className="mb-8">
             <h2 className="text-2xl font-semibold text-gray-800 mb-4 pb-2 border-b border-orange-200">
               SAMPLE USER AFFIDAVIT & POWER OF ATTORNEY
             </h2>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="space-y-1">
-                <label className="block text-sm font-medium text-gray-700">Full Name</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Full Name
+                </label>
                 <input
                   type="text"
                   name="name"
@@ -147,9 +164,11 @@ export default function AffidavitForm() {
                   required
                 />
               </div>
-              
+
               <div className="space-y-1">
-                <label className="block text-sm font-medium text-gray-700">Designation</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Designation
+                </label>
                 <input
                   type="text"
                   name="designation"
@@ -159,9 +178,11 @@ export default function AffidavitForm() {
                   required
                 />
               </div>
-              
+
               <div className="space-y-1">
-                <label className="block text-sm font-medium text-gray-700">Company Name</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Company Name
+                </label>
                 <input
                   type="text"
                   name="companyName"
@@ -171,9 +192,11 @@ export default function AffidavitForm() {
                   required
                 />
               </div>
-              
+
               <div className="space-y-1 md:col-span-2">
-                <label className="block text-sm font-medium text-gray-700">Company Address</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Company Address
+                </label>
                 <textarea
                   name="address"
                   value={form.address}
@@ -183,9 +206,11 @@ export default function AffidavitForm() {
                   required
                 />
               </div>
-              
+
               <div className="space-y-1">
-                <label className="block text-sm font-medium text-gray-700">Date</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Date
+                </label>
                 <input
                   type="date"
                   name="Date"
@@ -195,9 +220,11 @@ export default function AffidavitForm() {
                   required
                 />
               </div>
-              
+
               <div className="space-y-1">
-                <label className="block text-sm font-medium text-gray-700">Class</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Class
+                </label>
                 <input
                   type="text"
                   name="formClass"
@@ -207,9 +234,11 @@ export default function AffidavitForm() {
                   required
                 />
               </div>
-              
+
               <div className="space-y-1">
-                <label className="block text-sm font-medium text-gray-700">Name/Logo/Slogan</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Name/Logo/Slogan
+                </label>
                 <input
                   type="text"
                   name="trademarkName"
@@ -219,9 +248,11 @@ export default function AffidavitForm() {
                   required
                 />
               </div>
-              
+
               <div className="space-y-1 md:col-span-2">
-                <label className="block text-sm font-medium text-gray-700">Company Goods/Services</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Company Goods/Services
+                </label>
                 <textarea
                   name="companyGoods"
                   value={form.companyGoods}
@@ -231,9 +262,11 @@ export default function AffidavitForm() {
                   required
                 />
               </div>
-              
+
               <div className="space-y-1">
-                <label className="block text-sm font-medium text-gray-700">Trademark Since Date</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Trademark Since Date
+                </label>
                 <input
                   type="date"
                   name="trademarkDate"
@@ -243,9 +276,11 @@ export default function AffidavitForm() {
                   required
                 />
               </div>
-              
+
               <div className="space-y-1">
-                <label className="block text-sm font-medium text-gray-700">Deponent Name</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Deponent Name
+                </label>
                 <input
                   type="text"
                   name="deponent"
@@ -255,11 +290,9 @@ export default function AffidavitForm() {
                   required
                 />
               </div>
-              
-           
             </div>
           </div>
-          
+
           <div className="flex justify-end mt-8">
             <button
               type="submit"
@@ -268,14 +301,30 @@ export default function AffidavitForm() {
             >
               {loading ? (
                 <span className="flex items-center">
-                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  <svg
+                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
                   </svg>
                   Processing...
                 </span>
               ) : (
-                'Submit Affidavit & POA'
+                "Submit Affidavit & POA"
               )}
             </button>
           </div>

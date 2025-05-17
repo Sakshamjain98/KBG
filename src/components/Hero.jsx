@@ -46,7 +46,7 @@ export default function HeroSection() {
   if (!mounted) return null;
 
   return (
-    <section className="relative h-full bg-white overflow-hidden">
+    <section className="relative py-20 md:py-0 h-full bg-white overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0">
         {/* Subtle grid pattern */}
@@ -215,7 +215,7 @@ export default function HeroSection() {
           
           {/* Mobile View - Trust Badges below content */}
           <motion.div 
-            className="lg:hidden mt-12 bg-[#29146F]/5 p-6 rounded-xl border border-[#29146F]/20"
+            className="lg:hidden  bg-[#29146F]/5 p-6 rounded-xl border border-[#29146F]/20"
             variants={itemVariants}
           >
             <div className="text-[#7F1C75] text-sm font-bold mb-1">TRUSTED BY CLIENTS WORLDWIDE</div>

@@ -230,7 +230,7 @@ const FAQItem = ({ question, answer }) => {
 
 const Stats = () => {
   return (
-    <section id="stats" className="relative py-24 bg-white overflow-hidden">
+    <section id="stats" className="relative py-12 md:py-24  bg-white overflow-hidden">
       {/* Background pattern with subtle gradient */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-[#7F1C75]/5 to-[#29146F]/5" />
@@ -322,13 +322,13 @@ export default function KBGWebsite() {
   if (!mounted) return null;
 
   return (
-    <div className="bg-white overflow-hidden">
+    <div className="bg-white  overflow-hidden">
       {/* About Us Section */}
       <HeroSection />
       <AboutUs />
 
       {/* Our Services Section */}
-      <section id="services" className="relative py-20 bg-[#F9F9F9]">
+      <section id="services" className="relative py-10 bg-[#F9F9F9]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             variants={containerVariants}
@@ -433,7 +433,7 @@ export default function KBGWebsite() {
       <Stats />
 
       {/* Why Choose Us Section */}
-      <section id="why-choose-us" className="relative py-20 bg-white">
+      <section id="why-choose-us" className="relative py-10 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             variants={containerVariants}
@@ -443,16 +443,16 @@ export default function KBGWebsite() {
           >
             <SectionTitle subtitle="Why Choose Us" title="KBG Advantage" />
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="grid grid-cols-1 text-center md:text-left lg:grid-cols-2 gap-12 items-center">
               <motion.div
                 variants={itemVariants}
                 className="relative order-2 lg:order-1"
               >
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div className="bg-[#7F1C75]/5 p-6 rounded-xl border border-[#7F1C75]/20">
-                    <div className="w-12 h-12 rounded-full bg-[#7F1C75]/10 flex items-center justify-center mb-4">
+                  <div className="bg-[#7F1C75]/5  p-6 rounded-xl border border-[#7F1C75]/20">
+                    <div className="w-12 mx-auto md:mx-0 h-12 rounded-full bg-[#7F1C75]/10 flex items-center justify-center mb-4">
                       <svg
-                        className="w-6 h-6 text-[#7F1C75]"
+                        className="w-6 h-6  text-[#7F1C75]"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -475,7 +475,7 @@ export default function KBGWebsite() {
                   </div>
 
                   <div className="bg-[#29146F]/5 p-6 rounded-xl border border-[#29146F]/20">
-                    <div className="w-12 h-12 rounded-full bg-[#29146F]/10 flex items-center justify-center mb-4">
+                    <div className="w-12 h-12 rounded-full bg-[#29146F]/10 flex items-center justify-center mx-auto md:mx-0 mb-4">
                       <svg
                         className="w-6 h-6 text-[#29146F]"
                         fill="none"
@@ -500,7 +500,7 @@ export default function KBGWebsite() {
                   </div>
 
                   <div className="bg-[#29146F]/5 p-6 rounded-xl border border-[#29146F]/20">
-                    <div className="w-12 h-12 rounded-full bg-[#29146F]/10 flex items-center justify-center mb-4">
+                    <div className="w-12 h-12 rounded-full bg-[#29146F]/10 mx-auto md:mx-0 flex items-center justify-center mb-4">
                       <svg
                         className="w-6 h-6 text-[#29146F]"
                         fill="none"
@@ -525,7 +525,7 @@ export default function KBGWebsite() {
                   </div>
 
                   <div className="bg-[#7F1C75]/5 p-6 rounded-xl border border-[#7F1C75]/20">
-                    <div className="w-12 h-12 rounded-full bg-[#7F1C75]/10 flex items-center justify-center mb-4">
+                    <div className="w-12 mx-auto md:mx-0 h-12 rounded-full bg-[#7F1C75]/10 flex items-center justify-center mb-4">
                       <svg
                         className="w-6 h-6 text-[#7F1C75]"
                         fill="none"
@@ -603,7 +603,7 @@ export default function KBGWebsite() {
       </section>
 
       {/* Client Success Stories */}
-      <section id="testimonials" className="relative py-20 bg-[#F9F9F9]">
+      <section id="testimonials" className="relative py-10 bg-[#F9F9F9]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             variants={containerVariants}
@@ -638,7 +638,7 @@ export default function KBGWebsite() {
       </section>
 
       {/* Industries We Serve */}
-      <section id="industries" className="relative py-20 bg-[#F9F9F9]">
+      <section id="industries" className="relative py-10 bg-[#F9F9F9]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             variants={containerVariants}
@@ -670,7 +670,7 @@ export default function KBGWebsite() {
 
       <section
         id="clients"
-        className="relative py-20 bg-gradient-to-br from-gray-50 to-white overflow-hidden"
+        className="relative py-10 bg-gradient-to-br from-gray-50 to-white overflow-hidden"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
@@ -743,7 +743,7 @@ export default function KBGWebsite() {
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="relative py-20 bg-[#F9F9F9]">
+      <section id="faq" className="relative py-10 bg-[#F9F9F9]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             variants={containerVariants}
@@ -782,7 +782,7 @@ export default function KBGWebsite() {
       {/* CTA Section */}
       <section
         id="contact"
-        className="relative py-20 bg-gradient-to-r from-[#7F1C75] to-[#29146F]"
+        className="relative py-10 bg-gradient-to-r from-[#7F1C75] to-[#29146F]"
       >
         <div className="absolute inset-0 opacity-10">
           <div

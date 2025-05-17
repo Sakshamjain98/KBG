@@ -124,7 +124,7 @@ const userDoc = await getDoc(docRef);
             <NavLink href="/">Home</NavLink>
             <NavLink href="/about">About</NavLink>
             { !loading && user ? <NavLink href={`/dashboard/${userData}`}>Services</NavLink> : <NavLink href="/signin">Services</NavLink> }
-            <NavLink href="/custom-services">Custom Services</NavLink>
+            <NavLink href="/dashboard/user?tab=custom">Custom Services</NavLink>
             {
                 !loading && user && (
                     <NavLink href="/dashboard/user?tab=your-forms">Forms</NavLink>
