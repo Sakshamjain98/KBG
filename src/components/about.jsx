@@ -114,7 +114,7 @@ const StatisticCard = ({ value, label, delay }) => {
 
 const AboutUs = () => {
   return (
-    <section id="about-us" className="relative py-14 w-full bg-gradient-to-br from-[#7F1C75]/5 to-[#29146F]/5 overflow-hidden">
+    <section id="about-us" className="relative py-6 md:py-14 w-full bg-gradient-to-br from-[#7F1C75]/5 to-[#29146F]/5 overflow-hidden">
       {/* Subtle background grid pattern */}
       <div className="absolute w-full inset-0 opacity-5">
         <div 
@@ -141,7 +141,7 @@ const AboutUs = () => {
               </p>
               
               {/* Statistics */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-6 md:py-8 border-y border-gray-100 text-center my-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-2 md:py-8 border-y border-gray-100 text-center my-8">
                 <StatisticCard value="10,000" label="Clients Served" delay={0} />
                 <StatisticCard value="27" label="Indian States" delay={200} />
                 <StatisticCard value="22" label="Countries" delay={400} />
@@ -149,7 +149,7 @@ const AboutUs = () => {
 
               <motion.button
                 onClick={() => (window.location.href = "/about")}
-                className="bg-[#7F1C75] cursor-pointer text-white px-8 py-4 rounded-lg font-semibold text-lg shadow-lg hover:shadow-xl transition-all"
+                className="bg-[#7F1C75] md:w-max w-full cursor-pointer text-white px-8 py-4 rounded-lg font-semibold text-lg shadow-lg hover:shadow-xl transition-all"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >

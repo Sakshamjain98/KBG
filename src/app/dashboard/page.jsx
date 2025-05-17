@@ -11,24 +11,14 @@ export default function Dashboard() {
   const router = useRouter();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (!currentUser) {
         router.push("/login");
-      } else {
-        setUser(currentUser);
-        console.log(currentUser)
-        setLoading(false);
-      }
-    });
-
-    return () => unsubscribe();
-  }, [router]);
+   
+  }, []);
 
   if (loading) return <p>Loading...</p>;
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl">Welcome, {user.email}</h1>
     </div>
   );
 }

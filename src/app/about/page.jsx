@@ -124,7 +124,7 @@ const AboutPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
       {/* Hero Section */}
       <motion.section
-        className="relative py-20 bg-gradient-to-r from-[#7F1C75] to-[#29146F] text-white overflow-hidden"
+        className="relative py-10 bg-gradient-to-r from-[#7F1C75] to-[#29146F] text-white overflow-hidden"
         initial="hidden"
         animate="visible"
         variants={containerVariants}
@@ -161,114 +161,166 @@ const AboutPage = () => {
         </div>
       </motion.section>
 
-      {/* Company Journey Timeline */}
-      <motion.section
-        className="py-20 bg-gradient-to-br from-gray-50 to-white"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={containerVariants}
+<motion.section
+  className="py-10 bg-gradient-to-br from-gray-50 to-white"
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true }}
+  variants={containerVariants}
+>
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <motion.div variants={itemVariants} className="text-center mb-16">
+      <h2 className="text-4xl font-bold text-gray-800 mb-4">Our Journey</h2>
+      <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+        A timeline of milestones that shaped KBG into the company it is today
+      </p>
+    </motion.div>
+    
+    <div className="relative">
+      {/* Journey carousel controls - Hidden on mobile */}
+      <button
+        onClick={() => setActiveTimelineItem(prev => (prev - 1 + timelineData.length) % timelineData.length)}
+        className="hidden sm:block absolute cursor-pointer left-0 top-1/2 transform -translate-y-1/2 z-10 p-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+        disabled={activeTimelineItem === 0}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div variants={itemVariants} className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-800 mb-4">Our Journey</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              A timeline of milestones that shaped KBG into the company it is today
-            </p>
-          </motion.div>
-          
-          <div className="relative">
-            <div className="overflow-hidden">
-              <motion.div
-                className="flex gap-6 pb-6"
-                animate={{ x: -activeTimelineItem * 320 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
-              >
-                {timelineData.map((item, index) => (
-                  <TimelineItem
-                    key={index}
-                    year={item.year}
-                    title={item.title}
-                    description={item.description}
-                    isActive={index === activeTimelineItem}
-                    onClick={() => setActiveTimelineItem(index)}
-                  />
-                ))}
-              </motion.div>
-            </div>
-            
-            {/* Navigation dots */}
-            <div className="flex justify-center gap-2 mt-8">
-              {timelineData.map((_, index) => (
-                <button
-                  key={index}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === activeTimelineItem ? 'bg-[#7F1C75]' : 'bg-gray-300'
-                  }`}
-                  onClick={() => setActiveTimelineItem(index)}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </motion.section>
+        <ChevronLeft className="w-6 h-6 text-gray-600" />
+      </button>
+      
+      <button
+        onClick={() => setActiveTimelineItem(prev => (prev + 1) % timelineData.length)}
+        className="hidden sm:block absolute cursor-pointer right-0 top-1/2 transform -translate-y-1/2 z-10 p-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+        disabled={activeTimelineItem === timelineData.length - 1}
+      >
+        <ChevronRight className="w-6 h-6 text-gray-600" />
+      </button>
+      
+      {/* Mobile view - single centered card */}
+      <div className="sm:hidden flex justify-center">
+        <TimelineItem
+          year={timelineData[activeTimelineItem].year}
+          title={timelineData[activeTimelineItem].title}
+          description={timelineData[activeTimelineItem].description}
+          isActive={true}
+          onClick={() => {}}
+        />
+      </div>
+      
+      {/* Desktop view - carousel */}
+      <div className="hidden sm:block overflow-hidden mx-12">
+        <motion.div
+          className="flex gap-6 pb-6"
+          animate={{ x: -activeTimelineItem * 320 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+        >
+          {timelineData.map((item, index) => (
+            <TimelineItem
+              key={index}
+              year={item.year}
+              title={item.title}
+              description={item.description}
+              isActive={index === activeTimelineItem}
+              onClick={() => setActiveTimelineItem(index)}
+            />
+          ))}
+        </motion.div>
+      </div>
+      
+      {/* Mobile navigation dots */}
+      <div className="sm:hidden flex justify-center gap-2 mt-8">
+        {timelineData.map((_, index) => (
+          <button
+            key={index}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              index === activeTimelineItem ? 'bg-[#7F1C75]' : 'bg-gray-300'
+            }`}
+            onClick={() => setActiveTimelineItem(index)}
+          />
+        ))}
+      </div>
+    </div>
+  </div>
+</motion.section>
 
       {/* Team Section */}
-      <motion.section
-        className="py-20 bg-white"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={containerVariants}
+    <motion.section
+  className="py-10 bg-white"
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true }}
+  variants={containerVariants}
+>
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <motion.div variants={itemVariants} className="text-center mb-16">
+      <h2 className="text-4xl font-bold text-gray-800 mb-4">Meet Our Team</h2>
+      <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+        The passionate professionals behind KBG's success
+      </p>
+    </motion.div>
+    
+    <div className="relative">
+      {/* Team carousel controls - Hidden on mobile */}
+      <button
+        onClick={prevTeamSlide}
+        className="hidden sm:block absolute left-0 top-1/2 transform -translate-y-1/2 z-10 p-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div variants={itemVariants} className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-800 mb-4">Meet Our Team</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              The passionate professionals behind KBG's success
-            </p>
-          </motion.div>
-          
-          <div className="relative">
-            {/* Team carousel controls */}
-            <button
-              onClick={prevTeamSlide}
-              className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 p-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
-            >
-              <ChevronLeft className="w-6 h-6 text-gray-600" />
-            </button>
-            
-            <button
-              onClick={nextTeamSlide}
-              className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 p-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
-            >
-              <ChevronRight className="w-6 h-6 text-gray-600" />
-            </button>
-            
-            <div className="overflow-hidden mx-12">
-              <motion.div
-                className="flex gap-6"
-                animate={{ x: -teamCarouselIndex * 320 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
-              >
-                {teamMembers.map((member, index) => (
-                  <TeamMember
-                    key={index}
-                    name={member.name}
-                    role={member.role}
-                    phone={member.phone}
-                    expertise={member.expertise}
-                  />
-                ))}
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      </motion.section>
+        <ChevronLeft className="w-6 h-6 text-gray-600" />
+      </button>
+      
+      <button
+        onClick={nextTeamSlide}
+        className="hidden sm:block absolute right-0 top-1/2 transform -translate-y-1/2 z-10 p-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+      >
+        <ChevronRight className="w-6 h-6 text-gray-600" />
+      </button>
+      
+      {/* Mobile view - single centered card */}
+      <div className="sm:hidden flex justify-center">
+        <TeamMember
+          name={teamMembers[teamCarouselIndex].name}
+          role={teamMembers[teamCarouselIndex].role}
+          phone={teamMembers[teamCarouselIndex].phone}
+          expertise={teamMembers[teamCarouselIndex].expertise}
+        />
+      </div>
+      
+      {/* Desktop view - carousel */}
+      <div className="hidden sm:block overflow-hidden mx-12">
+        <motion.div
+          className="flex gap-6"
+          animate={{ x: -teamCarouselIndex * 320 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+        >
+          {teamMembers.map((member, index) => (
+            <TeamMember
+              key={index}
+              name={member.name}
+              role={member.role}
+              phone={member.phone}
+              expertise={member.expertise}
+            />
+          ))}
+        </motion.div>
+      </div>
+      
+      {/* Mobile navigation dots */}
+      <div className="sm:hidden flex justify-center gap-2 mt-8">
+        {teamMembers.map((_, index) => (
+          <button
+            key={index}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              index === teamCarouselIndex ? 'bg-[#7F1C75]' : 'bg-gray-300'
+            }`}
+            onClick={() => setTeamCarouselIndex(index)}
+          />
+        ))}
+      </div>
+    </div>
+  </div>
+</motion.section>
 
       {/* Clients Logo Section */}
       <motion.section
-        className="py-20 bg-gradient-to-br from-gray-50 to-white"
+        className="py-10 bg-gradient-to-br pb-30 from-gray-50 to-white"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}

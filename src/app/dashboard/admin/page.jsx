@@ -192,6 +192,35 @@ export default function AdminDashboard() {
             </span>
           </div>
 
+
+<div
+  className={`flex items-center px-6 py-3 cursor-pointer ${
+    activeTab === "custom-services"
+      ? "bg-orange-100 border-r-4 border-[#7F1C75]"
+      : "hover:bg-orange-50"
+  }`}
+  onClick={() => {
+    setActiveTab("custom-services");
+    if (window.innerWidth < 1024) setSidebarOpen(false);
+  }}
+>
+  <FileText
+    size={20}
+    className={
+      activeTab === "custom-services" ? "text-[#7F1C75]" : "text-gray-600"
+    }
+  />
+  <span
+    className={`ml-4 ${
+      activeTab === "custom-services"
+        ? "font-medium text-[#401B71]"
+        : "text-gray-700"
+    }`}
+  >
+    Custom Services
+  </span>
+</div>
+
           <div
             className={`flex items-center px-6 py-3 cursor-pointer ${
               activeTab === "profile"
@@ -234,6 +263,7 @@ export default function AdminDashboard() {
                 {activeTab === "all-forms" && "All Forms"}
                 {activeTab === "users" && "Users"}
                 {activeTab === "payments" && "Payments"}
+                {activeTab === "custom-services" && "Custom Services"}
                 {activeTab === "profile" && "Profile"}
               </span>
             </div>
@@ -251,6 +281,7 @@ export default function AdminDashboard() {
           {activeTab === "all-forms" && <AllFormsTab />}
           {activeTab === "users" && <UsersTab />}
           {activeTab === "payments" && <PaymentsTab />}
+          {activeTab === "custom-services" && <CustomServicesTab />}
           {activeTab === "profile" && <ProfileTab adminData={adminData} />}
         </div>
       </div>
@@ -265,6 +296,402 @@ export default function AdminDashboard() {
     </div>
   );
 }
+
+function CustomServicesTab() {
+  const [customServices, setCustomServices] = useState([]);
+  const [users, setUsers] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [selectedService, setSelectedService] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [formData, setFormData] = useState({
+    forms: [],
+    totalAmount: 0,
+    comments: '',
+  });
+  const [toast, setToast] = useState({ show: false, message: '', type: '' });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        
+        // Fetch all applications with customService flag
+        const q = query(
+          collection(db, "applications"),
+          where("customService", "==", true),
+        );
+        
+        const querySnapshot = await getDocs(q);
+        const servicesData = {};
+
+        console.log(querySnapshot);
+        
+        querySnapshot.forEach(doc => {
+          const data = doc.data();
+          if (!servicesData[data.userId]) {
+            servicesData[data.userId] = {
+              userId: data.userId,
+              forms: [],
+              createdAt: data.createdAt,
+              updatedAt: data.updatedAt,
+            };
+          }
+          servicesData[data.userId].forms.push({
+            id: doc.id,
+            ...data
+          });
+        });
+
+        // Convert to array
+        const servicesArray = Object.values(servicesData);
+        setCustomServices(servicesArray);
+
+        // Fetch user data for each service
+        const usersData = {};
+        for (const service of servicesArray) {
+          if (!usersData[service.userId]) {
+            const userDoc = await getDoc(doc(db, "users", service.userId));
+            if (userDoc.exists()) {
+              usersData[service.userId] = userDoc.data();
+            }
+          }
+        }
+        setUsers(usersData);
+
+      } catch (error) {
+        console.error("Error fetching custom services:", error);
+        showToast('Failed to load custom services', 'error');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const showToast = (message, type = 'success') => {
+    setToast({ show: true, message, type });
+    setTimeout(() => setToast({ show: false, message: '', type: '' }), 3000);
+  };
+
+  const handleOpenModal = (service) => {
+    setSelectedService(service);
+    setFormData({
+      forms: service.forms.map(form => ({
+        id: form.id,
+        templateName: form.templateName,
+        amount: form.paymentAmount || 0,
+        status: form.status || 'Submitted'
+      })),
+      totalAmount: service.forms.reduce((sum, form) => sum + (form.paymentAmount || 0), 0),
+      comments: service.forms[0]?.comments || ''
+    });
+    setShowModal(true);
+  };
+
+  const handleAmountChange = (formId, value) => {
+    setFormData(prev => {
+      const updatedForms = prev.forms.map(form => 
+        form.id === formId ? { ...form, amount: Number(value) } : form
+      );
+      return {
+        ...prev,
+        forms: updatedForms,
+        totalAmount: updatedForms.reduce((sum, form) => sum + form.amount, 0)
+      };
+    });
+  };
+
+  const handleStatusChange = (formId, value) => {
+    setFormData(prev => ({
+      ...prev,
+      forms: prev.forms.map(form => 
+        form.id === formId ? { ...form, status: value } : form
+      )
+    }));
+  };
+
+  const handleUpdateService = async () => {
+    if (!selectedService) return;
+    
+    try {
+      // Update each form in the custom service
+      const batchUpdates = formData.forms.map(async form => {
+        const formRef = doc(db, "applications", form.id);
+        await updateDoc(formRef, {
+          paymentAmount: form.amount,
+          status: form.status,
+          comments: formData.comments,
+          updatedAt: serverTimestamp()
+        });
+      });
+
+      await Promise.all(batchUpdates);
+      
+      // Refresh data
+      const updatedServices = customServices.map(service => 
+        service.userId === selectedService.userId
+          ? {
+              ...service,
+              forms: service.forms.map(form => {
+                const updatedForm = formData.forms.find(f => f.id === form.id);
+                return updatedForm ? { ...form, ...updatedForm } : form;
+              }),
+              updatedAt: serverTimestamp()
+            }
+          : service
+      );
+      
+      setCustomServices(updatedServices);
+      setShowModal(false);
+      showToast('Custom service updated successfully!', 'success');
+    } catch (error) {
+      console.error("Error updating custom service:", error);
+      showToast('Failed to update custom service', 'error');
+    }
+  };
+
+  const getStatusBadge = (status) => {
+    switch (status) {
+      case "Submitted": return "bg-blue-100 text-blue-800";
+      case "In Review": return "bg-yellow-100 text-yellow-800";
+      case "Payment Pending": return "bg-purple-100 text-purple-800";
+      case "Completed": return "bg-green-100 text-green-800";
+      default: return "bg-gray-100 text-gray-800";
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#7F1C75]"></div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-white rounded-lg shadow p-6">
+      <h2 className="text-xl font-semibold text-gray-800 mb-6">Custom Service Requests</h2>
+
+      {customServices.length === 0 ? (
+        <div className="text-center py-8">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 mb-4">
+            <FileText className="h-6 w-6 text-gray-400" />
+          </div>
+          <h3 className="text-lg font-medium text-gray-900 mb-2">
+            No custom service requests
+          </h3>
+          <p className="text-gray-600">
+            There are no pending custom service requests.
+          </p>
+        </div>
+      ) : (
+        <div className="space-y-6">
+          {customServices.map(service => (
+            <div key={service.userId} className="border border-gray-200 rounded-lg overflow-hidden">
+              <div className="bg-gray-50 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                <div>
+                  <h3 className="font-medium text-gray-800">
+                    {users[service.userId]?.fullName || 'Unknown User'}
+                  </h3>
+                  <p className="text-sm text-gray-500">
+                    {users[service.userId]?.email || 'No email'}
+                  </p>
+                </div>
+                <div className="text-sm text-gray-500">
+                  Requested on: {service.createdAt?.toDate().toLocaleDateString() || 'N/A'}
+                </div>
+              </div>
+
+              <div className="divide-y divide-gray-200">
+                {service.forms.map(form => (
+                  <div key={form.id} className="px-6 py-4 grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div>
+                      <p className="text-sm text-gray-500">Form Type</p>
+                      <p className="font-medium">
+                        {form.templateName === "Template_INS_Updated" 
+                          ? "TRADEMARK & ISO DATA" 
+                          : form.templateName}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-500">Status</p>
+                      <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusBadge(form.status)}`}>
+                        {form.status}
+                      </span>
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-500">Amount</p>
+                      <p className="font-medium">
+                        {form.paymentAmount ? `₹${form.paymentAmount}` : 'Not set'}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-500">Submitted</p>
+                      <p className="text-sm">
+                        {form.createdAt?.toDate().toLocaleDateString() || 'N/A'}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="bg-gray-50 px-6 py-3 flex justify-between items-center">
+                <div>
+                  <p className="text-sm text-gray-500">Total Forms: {service.forms.length}</p>
+                </div>
+                <div className="flex items-center space-x-4">
+                  <div className="text-right">
+                    <p className="text-sm text-gray-500">Estimated Total</p>
+                    <p className="font-medium text-lg text-[#7F1C75]">
+                      ₹{service.forms.reduce((sum, form) => sum + (form.paymentAmount || 0), 0)}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => handleOpenModal(service)}
+                    className="px-4 py-2 bg-[#7F1C75] text-white rounded-md hover:bg-[#401B71]"
+                  >
+                    Process Request
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Process Request Modal */}
+      {showModal && selectedService && (
+        <div className="fixed inset-0 bg-[#00000099] bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl">
+            <div className="p-6">
+              <div className="flex justify-between items-start mb-4">
+                <h3 className="text-lg font-medium text-gray-900">
+                  Process Custom Service Request
+                </h3>
+                <button 
+                  onClick={() => setShowModal(false)}
+                  className="text-gray-400 hover:text-gray-500"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+
+              <div className="mb-6">
+                <h4 className="font-medium text-gray-800 mb-2">
+                  User: {users[selectedService.userId]?.fullName || 'Unknown'}
+                </h4>
+                <p className="text-sm text-gray-600">
+                  Email: {users[selectedService.userId]?.email || 'No email'} | 
+                  Phone: {users[selectedService.userId]?.phoneNumber || 'No phone'}
+                </p>
+              </div>
+
+              <div className="mb-6">
+                <h4 className="font-medium text-gray-800 mb-3">Forms Included</h4>
+                <div className="space-y-4">
+                  {formData.forms.map(form => (
+                    <div key={form.id} className="grid grid-cols-1 md:grid-cols-3 gap-4 p-3 bg-gray-50 rounded-md">
+                      <div>
+                        <p className="text-sm text-gray-500">Form Type</p>
+                        <p className="font-medium">
+                          {form.templateName === "Template_INS_Updated" 
+                            ? "TRADEMARK & ISO DATA" 
+                            : form.templateName}
+                        </p>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          Amount (₹)
+                        </label>
+                        <input
+                          type="number"
+                          value={form.amount}
+                          onChange={(e) => handleAmountChange(form.id, e.target.value)}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#7F1C75]"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          Status
+                        </label>
+                        <select
+                          value={form.status}
+                          onChange={(e) => handleStatusChange(form.id, e.target.value)}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#7F1C75]"
+                        >
+                          <option value="Submitted">Submitted</option>
+                          <option value="In Review">In Review</option>
+                          <option value="Payment Pending">Payment Pending</option>
+                        </select>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mb-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-gray-50 p-4 rounded-md">
+                  <p className="text-sm text-gray-500">Total Amount</p>
+                  <p className="text-2xl font-bold text-[#7F1C75]">
+                    ₹{formData.totalAmount}
+                  </p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Comments/Instructions
+                  </label>
+                  <textarea
+                    value={formData.comments}
+                    onChange={(e) => setFormData({...formData, comments: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#7F1C75]"
+                    rows={3}
+                    placeholder="Add payment instructions or comments..."
+                  />
+                </div>
+              </div>
+
+              <div className="flex justify-end space-x-3">
+                <button
+                  type="button"
+                  onClick={() => setShowModal(false)}
+                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={handleUpdateService}
+                  className="px-4 py-2 bg-[#7F1C75] text-white rounded-md hover:bg-[#401B71]"
+                >
+                  Update Service
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Toast Notification */}
+      {toast.show && (
+        <div className={`fixed bottom-4 right-4 z-50 px-6 py-3 rounded-md shadow-lg flex items-center ${
+          toast.type === 'success' ? 'bg-green-500 text-white' : 
+          toast.type === 'error' ? 'bg-red-500 text-white' :
+          'bg-blue-500 text-white'
+        }`}>
+          {toast.type === 'success' ? (
+            <CheckCircle className="h-5 w-5 mr-2" />
+          ) : toast.type === 'error' ? (
+            <AlertCircle className="h-5 w-5 mr-2" />
+          ) : (
+            <Info className="h-5 w-5 mr-2" />
+          )}
+          <span>{toast.message}</span>
+        </div>
+      )}
+    </div>
+  );
+}
+
 
 function AllFormsTab() {
   const [forms, setForms] = useState([]);
@@ -281,6 +708,57 @@ function AllFormsTab() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTemplate, setSelectedTemplate] = useState('all');
   const [toast, setToast] = useState({ show: false, message: '', type: '' });
+
+    const [file, setFile] = useState(null);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [isUploading, setIsUploading] = useState(false);
+
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      const validTypes = ['image/jpeg', 'image/png', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+      if (validTypes.includes(selectedFile.type)) {
+        setFile(selectedFile);
+      } else {
+        showToast('Please upload only JPG, PNG, or DOCX files', 'error');
+      }
+    }
+  };
+
+  const uploadFile = async () => {
+    if (!file) return null;
+    
+    setIsUploading(true);
+    setUploadProgress(0);
+    
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', 'testify'); // Replace with your upload preset
+      
+      const response = await axios.post(
+        'https://api.cloudinary.com/v1_1/dxggxnjjw/upload', // Replace with your cloud name
+        formData,
+        {
+          onUploadProgress: (progressEvent) => {
+            const percentCompleted = Math.round(
+              (progressEvent.loaded * 100) / progressEvent.total
+            );
+            setUploadProgress(percentCompleted);
+          },
+        }
+      );
+      
+      return response.data.secure_url;
+    } catch (error) {
+      console.error('Upload failed:', error);
+      showToast('File upload failed', 'error');
+      return null;
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
 
   // Get unique template names for filter dropdown
   const templateOptions = [
@@ -420,30 +898,57 @@ function AllFormsTab() {
     setShowModal(true);
   };
 
-  const handleUpdateForm = async () => {
+   const handleUpdateForm = async () => {
     if (!selectedForm) return;
     
     try {
-      await updateDoc(doc(db, "applications", selectedForm.id), {
+      let attachmentUrl = null;
+      
+      // Upload file if one was selected
+      if (file) {
+        attachmentUrl = await uploadFile();
+        if (!attachmentUrl) {
+          showToast('Form updated but file upload failed', 'error');
+        }
+      }
+      
+      // Prepare update data
+      const updateData = {
         status: formData.status,
         paymentAmount: formData.paymentAmount,
         comments: formData.comments,
         updatedAt: serverTimestamp(),
         paymentStatus: formData.status === "Completed" ? "Paid" : "Pending",
-      });
+      };
+      
+      // Add attachment URL if available
+      if (attachmentUrl) {
+        updateData.attachmentUrl = attachmentUrl;
+        // Keep track of previous attachments if they exist
+        if (selectedForm.attachments) {
+          updateData.attachments = [...selectedForm.attachments, attachmentUrl];
+        } else {
+          updateData.attachments = [attachmentUrl];
+        }
+      }
+      
+      // Update the document
+      await updateDoc(doc(db, "applications", selectedForm.id), updateData);
       
       // Update local state
       setForms(forms.map(f => 
-        f.id === selectedForm.id ? { ...f, ...formData } : f
+        f.id === selectedForm.id ? { ...f, ...updateData } : f
       ));
       
       setShowModal(false);
+      setFile(null);
       showToast('Form updated successfully!', 'success');
     } catch (error) {
       console.error("Error updating form:", error);
       showToast('Failed to update form', 'error');
     }
   };
+
 
   const handleStatusChange = (e) => {
     const newStatus = e.target.value;
@@ -622,80 +1127,153 @@ function AllFormsTab() {
       </div>
 
       {/* Update Form Modal */}
-      {showModal && selectedForm && (
-        <div className="fixed inset-0 bg-[#00000099] bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg shadow-xl w-full max-w-md">
-            <div className="p-6">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">
-                Update Form Submission
-              </h3>
-              
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Status
-                  </label>
-                  <select
-                    value={formData.status}
-                    onChange={handleStatusChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#7F1C75]"
-                  >
-                    <option value="Submitted">Submitted</option>
-                    <option value="In Review">In Review</option>
-                    <option value="Payment Pending">Payment Pending</option>
-                    <option value="Completed">Completed</option>
-                  </select>
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Payment Amount (₹)
-                  </label>
+     {showModal && selectedForm && (
+    <div className="fixed inset-0 bg-[#00000099] bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white rounded-lg shadow-xl w-full max-w-md">
+        <div className="p-6">
+          <h3 className="text-lg font-medium text-gray-900 mb-4">
+            Update Form Submission
+          </h3>
+          
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Status
+              </label>
+              <select
+                value={formData.status}
+                onChange={handleStatusChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#7F1C75]"
+              >
+                <option value="Submitted">Submitted</option>
+                <option value="In Review">In Review</option>
+                <option value="Payment Pending">Payment Pending</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Payment Amount (₹)
+              </label>
+              <input
+                type="number"
+                value={formData.paymentAmount}
+                onChange={(e) => setFormData({...formData, paymentAmount: e.target.value})}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#7F1C75]"
+                placeholder="Enter amount"
+              />
+            </div>
+            
+            {(formData.status === 'Payment Pending' || formData.status === 'In Review') && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Comments
+                </label>
+                <textarea
+                  value={formData.comments}
+                  onChange={(e) => setFormData({...formData, comments: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#7F1C75]"
+                  rows={3}
+                  placeholder="Add payment instructions..."
+                />
+              </div>
+            )}
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Attach Supporting Document (Optional)
+              </label>
+              <div className="flex items-center">
+                <label className="flex flex-col items-center px-4 py-2 bg-white rounded-md border border-gray-300 cursor-pointer hover:bg-gray-50">
+                  <span className="text-sm font-medium text-gray-700">
+                    {file ? file.name : 'Choose file...'}
+                  </span>
                   <input
-                    type="number"
-                    value={formData.paymentAmount}
-                    onChange={(e) => setFormData({...formData, paymentAmount: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#7F1C75]"
-                    placeholder="Enter amount"
+                    type="file"
+                    className="hidden"
+                    onChange={handleFileChange}
+                    accept=".jpg,.jpeg,.png,.docx"
                   />
-                </div>
-                
-                {(formData.status === 'Payment Pending' || formData.status === 'In Review') && (
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Comments
-                    </label>
-                    <textarea
-                      value={formData.comments}
-                      onChange={(e) => setFormData({...formData, comments: e.target.value})}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#7F1C75]"
-                      rows={3}
-                      placeholder="Add payment instructions..."
-                    />
-                  </div>
+                </label>
+                {file && (
+                  <button
+                    onClick={() => setFile(null)}
+                    className="ml-2 p-1 text-red-500 hover:text-red-700"
+                    title="Remove file"
+                  >
+                    <X size={16} />
+                  </button>
                 )}
               </div>
+              <p className="mt-1 text-xs text-gray-500">
+                JPG, PNG, or DOCX files only (max 5MB)
+              </p>
               
-              <div className="mt-6 flex justify-end space-x-3">
-                <button
-                  type="button"
-                  onClick={() => setShowModal(false)}
-                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="button"
-                  onClick={handleUpdateForm}
-                  className="px-4 py-2 bg-[#7F1C75] text-white rounded-md hover:bg-[#401B71] transition-colors"
-                >
-                  Update
-                </button>
-              </div>
+              {isUploading && (
+                <div className="mt-2">
+                  <div className="w-full bg-gray-200 rounded-full h-2.5">
+                    <div
+                      className="bg-[#7F1C75] h-2.5 rounded-full"
+                      style={{ width: `${uploadProgress}%` }}
+                    ></div>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-1">
+                    Uploading: {uploadProgress}%
+                  </p>
+                </div>
+              )}
+              
+              {selectedForm.attachments && selectedForm.attachments.length > 0 && (
+                <div className="mt-2">
+                  <p className="text-sm font-medium text-gray-700 mb-1">
+                    Previous Attachments:
+                  </p>
+                  <ul className="space-y-1">
+                    {selectedForm.attachments.map((url, index) => (
+                      <li key={index} className="flex items-center">
+                        <a
+                          href={url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[#7F1C75] hover:underline text-sm"
+                        >
+                          Document {index + 1}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
+          
+          <div className="mt-6 flex justify-end space-x-3">
+            <button
+              type="button"
+              onClick={() => {
+                setShowModal(false);
+                setFile(null);
+              }}
+              className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              onClick={handleUpdateForm}
+              disabled={isUploading}
+              className={`px-4 py-2 bg-[#7F1C75] text-white rounded-md hover:bg-[#401B71] transition-colors ${
+                isUploading ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
+            >
+              {isUploading ? 'Uploading...' : 'Update'}
+            </button>
+          </div>
         </div>
-      )}
+      </div>
+    </div>
+  )}
 
       {/* Toast Notification */}
       {toast.show && (

@@ -51,7 +51,9 @@ export default function IsoForm2() {
     INS_secondSurveillanceFee: '25000',
     INS_paymentSchedule: 'Balance in 2 installments before audit',
     INS_authorizedSignature: '',
-    templateName: 'iso',  
+    templateName: 'ISO Form',  
+    paymentAmount: 5000,
+
   });
 
   const [loading, setLoading] = useState(false);
@@ -144,7 +146,9 @@ export default function IsoForm2() {
     const applicationData = {
       ...form,
       userId,
-      status: 'Submitted',
+    status: 'Payment Pending',
+        customService: false,
+
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
       ...(pdfUrl && { generatedPdfUrl: pdfUrl }),
@@ -204,7 +208,7 @@ export default function IsoForm2() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white p-6">
+    <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white md:p-6">
       <div className="max-w-7xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
         <form onSubmit={handleSubmit} className="p-8">
           {error && (

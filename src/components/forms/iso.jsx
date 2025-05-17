@@ -54,6 +54,7 @@ export default function IsoForm() {
     INS_iso_top_management_employees: '10',
     INS_iso_middle_mangement_employees: '10',  
     templateName: 'Trademark-and-Iso',  
+    paymentAmount: 5000,
   });
 
   const [loading, setLoading] = useState(false);
@@ -143,7 +144,8 @@ export default function IsoForm() {
   const applicationData = {
     ...form,
     userId,
-    status: 'Submitted',
+    status: 'Payment Pending',
+    customService: false,
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
     ...(pdfUrl && { generatedPdfUrl: pdfUrl }),
@@ -241,7 +243,7 @@ const router = useRouter();
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white p-6">
+    <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white md:p-6">
       <div className="max-w-7xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
     
         
