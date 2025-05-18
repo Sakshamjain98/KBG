@@ -123,8 +123,11 @@ const userDoc = await getDoc(docRef);
           <nav className="hidden md:flex items-center space-x-2">
             <NavLink href="/">Home</NavLink>
             <NavLink href="/about">About</NavLink>
-            { !loading && user ? <NavLink href={`/dashboard/${userData}`}>Services</NavLink> : <NavLink href="/signin">Services</NavLink> }
+            
+            <NavLink href="/services">Services</NavLink>
+            
             <NavLink href="/dashboard/user?tab=custom">Custom Services</NavLink>
+            { !loading && user && <NavLink href={`/dashboard/${userData}`}>Dashboard</NavLink> }
             {
                 !loading && user && (
                     <NavLink href="/dashboard/user?tab=your-forms">Forms</NavLink>
@@ -240,6 +243,12 @@ const userDoc = await getDoc(docRef);
                 <MobileNavLink href="/" onClick={() => setMobileMenuOpen(false)}>Home</MobileNavLink>
                 <MobileNavLink href="/about" onClick={() => setMobileMenuOpen(false)}>About</MobileNavLink>
                 <MobileNavLink href="/services" onClick={() => setMobileMenuOpen(false)}>Services</MobileNavLink>
+                {!loading && user && (
+                  <MobileNavLink href={`/dashboard/${userData}`} onClick={() => setMobileMenuOpen(false)}>Dashboard</MobileNavLink>
+                )}
+                {!loading && user && (
+                  <MobileNavLink href="/dashboard/user?tab=your-forms" onClick={() => setMobileMenuOpen(false)}>Forms</MobileNavLink>
+                )}
                 <MobileNavLink href="/dashboard/user?tab=custom" onClick={() => setMobileMenuOpen(false)}>Custom Services</MobileNavLink>
                 
                 <div className="pt-4 mt-4 border-t border-gray-100">
