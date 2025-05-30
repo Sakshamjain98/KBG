@@ -126,7 +126,7 @@ const userDoc = await getDoc(docRef);
             
             <NavLink href="/services">Services</NavLink>
             
-            <NavLink href="/dashboard/user?tab=custom">Custom Services</NavLink>
+            {/* <NavLink href="/dashboard/user?tab=custom">Custom Services</NavLink> */}
             { !loading && user && <NavLink href={`/dashboard/${userData}`}>Dashboard</NavLink> }
             {
                 !loading && user && (
@@ -249,7 +249,7 @@ const userDoc = await getDoc(docRef);
                 {!loading && user && (
                   <MobileNavLink href="/dashboard/user?tab=your-forms" onClick={() => setMobileMenuOpen(false)}>Forms</MobileNavLink>
                 )}
-                <MobileNavLink href="/dashboard/user?tab=custom" onClick={() => setMobileMenuOpen(false)}>Custom Services</MobileNavLink>
+                {/* <MobileNavLink href="/dashboard/user?tab=custom" onClick={() => setMobileMenuOpen(false)}>Custom Services</MobileNavLink> */}
                 
                 <div className="pt-4 mt-4 border-t border-gray-100">
                   {!loading && (

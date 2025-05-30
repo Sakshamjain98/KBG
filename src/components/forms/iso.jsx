@@ -144,7 +144,7 @@ export default function IsoForm() {
   const applicationData = {
     ...form,
     userId,
-    status: 'Payment Pending',
+    status: 'In Review',
     customService: false,
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
@@ -309,7 +309,7 @@ const router = useRouter();
                       </div>
                       
                       <div className="space-y-1">
-                      <label className="block text-sm font-medium text-gray-700">Company Name</label>
+                      <label className="block text-sm font-medium text-gray-700">Organization/House</label>
                       <input
                         type="text"
                         name="INS_tm_company_name"
@@ -321,7 +321,7 @@ const router = useRouter();
                       </div>
 
                       <div className="space-y-1">
-                      <label className="block text-sm font-medium text-gray-700">House Name</label>
+                      <label className="block text-sm font-medium text-gray-700">Address</label>
                       <input
                         type="text"
                         name="INS_tm_house_name"
@@ -435,12 +435,12 @@ const router = useRouter();
                         value={form.INS_tm_class}
                         onChange={handleChange}
                         className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-[#7F1C75] focus:border-[#7F1C75]"
-                        required
+                        defaultValue={'0'}
                       />
                       </div>
 
                       <div className="space-y-1">
-                      <label className="block text-sm font-medium text-gray-700">Goods/Services</label>
+                      <label className="block text-sm font-medium text-gray-700">Goods/Services with full & specific details</label>
                       <input
                         type="text"
                         name="INS_tm_goods_services"
@@ -463,7 +463,7 @@ const router = useRouter();
                       </div>
 
                       <div className="space-y-1">
-                      <label className="block text-sm font-medium text-gray-700">Brand Since</label>
+                      <label className="block text-sm font-medium text-gray-700">Brand Using Since</label>
                       <input
                         type="text"
                         name="INS_tm_brand_since"
@@ -554,7 +554,7 @@ const router = useRouter();
           
           <div className="mb-8">
             <h2 className="text-2xl font-semibold text-gray-800 mb-4 pb-2 border-b border-orange-200">
-              ISO Certification Information
+              ISO Certification BASIC DATA SHEET
             </h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

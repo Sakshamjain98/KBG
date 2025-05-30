@@ -243,7 +243,7 @@ const ContactPage = () => {
           <motion.div variants={itemVariants} className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-800 mb-4">Find Us on Map</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Visit our corporate office in Thiruvananthapuram
+              Visit our Corporate office in Thiruvananthapuram
             </p>
           </motion.div>
           

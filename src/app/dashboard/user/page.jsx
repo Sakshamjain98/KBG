@@ -47,7 +47,6 @@ function DashboardContent() {
     if (tab === "profile") setActiveTab("profile");
     if (tab === "your-forms") setActiveTab("your-forms");
     if (tab === "open-forms") setActiveTab("open-forms");
-    if (tab === "custom") setActiveTab("custom");
   }, [searchParams]);
 
   const handleTabChange = (tab) => {
@@ -138,33 +137,6 @@ function DashboardContent() {
             </span>
           </div>
 
-          <div
-            className={`flex items-center px-6 py-3 cursor-pointer ${
-              activeTab === "custom"
-                ? "bg-orange-100 border-r-4 border-[#7F1C75]"
-                : "hover:bg-orange-50"
-            }`}
-            onClick={() => {
-              setActiveTab("custom");
-              if (window.innerWidth < 1024) setSidebarOpen(false);
-            }}
-          >
-            <IndianRupee
-              size={20}
-              className={
-                activeTab === "custom" ? "text-[#7F1C75]" : "text-gray-600"
-              }
-            />
-            <span
-              className={`ml-4 ${
-                activeTab === "custom"
-                  ? "font-medium text-[#401B71]"
-                  : "text-gray-700"
-              }`}
-            >
-              Custom Services
-            </span>
-          </div>
 
           <div
             className={`flex items-center px-6 py-3 cursor-pointer ${
