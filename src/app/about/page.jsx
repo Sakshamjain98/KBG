@@ -95,8 +95,8 @@ const AboutPage = () => {
     { year: 'Dec 2016', title: 'First 1000 Clients', description: 'We were so happy to reach our first 1000 clients in just 6 years. It feels so proud to have achieved that milestone.' },
     { year: '2021', title: 'Private Limited Company', description: 'In 2021, we achieved a significant milestone by transitioning our company to a private limited company.' },
     { year: '2021', title: 'Start-up India Recognized', description: 'Start-up India Recognized In The Year 2021. This Recognition Was One Of The Biggest Milestone In Our Journey So Far.' },
-    { year: '2022', title: '20+ Locations Across India', description: 'Now Our Services Are Available In 20+ Locations Across India. It Feels Like Being A Part Of A Huge Company.' },
-    { year: '2023', title: '10,000+ Clients', description: 'Our client base exceeded 10,000 in March 2023, enabling us to offer over 200 services across 200+ locations in India.' }
+    { year: '2022', title: '20+ Locations Across India', description: 'Our Services are available in 20+ Locations Across India. It Feels like being a part of a huge company.' },
+    { year: '2023', title: '10,000+ Clients', description: 'Our client base exceeded 10,000 in March 2023, enabling us to offer over 200 services across 200+ locations in India and abroad.' }
   ];
 
   const teamMembers = [
@@ -153,9 +153,9 @@ const AboutPage = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <StatCard icon={Clock} value="13+" label="Years of Excellence" />
+            <StatCard icon={Clock} value="15+" label="Years of Excellence" />
             <StatCard icon={Users} value="10,000+" label="Happy Clients" />
-            <StatCard icon={MapPin} value="200+" label="Locations" />
+            <StatCard icon={MapPin} value="300+" label="Locations" />
             <StatCard icon={Briefcase} value="200+" label="Services" />
           </div>
         </div>
@@ -172,7 +172,7 @@ const AboutPage = () => {
     <motion.div variants={itemVariants} className="text-center mb-16">
       <h2 className="text-4xl font-bold text-gray-800 mb-4">Our Journey</h2>
       <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-        A timeline of milestones that shaped KBG into the company it is today
+        A timeline of milestones that shaped KBG into the company as it is today
       </p>
     </motion.div>
     

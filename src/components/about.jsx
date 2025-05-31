@@ -143,8 +143,8 @@ const AboutUs = () => {
               {/* Statistics */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-2 md:py-8 border-y border-gray-100 text-center my-8">
                 <StatisticCard value="10,000" label="Clients Served" delay={0} />
-                <StatisticCard value="27" label="Indian States" delay={200} />
-                <StatisticCard value="22" label="Countries" delay={400} />
+                <StatisticCard value="20" label="Indian States" delay={200} />
+                <StatisticCard value="12" label="Countries" delay={400} />
               </div>
 
               <motion.button
@@ -206,7 +206,7 @@ const AboutUs = () => {
           
           {/* Core Values Section */}
           <div className="mt-20">
-            <h3 className="text-2xl font-bold mb-8 text-[#29146F] text-center">Our Core Values</h3>
+            <h3 className="text-2xl font-bold mb-8 text-[#29146F] text-center">Core Values</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <ValueCard 
                 icon="integrity" 

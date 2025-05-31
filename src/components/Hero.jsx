@@ -46,7 +46,7 @@ export default function HeroSection() {
   if (!mounted) return null;
 
   return (
-    <section className="relative py-20 md:py-0 h-full bg-white overflow-hidden">
+    <section className="relative py-15 md:py-0 h-full bg-white overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0">
         {/* Subtle grid pattern */}
@@ -86,7 +86,7 @@ export default function HeroSection() {
       </div>
       
       {/* Main Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-screen flex items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[80vh] flex items-center">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center w-full">
           
           {/* Text Content */}
@@ -97,12 +97,7 @@ export default function HeroSection() {
             animate="visible"
           >
            
-            {/* Tagline */}
-            <motion.div variants={itemVariants}>
-              <p className="text-[#7F1C75] text-sm sm:text-base font-semibold tracking-wider uppercase">
-                Expert Legal Representation
-              </p>
-            </motion.div>
+         
             
             {/* Headline */}
             <motion.div variants={itemVariants}>
@@ -155,7 +150,6 @@ export default function HeroSection() {
             </motion.div>
           </motion.div>
           
-          {/* Right Side - Visual and Trust Badges */}
           <motion.div
             className="relative hidden lg:flex flex-col h-full"
             initial={{ opacity: 0, x: 50 }}
@@ -196,7 +190,7 @@ export default function HeroSection() {
             </div>
             
             {/* Trust Badges */}
-            <motion.div 
+            {/* <motion.div 
               className="bg-[#29146F]/5 p-6 rounded-xl border border-[#29146F]/20"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -210,11 +204,11 @@ export default function HeroSection() {
                 <span className="text-xs bg-[#29146F]/10 text-[#29146F] px-3 py-1.5 rounded-full">Best Law Firm 2023</span>
                 <span className="text-xs bg-[#29146F]/10 text-[#29146F] px-3 py-1.5 rounded-full">AV-Rated</span>
               </div>
-            </motion.div>
+            </motion.div> */}
           </motion.div>
           
           {/* Mobile View - Trust Badges below content */}
-          <motion.div 
+          {/* <motion.div 
             className="lg:hidden  bg-[#29146F]/5 p-6 rounded-xl border border-[#29146F]/20"
             variants={itemVariants}
           >
@@ -228,7 +222,7 @@ export default function HeroSection() {
               <span className="text-xs bg-[#29146F]/10 text-[#29146F] px-3 py-1.5 rounded-full">Best Law Firm 2023</span>
               <span className="text-xs bg-[#29146F]/10 text-[#29146F] px-3 py-1.5 rounded-full">AV-Rated</span>
             </div>
-          </motion.div>
+          </motion.div> */}
         </div>
       </div>
       

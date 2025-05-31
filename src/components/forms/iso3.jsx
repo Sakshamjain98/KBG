@@ -75,7 +75,7 @@ export default function AffidavitForm() {
     const applicationData = {
       ...form,
       userId,
-      status: "Payment Pending",
+      status: "In Review",
       customService: false,
 
       createdAt: serverTimestamp(),

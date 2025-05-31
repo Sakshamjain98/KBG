@@ -146,7 +146,7 @@ export default function IsoForm2() {
     const applicationData = {
       ...form,
       userId,
-    status: 'Payment Pending',
+    status: 'In Review',
         customService: false,
 
       createdAt: serverTimestamp(),

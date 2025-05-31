@@ -252,18 +252,18 @@ const Stats = () => {
 
           {/* Stats cards grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 mb-16">
-            <StatCard icon="clients" value="10,000" label="Clients Served" />
-            <StatCard icon="services" value="200" label="Business Services" />
+            <StatCard icon="clients" value="10,000+" label="Clients Served" />
+            <StatCard icon="services" value="200+" label="Business Services" />
             <StatCard
               icon="professionals"
-              value="300"
+              value="300+"
               label="Certified Professionals"
             />
-            <StatCard icon="countries" value="22" label="Countries Reached" />
-            <StatCard icon="states" value="27" label="Indian States Covered" />
+            <StatCard icon="countries" value="12+" label="Countries Reached" />
+            <StatCard icon="states" value="22+" label="Indian States Covered" />
             <StatCard
               icon="experience"
-              value="12"
+              value="15+"
               label="Years of Experience"
             />
           </div>
@@ -292,7 +292,7 @@ const Stats = () => {
               <div className="h-px bg-gray-200 w-24"></div>
             </div>
             <p className="text-lg text-[#4D4948] font-medium mt-4">
-              Numbers backed by trust. Growth powered by service.
+              Clients backed by Trust. Growth powered by Service.
             </p>
           </div>
 
@@ -340,13 +340,13 @@ export default function KBGWebsite() {
 
             <p className="text-center text-lg text-[#4D4948] mb-12 max-w-3xl mx-auto">
               Explore our wide range of services, crafted to meet the needs of
-              startups, MSMEs, and large enterprises
+              Startups, MSMEs, and Large Enterprises. Support from Formation to Profitability, including IPO.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <ServiceCard
                 icon="⚖️"
-                title="Legal Services"
+                title="Corporate Legal Services"
                 description="Corporate & Business Law, Contract Drafting & Review, Legal Advisory & Representation"
               />
               <ServiceCard
@@ -366,7 +366,7 @@ export default function KBGWebsite() {
               />
               <ServiceCard
                 icon="🚀"
-                title="Startup Support"
+                title="Startup Support and Become a Listed Company"
                 description="Pitch Decks & Valuation Reports, Company Registration, Funding & Mentorship"
               />
               <ServiceCard
@@ -469,8 +469,8 @@ export default function KBGWebsite() {
                       Direct Access to Experts
                     </h3>
                     <p className="text-[#4D4948]">
-                      Our team includes lawyers, CAs, CSs, engineers, and
-                      consultants — no brokers or agents in between.
+                      Our team includes Lawyers, CAs, CSs, Engineers, and
+                      Consultants — No Brokers or agents in between.
                     </p>
                   </div>
 
@@ -494,7 +494,7 @@ export default function KBGWebsite() {
                       Affordable Pricing
                     </h3>
                     <p className="text-[#4D4948]">
-                      We believe legal and business services shouldn't be
+                      We believe business services shouldn't be
                       expensive or confusing. Clear pricing. No surprises.
                     </p>
                   </div>
@@ -560,7 +560,7 @@ export default function KBGWebsite() {
                   <span className="text-[#7F1C75]">Simple</span>
                 </h3>
                 <p className="text-lg text-[#4D4948] leading-relaxed">
-                  At KBG INDIA, we understand that navigating legal and business
+                  At KBG, we understand that navigating into business
                   requirements can be overwhelming. That's why we've built a
                   team of experts who provide clear, accessible, and effective
                   solutions.
@@ -646,10 +646,10 @@ export default function KBGWebsite() {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <SectionTitle subtitle="Industries" title="Sectors We Serve" />
+            <SectionTitle subtitle="Industries" title="Sectors We Served" />
 
             <p className="text-center text-lg text-[#4D4948] mb-12 max-w-3xl mx-auto">
-              We proudly serve diverse industries with specialized expertise
+              We serve diverse industries with specialized expertise
             </p>
 
             <div className="flex flex-wrap justify-center gap-4">
@@ -810,7 +810,7 @@ export default function KBGWebsite() {
             </h2>
             <p className="text-lg text-white/90 mb-8 max-w-3xl mx-auto">
               Whether you're just starting out or looking to scale, our experts
-              are here to help you navigate the legal and business landscape
+              are here to help you to navigate the business landscape
               with confidence.
             </p>
 
