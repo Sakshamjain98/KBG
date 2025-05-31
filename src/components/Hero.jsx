@@ -86,7 +86,7 @@ export default function HeroSection() {
       </div>
       
       {/* Main Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[80vh] flex items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[90vh] flex items-center">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center w-full">
           
           {/* Text Content */}
@@ -112,8 +112,12 @@ export default function HeroSection() {
             
             {/* Description */}
             <motion.div variants={itemVariants}>
-              <p className="text-[#4D4948] text-lg sm:text-xl max-w-2xl leading-relaxed">
-                Navigating law with clarity, confidence, and commitment. From corporate to personal legal matters — our dedicated team delivers results that protect your interests and drive success.
+              <p className="text-[#4D4948] text-lg sm:text-lg max-w-2xl leading-relaxed">
+KBG is a popular brand in its business segment, owned by KBG Business Solutions Private Limited, a Start-up India recognized company.
+<br/>
+KBG is a leading provider of total business support solutions in India, serving over 10,000 clients. The company operates on a foundation of quality service and is equipped with highly experienced industry experts and professionals across all major corporate segments.
+
+
               </p>
             </motion.div>
             
@@ -157,9 +161,9 @@ export default function HeroSection() {
             transition={{ duration: 1, delay: 0.5 }}
           >
             {/* Main Image */}
-            <div className="relative h-[350px] w-full mb-4">
+            <div className=" h-[350px] w-full mb-4">
               <motion.div
-                className="absolute inset-0 rounded-xl overflow-hidden shadow-2xl"
+                className="absolute inset-0 rounded-xl overflow-hidden shadow-2xl "
                 animate={floatingAnimation}
               >
                 {/* Decorative border */}
