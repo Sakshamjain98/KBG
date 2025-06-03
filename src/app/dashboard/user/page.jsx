@@ -137,7 +137,6 @@ function DashboardContent() {
             </span>
           </div>
 
-
           <div
             className={`flex items-center px-6 py-3 cursor-pointer ${
               activeTab === "profile"
@@ -248,7 +247,7 @@ function OpenForms() {
       deadline: "June 30, 2025",
       component: AffidavitForm,
     },
-   
+
     // Add more forms here as needed
     /*
     'Another_Form_Template': {
@@ -292,7 +291,7 @@ function OpenForms() {
   };
 
   const handleFillForm = (formId) => {
-    console.log(formId)
+    console.log(formId);
     setSelectedForm(formId);
     setShowForm(true);
   };
@@ -514,13 +513,12 @@ function YourForms() {
         where("userId", "==", uid)
         // .where("customService", "!=", true)
       );
-     const querySnapshot = await getDocs(q);
-const apps = [];
-querySnapshot.forEach((doc) => {
-  const data = doc.data();
-    apps.push({ id: doc.id, ...data });
-  
-});
+      const querySnapshot = await getDocs(q);
+      const apps = [];
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        apps.push({ id: doc.id, ...data });
+      });
       setApplications(apps);
       setLoading(false);
     } catch (error) {
@@ -568,8 +566,6 @@ querySnapshot.forEach((doc) => {
     }
   };
 
-
-
   const formatDate = (timestamp) => {
     if (!timestamp) return "N/A";
     const date = timestamp.toDate();
@@ -596,6 +592,8 @@ querySnapshot.forEach((doc) => {
         return "bg-yellow-100 text-yellow-600";
       case "In Review":
         return "bg-blue-100 text-blue-600";
+      case "Negotiated":
+        return "bg-red-100 text-red-600";
       case "Completed":
         return "bg-green-100 text-green-600";
       case "Submitted":
@@ -661,7 +659,7 @@ querySnapshot.forEach((doc) => {
                   Submitted on {formatDate(app.createdAt)} <b>||</b>{" "}
                   <b className="text-orange-400">
                     Updated on {formatDate(app.updatedAt)}
-                  </b>
+                  </b> {app.status === "Negotiated" || app.negotiatedPrice  ?  <b> || Negotiated Amount : Rs.{app.negotiatedPrice}</b> : ""}
                 </p>
               </div>
 
@@ -675,7 +673,7 @@ querySnapshot.forEach((doc) => {
             </div>
 
             <div className="mt-4 flex flex-wrap gap-2">
-              {app.comments ? (
+              {app.comments && app.status !== "Completed" ? (
                 <div className="bg-gray-100 w-full text-sm  mb-2 p-2 rounded-md">
                   {app.comments}
                 </div>
@@ -693,23 +691,30 @@ querySnapshot.forEach((doc) => {
                 View
               </button>
 
-              {(app.status === "Payment Pending" && app.customService == false ) && (
-                <PaymentButton
-                  application={app}
-                  userData={userData}
-                  onPaymentSuccess={handlePaymentSuccess}
-                />
-              )}
-              {(app.paymentStatus === "Paid" && app.attachments) && (
+              {(app.status === "Payment Pending"  || app.status === "Negotiated" )&& 
+                app.customService == false && (
+                  <div className="flex gap-4">
+                    <PaymentButton
+                      application={app}
+                      userData={userData}
+                      onPaymentSuccess={handlePaymentSuccess}
+                    />
+
+<ServiceNegotiation application={app} userData={userData}   onNegotiationSuccess={() => fetchApplications(userId)}
+ />
+                  </div>
+                )}
+              {app.paymentStatus === "Paid" && app.attachments && (
                 <button
                   className="flex items-center px-3 py-1 text-sm bg-[#7F1C75] text-white rounded-md hover:bg-[#401B71] transition-colors"
-                  onClick={() => {console.log(app.attachments);
+                  onClick={() => {
+                    console.log(app.attachments);
                     window.open(app.attachments, "_blank");
                   }}
                   disabled={loading}
                 >
                   <ArrowRight size={16} className="mr-1" />
-                  Download Docs 
+                  Download Docs
                 </button>
               )}
             </div>
@@ -1006,33 +1011,37 @@ function CustomService() {
     }
   };
 
-const fetchApplications = async (uid) => {
-  try {
-    // Create query with just userId filter
-    const q = query(
-      collection(db, "applications"),
-      where("userId", "==", uid)
-    );
-    
-    const querySnapshot = await getDocs(q);
+  const fetchApplications = async (uid) => {
+    try {
+      // Create query with just userId filter
+      const q = query(
+        collection(db, "applications"),
+        where("userId", "==", uid)
+      );
 
-    const apps = [];
-    querySnapshot.forEach((doc) => {
-      const data = doc.data();
-      // Manually filter out custom service applications
-      if (data.customService !== true && data.status !== "In Review (Custom Service)" && data.status !== "Completed") {
-        apps.push({ id: doc.id, ...data });
-      }
-    });
+      const querySnapshot = await getDocs(q);
 
-    setApplications(apps);
-    setLoading(false);
-  } catch (error) {
-    console.error("Error fetching applications:", error);
-    setError("Failed to load applications");
-    setLoading(false);
-  }
-};
+      const apps = [];
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        // Manually filter out custom service applications
+        if (
+          data.customService !== true &&
+          data.status !== "In Review (Custom Service)" &&
+          data.status !== "Completed"
+        ) {
+          apps.push({ id: doc.id, ...data });
+        }
+      });
+
+      setApplications(apps);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching applications:", error);
+      setError("Failed to load applications");
+      setLoading(false);
+    }
+  };
 
   const handleSelectForm = (formId, amount) => {
     setSelectedForms((prev) => {
@@ -1261,17 +1270,18 @@ function CustomServiceApplications({ userId, userData, onPaymentSuccess }) {
     try {
       const q = query(
         collection(db, "applications"),
-        where("userId", "==", userId),
+        where("userId", "==", userId)
         // where("customService", "==", true)
       );
-     const querySnapshot = await getDocs(q);
-const apps = [];
-querySnapshot.forEach((doc) => {
-  const data = doc.data();
-  if (data.customService === true && data.status !== 'Completed') {  // Manual filtering
-    apps.push({ id: doc.id, ...data });
-  }
-});
+      const querySnapshot = await getDocs(q);
+      const apps = [];
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        if (data.customService === true && data.status !== "Completed") {
+          // Manual filtering
+          apps.push({ id: doc.id, ...data });
+        }
+      });
 
       setCustomApps(apps);
       setLoading(false);
@@ -1397,5 +1407,183 @@ export default function Dashboard() {
     <Suspense fallback={<div>Loading dashboard...</div>}>
       <DashboardContent />
     </Suspense>
+  );
+}
+
+function ServiceNegotiation({ application, userData, onNegotiationSuccess }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedDiscount, setSelectedDiscount] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  console.log(application)
+  const currentPrice = application.paymentAmount;
+
+  const discountOptions = [5, 10, 15, 20];
+
+  const handleDiscountSelect = (discount) => {
+    setSelectedDiscount(discount);
+    setError("");
+  };
+
+  const handleSubmit = async () => {
+    if (!selectedDiscount) {
+      setError("Please select a discount percentage");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      setError("");
+      setSuccess("");
+
+      const newPrice = calculateNewPrice(selectedDiscount);
+      
+      // Update the Firestore document
+      const appRef = doc(db, "applications", application.id);
+      await updateDoc(appRef, {
+        negotiatedPrice: newPrice,
+        status: "Negotiated",
+        updatedAt: serverTimestamp(),
+        negotiationDetails: {
+          originalPrice: currentPrice,
+          discountPercentage: selectedDiscount,
+          negotiatedPrice: newPrice,
+          negotiatedAt: serverTimestamp()
+        }
+      });
+
+      setSuccess(`Negotiation submitted successfully! New price: Rs.${newPrice.toFixed(2)}`);
+
+           // Call the success callback if provided
+      if (onNegotiationSuccess) {
+        onNegotiationSuccess();
+      }
+
+
+      setTimeout(() => {
+        setIsOpen(false);
+        setSelectedDiscount(null);
+      }, 1000);
+    } catch (error) {
+      console.error("Error submitting negotiation:", error);
+      setError("Failed to submit negotiation. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const calculateNewPrice = (discount) => {
+    return currentPrice - (currentPrice * discount) / 100;
+  };
+
+  return (
+    <div className="">
+{ !application.negotiatedPrice ?      <button
+        onClick={() => setIsOpen(true)}
+        className="px-4 py-1 cursor-pointer bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm"
+      >
+        Negotiate Price
+      </button> :
+      
+      <button
+        className="px-4 py-1  bg-blue-100 text-black rounded-md hover:bg-blue-200 cursor-not-allowed transition-colors text-sm"
+        disabled
+      >
+        Already Negotiated
+      </button>
+
+      
+      }
+
+      {isOpen && (
+        <div className="fixed inset-0 bg-black/35 bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-md mx-4 shadow-xl">
+            <div className="flex justify-end mb-4">
+              <button
+                onClick={() => {
+                  setIsOpen(false);
+                  setSelectedDiscount(null);
+                  setError("");
+                  setSuccess("");
+                }}
+                className="text-gray-500 hover:text-gray-700 cursor-pointer text-xl font-bold"
+              >
+                ×
+              </button>
+            </div>
+
+            <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
+              Negotiate Service Price
+            </h2>
+
+            <div className="text-center mb-6">
+              <p className="text-gray-600 mb-2">Current Service Price:</p>
+              <p className="text-3xl font-bold text-blue-600">
+                Rs.{currentPrice}
+              </p>
+            </div>
+
+            <div className="mb-6">
+              <p className="text-gray-700 mb-3 text-center">
+                Choose your discount:
+              </p>
+              <div className="grid grid-cols-2 gap-3">
+                {discountOptions.map((discount) => (
+                  <button
+                    key={discount}
+                    onClick={() => handleDiscountSelect(discount)}
+                    className={`p-3 rounded-lg border-2 transition-all ${
+                      selectedDiscount === discount
+                        ? "border-blue-500 bg-blue-50 text-blue-700"
+                        : "border-gray-300 hover:border-blue-300 hover:bg-gray-50"
+                    }`}
+                  >
+                    <div className="font-semibold">{discount}%</div>
+                    <div className="text-sm text-gray-600">
+                      Rs.{calculateNewPrice(discount).toFixed(2)}
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {selectedDiscount && (
+              <div className="bg-green-50 border border-green-200 rounded-lg p-3 mb-4">
+                <p className="text-green-800 text-center">
+                  Selected: {selectedDiscount}% discount
+                </p>
+                <p className="text-green-700 text-center font-semibold">
+                  New Price: Rs.{calculateNewPrice(selectedDiscount).toFixed(2)}
+                </p>
+              </div>
+            )}
+
+            {error && (
+              <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-4">
+                <p className="text-red-800 text-center">{error}</p>
+              </div>
+            )}
+
+            {success && (
+              <div className="bg-green-50 border border-green-200 rounded-lg p-3 mb-4">
+                <p className="text-green-800 text-center">{success}</p>
+              </div>
+            )}
+
+            <button
+              onClick={handleSubmit}
+              disabled={loading}
+              className={`w-full py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium ${
+                loading ? "opacity-70 cursor-not-allowed" : ""
+              }`}
+            >
+              {loading ? "Submitting..." : "Submit Negotiation"}
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }

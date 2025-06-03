@@ -103,7 +103,7 @@ const StatisticCard = ({ value, label, delay }) => {
   }, [value]);
   
   return (
-    <div className="text-center flex justify-center items-center">
+    <div className="text-center gap-2 md:gap-0 flex justify-center items-center">
       <p className="text-3xl font-bold text-[#29146F]">
         {count.toLocaleString()}+
       </p>

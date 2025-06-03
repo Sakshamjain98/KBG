@@ -739,37 +739,42 @@ function AllFormsTab() {
     // Add more templates as needed
   ];
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        
-        // Fetch applications
-        const formsSnapshot = await getDocs(collection(db, "applications"));
-        const formsData = formsSnapshot.docs.map(doc => ({
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      
+      // Fetch applications
+      const formsSnapshot = await getDocs(collection(db, "applications"));
+      const formsData = formsSnapshot.docs
+        .map(doc => ({
           id: doc.id,
           ...doc.data()
-        }));
-        setForms(formsData);
-        setFilteredForms(formsData);
+        }))
+        .sort((a, b) => b.updatedAt?.toDate() - a.updatedAt?.toDate()); // Sort by updatedAt descending
 
-        // Fetch users
-        const usersSnapshot = await getDocs(collection(db, "users"));
-        const usersData = {};
-        usersSnapshot.forEach(doc => {
-          usersData[doc.id] = doc.data();
-        });
-        setUsers(usersData);
+      setForms(formsData);
+      setFilteredForms(formsData);
 
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        showToast('Failed to load data', 'error');
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
+      // Fetch users
+      const usersSnapshot = await getDocs(collection(db, "users"));
+      const usersData = {};
+      usersSnapshot.forEach(doc => {
+        usersData[doc.id] = doc.data();
+      });
+      setUsers(usersData);
+
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      showToast('Failed to load data', 'error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchData();
+}, []);
+
 
   // Filter forms based on search term and selected template
   useEffect(() => {
@@ -810,6 +815,7 @@ function AllFormsTab() {
       case "In Review": return "bg-yellow-100 text-yellow-800";
       case "Completed": return "bg-green-100 text-green-800";
       case "Payment Pending": return "bg-red-100 text-red-800";
+      case "Negotiated" : return "bg-purple-100 text-purple-800";
       default: return "bg-gray-100 text-gray-800";
     }
   };
@@ -1025,6 +1031,7 @@ function AllFormsTab() {
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Form Type</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Payment</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Negotiated</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Process</th>
@@ -1056,6 +1063,9 @@ function AllFormsTab() {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     {form.paymentAmount ? `₹${form.paymentAmount}` : 'N/A'}
+                  </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    {form.negotiatedPrice ? `₹${form.negotiatedPrice}` : 'N/A'}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {form.createdAt?.toDate().toLocaleDateString() || "N/A"}
@@ -1120,6 +1130,7 @@ function AllFormsTab() {
                 <option value="Submitted">Submitted</option>
                 <option value="In Review">In Review</option>
                 <option value="Payment Pending">Payment Pending</option>
+                <option value="Negotiated">Negotiated</option>
                 <option value="Completed">Completed</option>
               </select>
             </div>
