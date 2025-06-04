@@ -4,6 +4,19 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight, Award, Calendar, MapPin, Users, Briefcase, Globe, Clock } from 'lucide-react';
 
+const LogoCard = ({ logoUrl }) => (
+  <div className="flex items-center justify-center min-w-64 h-32 bg-white rounded-xl shadow-lg border border-gray-100 hover:shadow-xl hover:scale-105 transition-all duration-300">
+    <div className="w-40 h-20 mx-auto flex items-center justify-center">
+      <img 
+        src={logoUrl} 
+        alt="Client logo" 
+        className="max-h-full max-w-full object-contain"
+      />
+    </div>
+  </div>
+);
+
+
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -352,41 +365,32 @@ const AboutPage = () => {
                 },
               }}
             >
-              {['Pothys', 'Kerala Tourism', 'MILCO', 'Keyhole', 'Santhigiri', 'Kerafed'].map((client, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-center min-w-56 h-28 bg-white rounded-xl shadow-lg border border-gray-100"
-                >
-                  <div className="text-center p-4">
-                    <div className="w-16 h-16 mx-auto mb-2 rounded-full bg-gradient-to-br from-[#7F1C75] to-[#29146F] flex items-center justify-center">
-                      <span className="text-white font-bold text-lg">
-                        {client.substring(0, 2).toUpperCase()}
-                      </span>
-                    </div>
-                    <h3 className="text-gray-800 font-semibold text-sm">
-                      {client}
-                    </h3>
-                  </div>
-                </div>
-              ))}
-              {/* Duplicate for seamless loop */}
-              {['Pothys', 'Kerala Tourism', 'MILCO', 'Keyhole', 'Santhigiri', 'Kerafed'].map((client, index) => (
-                <div
-                  key={`${index}-dup`}
-                  className="flex items-center justify-center min-w-56 h-28 bg-white rounded-xl shadow-lg border border-gray-100"
-                >
-                  <div className="text-center p-4">
-                    <div className="w-16 h-16 mx-auto mb-2 rounded-full bg-gradient-to-br from-[#7F1C75] to-[#29146F] flex items-center justify-center">
-                      <span className="text-white font-bold text-lg">
-                        {client.substring(0, 2).toUpperCase()}
-                      </span>
-                    </div>
-                    <h3 className="text-gray-800 font-semibold text-sm">
-                      {client}
-                    </h3>
-                  </div>
-                </div>
-              ))}
+
+{[
+  "https://static.wixstatic.com/media/a268ba_95918e09bf63488eaf2cd870699149cc~mv2.png/v1/fill/w_190,h_134,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/KERAFED.png",
+  "https://static.wixstatic.com/media/a268ba_38d959aeda0943e7be864ba4dca7a20e~mv2.jpg/v1/fill/w_240,h_126,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/kerala_tourism_logo-600x315.jpg",
+  "https://static.wixstatic.com/media/a268ba_56ad74dffc6041bfae53855339db09a9~mv2.jpg/v1/fill/w_161,h_154,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/AGRO.jpg",
+  "https://static.wixstatic.com/media/a268ba_542fb575a3ab4619933495afa3ebe440~mv2.png/v1/fill/w_275,h_85,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/MILCO.png",
+  "https://static.wixstatic.com/media/a268ba_cd7ac8b7d5664c0f978fd771687622ce~mv2.png/v1/fill/w_178,h_131,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Pothys_logo_main.png",
+  "https://static.wixstatic.com/media/a268ba_9e80d415d2794d1fb40a64842be0144f~mv2.png/v1/fill/w_210,h_126,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/MRA.png",
+  "https://static.wixstatic.com/media/a268ba_19bd14a553284b9c94cded6436e53f28~mv2.png/v1/fill/w_233,h_85,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/SANTHIGIRI.png",
+  "https://static.wixstatic.com/media/a268ba_c896735b8ade4f4fa034168d0e8d94a5~mv2.jpg/v1/fill/w_190,h_134,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/ASPIRE.jpg",
+  "https://static.wixstatic.com/media/a268ba_5f8f349a946b45e985ff95edcfd3a03e~mv2.png/v1/fill/w_190,h_134,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/MKH.png",
+  "https://static.wixstatic.com/media/a268ba_b767649ae7ff4774b351ae18955256f3~mv2.png/v1/fill/w_190,h_134,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/KRISTHUJYOTHI%20COLLEGE.png"
+].map((logoUrl, index) => (
+  <LogoCard key={`logo-${index}`} logoUrl={logoUrl} />
+))}
+
+{/* Duplicate the unique set for seamless loop */}
+{[
+  "https://static.wixstatic.com/media/a268ba_95918e09bf63488eaf2cd870699149cc~mv2.png/v1/fill/w_190,h_134,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/KERAFED.png",
+  "https://static.wixstatic.com/media/a268ba_38d959aeda0943e7be864ba4dca7a20e~mv2.jpg/v1/fill/w_240,h_126,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/kerala_tourism_logo-600x315.jpg",
+  "https://static.wixstatic.com/media/a268ba_56ad74dffc6041bfae53855339db09a9~mv2.jpg/v1/fill/w_161,h_154,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/AGRO.jpg",
+  "https://static.wixstatic.com/media/a268ba_542fb575a3ab4619933495afa3ebe440~mv2.png/v1/fill/w_275,h_85,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/MILCO.png"
+].map((logoUrl, index) => (
+  <LogoCard key={`logo-${index}-2`} logoUrl={logoUrl} />
+))}
+
             </motion.div>
           </div>
         </div>

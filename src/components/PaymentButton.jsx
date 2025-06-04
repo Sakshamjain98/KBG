@@ -85,7 +85,7 @@ export default function PaymentButton({ application, userData, onPaymentSuccess 
     <button
       onClick={handlePayment}
       disabled={loading}
-      className={`flex items-center px-3 py-1 text-sm ${
+      className={`flex items-center cursor-pointer px-3 py-1 text-sm ${
         loading ? "bg-purple-400" : "bg-[#7F1C75] hover:bg-[#401B71]"
       } text-white rounded-md transition-colors`}
     >

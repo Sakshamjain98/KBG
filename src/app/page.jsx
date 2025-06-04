@@ -43,21 +43,18 @@ const SectionTitle = ({ subtitle, title }) => (
     <div className="w-24 h-1 bg-[#7F1C75] mx-auto mt-4"></div>
   </div>
 );
-
-const LogoCard = ({ name }) => (
-  <div className="flex items-center justify-center min-w-64 h-32 bg-white rounded-xl shadow-lg border border-gray-100 hover:shadow-xl hover:scale-105 transition-all duration-300 group">
-    <div className="text-center p-6">
-      <div className="w-20 h-20 mx-auto mb-3 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-        <span className="text-white font-bold text-xl">
-          {name.substring(0, 2).toUpperCase()}
-        </span>
-      </div>
-      <h3 className="text-gray-800 font-semibold text-lg group-hover:text-blue-600 transition-colors">
-        {name}
-      </h3>
+const LogoCard = ({ logoUrl }) => (
+  <div className="flex items-center justify-center min-w-64 h-32 bg-white rounded-xl shadow-lg border border-gray-100 hover:shadow-xl hover:scale-105 transition-all duration-300">
+    <div className="w-40 h-20 mx-auto flex items-center justify-center">
+      <img 
+        src={logoUrl} 
+        alt="Client logo" 
+        className="max-h-full max-w-full object-contain"
+      />
     </div>
   </div>
 );
+
 
 {
   /* Statistics Card Component */
@@ -230,7 +227,10 @@ const FAQItem = ({ question, answer }) => {
 
 const Stats = () => {
   return (
-    <section id="stats" className="relative py-12 md:py-24  bg-white overflow-hidden">
+    <section
+      id="stats"
+      className="relative py-12 md:py-24  bg-white overflow-hidden"
+    >
       {/* Background pattern with subtle gradient */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-[#7F1C75]/5 to-[#29146F]/5" />
@@ -340,7 +340,8 @@ export default function KBGWebsite() {
 
             <p className="text-center text-lg text-[#4D4948] mb-12 max-w-3xl mx-auto">
               Explore our wide range of services, crafted to meet the needs of
-              Startups, MSMEs, and Large Enterprises. Support from Formation to Profitability, including IPO.
+              Startups, MSMEs, and Large Enterprises. Support from Formation to
+              Profitability, including IPO.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -494,8 +495,8 @@ export default function KBGWebsite() {
                       Affordable Pricing
                     </h3>
                     <p className="text-[#4D4948]">
-                      We believe business services shouldn't be
-                      expensive or confusing. Clear pricing. No surprises.
+                      We believe business services shouldn't be expensive or
+                      confusing. Clear pricing. No surprises.
                     </p>
                   </div>
 
@@ -668,79 +669,78 @@ export default function KBGWebsite() {
         </div>
       </section>
 
-      <section
-        id="clients"
-        className="relative py-10 bg-gradient-to-br from-gray-50 to-white overflow-hidden"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+<section
+  id="clients"
+  className="relative py-10 bg-gradient-to-br from-gray-50 to-white overflow-hidden"
+>
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+    >
+      <SectionTitle subtitle="Our Clients" title="Trusted By" />
+
+      <p className="text-center text-lg text-[#4D4948] mb-16 max-w-3xl mx-auto">
+        We're proud to have worked with some of the most innovative
+        companies and organizations
+      </p>
+
+      {/* Infinite Carousel */}
+      <div className="relative">
+        {/* Gradient Overlays */}
+        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white to-transparent z-10"></div>
+        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white to-transparent z-10"></div>
+
+        {/* Carousel Container */}
+        <div className="overflow-hidden">
           <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+            className="flex gap-12 whitespace-nowrap"
+            animate={{
+              x: [0, -2200],
+            }}
+            transition={{
+              x: {
+                repeat: Infinity,
+                repeatType: "loop",
+                duration: 20,
+                ease: "linear",
+              },
+            }}
           >
-            <SectionTitle subtitle="Our Clients" title="Trusted By" />
+          {/* First set of unique logos */}
+{[
+  "https://static.wixstatic.com/media/a268ba_95918e09bf63488eaf2cd870699149cc~mv2.png/v1/fill/w_190,h_134,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/KERAFED.png",
+  "https://static.wixstatic.com/media/a268ba_38d959aeda0943e7be864ba4dca7a20e~mv2.jpg/v1/fill/w_240,h_126,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/kerala_tourism_logo-600x315.jpg",
+  "https://static.wixstatic.com/media/a268ba_56ad74dffc6041bfae53855339db09a9~mv2.jpg/v1/fill/w_161,h_154,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/AGRO.jpg",
+  "https://static.wixstatic.com/media/a268ba_542fb575a3ab4619933495afa3ebe440~mv2.png/v1/fill/w_275,h_85,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/MILCO.png",
+  "https://static.wixstatic.com/media/a268ba_cd7ac8b7d5664c0f978fd771687622ce~mv2.png/v1/fill/w_178,h_131,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Pothys_logo_main.png",
+  "https://static.wixstatic.com/media/a268ba_9e80d415d2794d1fb40a64842be0144f~mv2.png/v1/fill/w_210,h_126,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/MRA.png",
+  "https://static.wixstatic.com/media/a268ba_19bd14a553284b9c94cded6436e53f28~mv2.png/v1/fill/w_233,h_85,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/SANTHIGIRI.png",
+  "https://static.wixstatic.com/media/a268ba_c896735b8ade4f4fa034168d0e8d94a5~mv2.jpg/v1/fill/w_190,h_134,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/ASPIRE.jpg",
+  "https://static.wixstatic.com/media/a268ba_5f8f349a946b45e985ff95edcfd3a03e~mv2.png/v1/fill/w_190,h_134,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/MKH.png",
+  "https://static.wixstatic.com/media/a268ba_b767649ae7ff4774b351ae18955256f3~mv2.png/v1/fill/w_190,h_134,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/KRISTHUJYOTHI%20COLLEGE.png"
+].map((logoUrl, index) => (
+  <LogoCard key={`logo-${index}`} logoUrl={logoUrl} />
+))}
 
-            <p className="text-center text-lg text-[#4D4948] mb-16 max-w-3xl mx-auto">
-              We're proud to have worked with some of the most innovative
-              companies and organizations
-            </p>
-
-            {/* Infinite Carousel */}
-            <div className="relative">
-              {/* Gradient Overlays */}
-              <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white to-transparent z-10"></div>
-              <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white to-transparent z-10"></div>
-
-              {/* Carousel Container */}
-              <div className="overflow-hidden">
-                <motion.div
-                  className="flex gap-12 whitespace-nowrap"
-                  animate={{
-                    x: [0, -2200],
-                  }}
-                  transition={{
-                    x: {
-                      repeat: Infinity,
-                      repeatType: "loop",
-                      duration: 20,
-                      ease: "linear",
-                    },
-                  }}
-                >
-                  {/* First set of logos */}
-                  {[
-                    "Pothys",
-                    "Kerala Tourism",
-                    "Aspire",
-                    "TechSolutions",
-                    "EduCare",
-                    "HealthPlus",
-                    "FinEdge",
-                    "RetailHub",
-                  ].map((client) => (
-                    <LogoCard key={client} name={client} />
-                  ))}
-
-                  {/* Duplicate set for seamless loop */}
-                  {[
-                    "Pothys",
-                    "Kerala Tourism",
-                    "Aspire",
-                    "TechSolutions",
-                    "EduCare",
-                    "HealthPlus",
-                    "FinEdge",
-                    "RetailHub",
-                  ].map((client) => (
-                    <LogoCard key={`${client}-2`} name={client} />
-                  ))}
-                </motion.div>
-              </div>
-            </div>
+{/* Duplicate the unique set for seamless loop */}
+{[
+  "https://static.wixstatic.com/media/a268ba_95918e09bf63488eaf2cd870699149cc~mv2.png/v1/fill/w_190,h_134,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/KERAFED.png",
+  "https://static.wixstatic.com/media/a268ba_38d959aeda0943e7be864ba4dca7a20e~mv2.jpg/v1/fill/w_240,h_126,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/kerala_tourism_logo-600x315.jpg",
+  "https://static.wixstatic.com/media/a268ba_56ad74dffc6041bfae53855339db09a9~mv2.jpg/v1/fill/w_161,h_154,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/AGRO.jpg",
+  "https://static.wixstatic.com/media/a268ba_542fb575a3ab4619933495afa3ebe440~mv2.png/v1/fill/w_275,h_85,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/MILCO.png"
+].map((logoUrl, index) => (
+  <LogoCard key={`logo-${index}-2`} logoUrl={logoUrl} />
+))}
           </motion.div>
         </div>
-      </section>
+      </div>
+    </motion.div>
+  </div>
+</section>
+
 
       {/* FAQ Section */}
       <section id="faq" className="relative py-10 bg-[#F9F9F9]">
@@ -810,8 +810,8 @@ export default function KBGWebsite() {
             </h2>
             <p className="text-lg text-white/90 mb-8 max-w-3xl mx-auto">
               Whether you're just starting out or looking to scale, our experts
-              are here to help you to navigate the business landscape
-              with confidence.
+              are here to help you to navigate the business landscape with
+              confidence.
             </p>
 
             <div className="flex flex-col sm:flex-row justify-center gap-4">
@@ -834,8 +834,6 @@ export default function KBGWebsite() {
           </motion.div>
         </div>
       </section>
-
-     
     </div>
   );
 }
