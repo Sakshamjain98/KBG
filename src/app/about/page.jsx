@@ -270,7 +270,7 @@ const AboutPage = () => {
       </p>
     </motion.div>
     
-    <div className="relative">
+    <div className="relative ">
       {/* Team carousel controls - Hidden on mobile */}
       <button
         onClick={prevTeamSlide}
