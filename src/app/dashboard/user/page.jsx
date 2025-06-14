@@ -230,21 +230,21 @@ function OpenForms() {
       name: "TRADEMARK & ISO DATA",
       description:
         "Application for trademark registration and ISO certification",
-      deadline: "June 30, 2025",
+      deadline: "June 30, 2030",
       component: IsoForm,
     },
     "ISO Form": {
       id: "ISO Form",
       name: "ISO Form",
       description: "Application for ISO certification",
-      deadline: "June 30, 2025",
+      deadline: "June 30, 2030",
       component: IsoForm2,
     },
     "USER AFFIDAVIT & POA": {
       id: "USER AFFIDAVIT & POA",
       name: "USER AFFIDAVIT & POA",
       description: "Application for POA certification",
-      deadline: "June 30, 2025",
+      deadline: "June 30, 2030",
       component: AffidavitForm,
     },
 
@@ -354,7 +354,7 @@ function OpenForms() {
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <h3 className="text-lg font-semibold text-gray-800 mb-1">
-                      {form.name}
+                      {form.id === "ISO Form" ? "ISO CERTIFICATION APPLICATION" : form.name}
                     </h3>
                     <p className="text-gray-600 text-sm mb-4">
                       {form.description}
@@ -363,9 +363,9 @@ function OpenForms() {
                       <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
                         Available
                       </span>
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                      {/* <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                         Deadline: {form.deadline}
-                      </span>
+                      </span> */}
                     </div>
                   </div>
                   <div className="ml-4 flex-shrink-0">

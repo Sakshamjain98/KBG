@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -28,13 +28,13 @@ export default function AuthPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-
+  
   // Form states
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-
+  
   // Animation states
   const [fadeIn, setFadeIn] = useState(false);
 
@@ -53,36 +53,51 @@ export default function AuthPage() {
     setPhoneNumber("");
   }, [isSignIn]);
 
-useEffect(() => {
+  useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         try {
           const userRef = doc(db, 'users', user.uid);
           const userDoc = await getDoc(userRef);
-
+          
           if (userDoc.exists()) {
-            const role = userDoc.data().role;
+            const userData = userDoc.data();
+            const role = userData.role;
+            
             if (role === 'admin') {
               router.push('/admin/dashboard');
             } else if (role === 'user') {
               router.push('/dashboard/user');
             } else {
               console.warn('Unknown role:', role);
+              // Default to user dashboard if role is undefined or unknown
+              router.push('/dashboard/user');
             }
           } else {
-            console.warn('User document not found');
+            console.warn('User document not found, creating default user document');
+            // Create a default user document if it doesn't exist
+            await setDoc(userRef, {
+              uid: user.uid,
+              email: user.email,
+              fullName: user.displayName || '',
+              phoneNumber: '',
+              role: 'user',
+              createdAt: new Date(),
+            });
+            router.push('/dashboard/user');
           }
         } catch (error) {
           console.error('Error fetching user data:', error);
+          // Fallback to user dashboard on error
+          router.push('/dashboard/user');
         }
       } else {
         console.log('No user is signed in.');
       }
     });
-
+    
     return () => unsubscribe();
   }, [router]);
-
 
   const handleAuth = async (e) => {
     e.preventDefault();
@@ -93,26 +108,34 @@ useEffect(() => {
     try {
       if (isSignIn) {
         // Sign In Logic
-        await signInWithEmailAndPassword(auth, email, password);
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        
         setSuccess("Login successful! Redirecting to dashboard...");
-
-        //get user data
-
-        const user = auth.currentUser;
-        if (user) {
-          const userDoc = await getDoc(doc(db, "users", user.uid));
-          if (userDoc.exists()) {
-            if (userDoc.data().role === "admin") {
-              router.push("/dashboard/admin");
-            }
-            if (userDoc.data().role === "user") {
-              router.push("/dashboard/user");
-            }
+        
+        // Get user data
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          const role = userData.role;
+          
+          if (role === "admin") {
+            setTimeout(() => router.push("/dashboard/admin"), 1500);
           } else {
-            console.log("No such document!");
+            setTimeout(() => router.push("/dashboard/user"), 1500);
           }
         } else {
-          console.log("No user is signed in.");
+          console.log("No user document found, creating default...");
+          // Create default user document
+          await setDoc(doc(db, "users", user.uid), {
+            uid: user.uid,
+            email: user.email,
+            fullName: user.displayName || '',
+            phoneNumber: '',
+            role: "user",
+            createdAt: new Date(),
+          });
+          setTimeout(() => router.push("/dashboard/user"), 1500);
         }
       } else {
         // Sign Up Logic
@@ -127,23 +150,19 @@ useEffect(() => {
         await updateProfile(user, { displayName: fullName });
 
         // Create user document in Firestore
-        await setDoc(doc(db, "users", user.uid), {
+        const userData = {
           uid: user.uid,
           email: user.email,
           fullName,
           phoneNumber,
-          role: "user",
+          role: "user", // Default role for new users
           createdAt: new Date(),
-        });
+        };
+
+        await setDoc(doc(db, "users", user.uid), userData);
 
         setSuccess("Account created successfully! Redirecting to dashboard...");
-        if(role === "admin") {
-          setSuccess("Admin account created successfully! Redirecting to admin dashboard...");
-          setTimeout(() => router.push("/dashboard/admin"), 1500);
-        } else {
-            setSuccess("Account created successfully! Redirecting to dashboard...");
         setTimeout(() => router.push("/dashboard/user"), 1500);
-        }
       }
     } catch (error) {
       console.error("Auth error:", error.message);
@@ -165,6 +184,9 @@ useEffect(() => {
           break;
         case "auth/weak-password":
           setError("Password should be at least 6 characters.");
+          break;
+        case "auth/invalid-credential":
+          setError("Invalid email or password.");
           break;
         default:
           setError("Authentication failed. Please try again.");
@@ -410,7 +432,7 @@ useEffect(() => {
             .
           </p>
           <p>
-            &copy; {new Date().getFullYear()} YourCompany. All rights reserved.
+            &copy; {new Date().getFullYear()} KBG Technologies. All rights reserved.
           </p>
         </div>
       </div>

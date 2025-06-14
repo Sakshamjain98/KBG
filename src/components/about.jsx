@@ -211,22 +211,22 @@ const AboutUs = () => {
               <ValueCard 
                 icon="integrity" 
                 title="Integrity" 
-                description="Always doing the right thing for our clients"
+                description="Always doing the right thing for our Clients"
               />
               <ValueCard 
                 icon="excellence" 
                 title="Excellence" 
-                description="Delivering unmatched service quality"
+                description="Delivering unmatched Service Quality"
               />
               <ValueCard 
                 icon="transparency" 
                 title="Transparency" 
-                description="No hidden charges, no middlemen"
+                description="No hidden charges, No Middlemen"
               />
               <ValueCard 
                 icon="innovation" 
                 title="Innovation" 
-                description="Always adapting to serve you better"
+                description="Always adapting to serve you Better"
               />
             </div>
           </div>

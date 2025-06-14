@@ -168,7 +168,7 @@ const AboutPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <StatCard icon={Clock} value="15+" label="Years of Excellence" />
             <StatCard icon={Users} value="10,000+" label="Happy Clients" />
-            <StatCard icon={MapPin} value="300+" label="Locations" />
+            <StatCard icon={MapPin} value="300+" label="Success Stories" />
             <StatCard icon={Briefcase} value="200+" label="Services" />
           </div>
         </div>
