@@ -396,23 +396,7 @@ const AboutPage = () => {
         </div>
       </motion.section>
 
-      {/* Footer Note */}
-      <motion.section
-        className="py-12 bg-[#1A1A1A] text-white"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={containerVariants}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.p variants={itemVariants} className="text-sm text-gray-400 mb-2">
-            © Contents and images of this site are copyright protected with KBG. Unauthorized copying of any contents is prohibited. All rights reserved.
-          </motion.p>
-          <motion.p variants={itemVariants} className="text-sm text-gray-400">
-            Developed, maintained, and secured by KBG Technologies. Website designed by KITSUKI.
-          </motion.p>
-        </div>
-      </motion.section>
+  
     </div>
   );
 };

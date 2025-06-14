@@ -46,7 +46,7 @@ export default function HeroSection() {
   if (!mounted) return null;
 
   return (
-    <section className="relative py-15 md:py-0 h-full bg-white overflow-hidden">
+    <section className="relative py-0 md:py-0 h-full bg-white overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0">
         {/* Subtle grid pattern */}
