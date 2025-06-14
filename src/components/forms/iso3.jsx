@@ -15,16 +15,16 @@ import { useRouter } from "next/navigation";
 
 export default function AffidavitForm() {
   const [form, setForm] = useState({
-    name: "John Doe",
-    designation: "Director",
-    companyName: "TechNova Solutions Pvt. Ltd.",
-    address: "123 Business Park, Sector 5, Mumbai - 400001",
+    name: "",
+    designation: "",
+    companyName: "",
+    address: "",
     Date: new Date().toISOString().split("T")[0],
-    formClass: "35",
-    trademarkName: "InnovateMark",
-    companyGoods: "Software Development and IT Services",
-    trademarkDate: "2020-01-15",
-    deponent: "John Doe",
+    formClass: "",
+    trademarkName: "",
+    companyGoods: "",
+    trademarkDate: "",
+    deponent: "",
     templateName: "USER AFFIDAVIT & POA",
     paymentAmount: 5000,
   });
@@ -147,7 +147,7 @@ export default function AffidavitForm() {
 
           <div className="mb-8">
             <h2 className="text-2xl font-semibold text-gray-800 mb-4 pb-2 border-b border-orange-200">
-              SAMPLE USER AFFIDAVIT & POWER OF ATTORNEY
+              USER AFFIDAVIT & POWER OF ATTORNEY
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

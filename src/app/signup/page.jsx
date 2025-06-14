@@ -1,10 +1,9 @@
 "use client";
-
 import { useState } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db } from "@/lib/firebase";
 import { doc, setDoc } from "firebase/firestore";
-import { useRouter } from "next/navigation"; // For redirect after registration
+import { useRouter } from "next/navigation";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -31,18 +30,18 @@ export default function Register() {
         displayName: fullName
       });
 
-      // 3. Store additional data in Firestore
+      // 3. Store additional data in Firestore - USE THE ROLE STATE VARIABLE
       await setDoc(doc(db, "users", user.uid), {
         uid: user.uid,
         email: user.email,
         fullName: fullName,
         phoneNumber: phoneNumber,
-        role: role,
+        role: role, // ✅ Use the state variable instead of hardcoded string
         createdAt: new Date(),
       });
 
       console.log("User registered successfully!");
-      router.push("/"); // Redirect to home page after registration
+      router.push("/");
     } catch (error) {
       console.error("Registration error:", error.message);
       setError(error.message);
@@ -89,7 +88,8 @@ export default function Register() {
           className="border p-2 rounded"
           required
         />
-
+        
+        {/* Uncomment if you want role selection */}
         <select 
           value={role} 
           onChange={(e) => setRole(e.target.value)} 
@@ -98,7 +98,7 @@ export default function Register() {
           <option value="user">User</option>
           <option value="admin">Admin</option>
         </select>
-
+        
         <button 
           type="submit" 
           className="bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"

@@ -557,7 +557,7 @@ export default function KBGWebsite() {
                 className="space-y-6 order-1 lg:order-2"
               >
                 <h3 className="text-3xl font-bold text-black">
-                  We Make Legal & Business Services{" "}
+                  We Make All Business Services{" "}
                   <span className="text-[#7F1C75]">Simple</span>
                 </h3>
                 <p className="text-lg text-[#4D4948] leading-relaxed">
