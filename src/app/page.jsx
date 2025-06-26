@@ -130,7 +130,7 @@ const StatCard = ({ icon, value, label }) => {
         {isNaN(numericValue) ? value : count.toLocaleString()}
         {hasPlus ? "+" : ""}
       </h3>
-      <p className="text-gray-600 text-sm font-medium">{label}</p>
+      <p className="text-gray-600 text-sm text-center font-medium">{label}</p>
     </div>
   );
 };
@@ -256,10 +256,11 @@ const Stats = () => {
             <StatCard icon="services" value="200+" label="Business Services" />
             <StatCard
               icon="professionals"
-              value="300+"
+              value="100+"
               label="Certified Professionals"
+              className="flex justify-center items-center"
             />
-            <StatCard icon="countries" value="12+" label="Countries Reached" />
+            <StatCard icon="countries" value="12+" label="Countries Presence" />
             <StatCard icon="states" value="22+" label="Indian States Covered" />
             <StatCard
               icon="experience"
@@ -809,7 +810,7 @@ export default function KBGWebsite() {
               Ready to Grow Your Business?
             </h2>
             <p className="text-lg text-white/90 mb-8 max-w-3xl mx-auto">
-              Whether you're just starting out or looking to scale, our experts
+              Whether you're just starting out or looking to scale up, our experts
               are here to help you to navigate the business landscape with
               confidence.
             </p>
