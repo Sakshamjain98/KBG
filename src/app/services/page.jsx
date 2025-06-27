@@ -35,7 +35,7 @@ const ServiceCard = ({ name, basePrice, otherCost, note, icon }) => {
     >
       <div className="p-6">
         {/* Card Header with Icon and Title */}
-        <div className="flex items-start gap-4 mb-5">
+        <div className="flex items-start gap-4">
           <div
             className={`p-3 rounded-lg transition-all duration-300 ${
               isHovered
@@ -48,16 +48,6 @@ const ServiceCard = ({ name, basePrice, otherCost, note, icon }) => {
 
           <div>
             <h3 className="text-lg font-semibold text-gray-800">{name}</h3>
-            <div className="flex items-center mt-1.5">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7F1C75] to-[#29146F] font-semibold text-xl">
-                ₹{basePrice}
-              </span>
-              {isHovered && (
-                <span className="ml-2 text-xs font-medium text-[#7F1C75] bg-purple-50 px-2.5 py-0.5 rounded-full">
-                  Best Value
-                </span>
-              )}
-            </div>
           </div>
         </div>
 
@@ -66,11 +56,6 @@ const ServiceCard = ({ name, basePrice, otherCost, note, icon }) => {
           <div className="pl-14">
             {note && <p className="text-sm text-gray-600 mb-3 leading-relaxed">{note}</p>}
 
-            {otherCost && (
-              <div className="bg-gray-50 p-3 rounded-lg border-l-2 border-[#7F1C75]/30">
-                <p className="text-xs text-gray-600">{otherCost}</p>
-              </div>
-            )}
           </div>
         )}
 
@@ -110,38 +95,38 @@ const ServicePage = () => {
       category: 'Certifications',
       icon: <Shield size={20} />,
       services: [
-        { name: 'ISO 9001:2015, 14001 STD', basePrice: '12,000',  note: 'OHSAS, ISMS 27001, 29990 extra ₹2,000', icon: <Shield size={18} /> },
-        { name: 'BIC US 9001:2015, 14001', basePrice: '47,000', note: 'OHSAS, ISMS 27001, 29990 extra ₹20,000', icon: <Globe size={18} /> },
-        { name: 'UKAS 9001:2015, 14001', basePrice: '1,45,000',  note: 'OHSAS, ISMS 27001, 29990 extra ₹50,000', icon: <Award size={18} /> },
-        { name: 'TUV 9001:2015, 14001', basePrice: '1,40,000',  note: 'OHSAS, ISMS 27001, 29990 extra ₹1,20,000', icon: <Star size={18} /> },
+        { name: 'ISO 9001:2015, 14001 STD *', basePrice: '12,000',  note: 'OHSAS, ISMS 27001, 29990 extra ₹2,000', icon: <Shield size={18} /> },
+        { name: 'BIC US 9001:2015, 14001 *', basePrice: '47,000', note: 'OHSAS, ISMS 27001, 29990 extra ₹20,000', icon: <Globe size={18} /> },
+        { name: 'UKAS 9001:2015, 14001 *', basePrice: '1,45,000',  note: 'OHSAS, ISMS 27001, 29990 extra ₹50,000', icon: <Award size={18} /> },
+        { name: 'TUV 9001:2015, 14001 *', basePrice: '1,40,000',  note: 'OHSAS, ISMS 27001, 29990 extra ₹1,20,000', icon: <Star size={18} /> },
       ]
     },
     {
       category: 'Registrations',
       icon: <FileText size={20} />,
       services: [
-        { name: 'Company Registration (Pvt Ltd)', basePrice: '12,500', icon: <Briefcase size={18} /> },
-        { name: 'GST Registration', basePrice: '2,500',  icon: <FileText size={18} /> },
-        { name: 'Import-Export Code', basePrice: '1,500', icon: <Globe size={18} /> },
-        { name: 'Trust Registration', basePrice: '15,000', icon: <Users size={18} /> },
+        { name: 'Company Registration (Pvt Ltd) *', basePrice: '12,500', icon: <Briefcase size={18} /> },
+        { name: 'GST Registration *', basePrice: '2,500',  icon: <FileText size={18} /> },
+        { name: 'Import-Export Code *', basePrice: '1,500', icon: <Globe size={18} /> },
+        { name: 'Trust Registration *', basePrice: '15,000', icon: <Users size={18} /> },
       ]
     },
     {
       category: 'Intellectual Property',
       icon: <Briefcase size={20} />,
       services: [
-        { name: 'Trademark Filing', basePrice: '6,900',  icon: <Tag size={18} /> },
-        { name: 'Trademark (Comprehensive)', basePrice: '14,900', note: 'No additional costs', icon: <Check size={18} /> },
-        { name: 'Copyright Registration', basePrice: '7,000 - 12,000', icon: <FileText size={18} /> },
+        { name: 'Trademark Filing *', basePrice: '6,900',  icon: <Tag size={18} /> },
+        { name: 'Trademark (Comprehensive) *', basePrice: '14,900', note: 'No additional costs', icon: <Check size={18} /> },
+        { name: 'Copyright Registration *', basePrice: '7,000 - 12,000', icon: <FileText size={18} /> },
       ]
     },
     {
       category: 'Legal & Compliance',
       icon: <Briefcase size={20} />,
       services: [
-        { name: 'NABH Documentation', basePrice: '3,25,000', icon: <FileText size={18} /> },
-        { name: 'ROC Filing', basePrice: '5,000 - 25,000', icon: <Briefcase size={18} /> },
-        { name: '3CB Auditing', basePrice: '12,000 - 25,000', icon: <Check size={18} /> },
+        { name: 'NABH Documentation *', basePrice: '3,25,000', icon: <FileText size={18} /> },
+        { name: 'ROC Filing *', basePrice: '5,000 - 25,000', icon: <Briefcase size={18} /> },
+        { name: '3CB Auditing *', basePrice: '12,000 - 25,000', icon: <Check size={18} /> },
       ]
     }
   ];
@@ -234,8 +219,8 @@ const ServicePage = () => {
               <ServiceCard 
                 key={`${category.category}-${index}`}
                 name={service.name}
-                basePrice={service.basePrice}
-                otherCost={service.otherCost}
+                // basePrice={service.basePrice}
+                // otherCost={service.otherCost}
                 note={service.note}
                 icon={service.icon}
               />
