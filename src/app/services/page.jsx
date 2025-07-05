@@ -51,13 +51,7 @@ const ServiceCard = ({ name, basePrice, otherCost, note, icon }) => {
           </div>
         </div>
 
-        {/* Card Body - Note and Additional Cost */}
-        {(note || otherCost) && (
-          <div className="pl-14">
-            {note && <p className="text-sm text-gray-600 mb-3 leading-relaxed">{note}</p>}
-
-          </div>
-        )}
+       
 
         {/* Card Footer with Button */}
         <div className={`mt-6 flex justify-end transition-all duration-300`}>
@@ -221,7 +215,6 @@ const ServicePage = () => {
                 name={service.name}
                 // basePrice={service.basePrice}
                 // otherCost={service.otherCost}
-{/*                 note={service.note} */}
                 icon={service.icon}
               />
             ))
