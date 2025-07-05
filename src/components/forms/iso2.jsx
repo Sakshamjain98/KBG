@@ -52,7 +52,7 @@ export default function IsoForm2() {
     INS_paymentSchedule: '',
     INS_authorizedSignature: '',
     templateName: 'ISO Form',
-    paymentAmount: '5000',
+    paymentAmount: '0',
   });
 
   const [loading, setLoading] = useState(false);
