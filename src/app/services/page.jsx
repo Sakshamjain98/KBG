@@ -221,7 +221,7 @@ const ServicePage = () => {
                 name={service.name}
                 // basePrice={service.basePrice}
                 // otherCost={service.otherCost}
-                note={service.note}
+{/*                 note={service.note} */}
                 icon={service.icon}
               />
             ))
