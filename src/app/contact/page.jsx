@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { MapPin, Phone, Mail, Facebook, Instagram } from 'lucide-react';
 import emailjs from '@emailjs/browser';
+import { MessageCircle } from 'react-feather';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -137,11 +138,14 @@ const ContactPage = () => {
                     <div>
                       <h3 className="text-lg font-semibold text-gray-800 mb-1">Social Media</h3>
                       <div className="flex space-x-4 mt-2">
-                        <a href="https://www.facebook.com/KBGBUSINESS" className="text-[#7F1C75] hover:text-[#29146F] transition-colors">
+                        <a href="https://www.facebook.com/KBGBUSINESSGROUP" className="text-[#7F1C75] hover:text-[#29146F] transition-colors">
                           <Facebook className="w-6 h-6" />
                         </a>
-                        <a href="https://www.instagram.com/kbgindia/" className="text-[#7F1C75] hover:text-[#29146F] transition-colors">
+                        <a href="https://www.instagram.com/kerala_business_group_1/" className="text-[#7F1C75] hover:text-[#29146F] transition-colors">
                           <Instagram className="w-6 h-6" />
+                        </a>
+                          <a href="https://wa.me/918593939336?text=I'm%20interested%20in%20leaning%20more%20about%20KBG%20India's%20servives.%20" className="text-[#7F1C75] hover:text-[#29146F] transition-colors">
+                          <MessageCircle className="w-6 h-6" />
                         </a>
                       </div>
                     </div>

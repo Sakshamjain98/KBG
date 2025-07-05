@@ -54,7 +54,7 @@ export default function IsoForm() {
     INS_iso_top_management_employees: '',
     INS_iso_middle_mangement_employees: '',
     templateName: 'Trademark-and-Iso',
-    paymentAmount: '5000',
+    paymentAmount: '0',
   });
 
   const [loading, setLoading] = useState(false);

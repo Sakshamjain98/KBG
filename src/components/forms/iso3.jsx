@@ -26,7 +26,7 @@ export default function AffidavitForm() {
     trademarkDate: "",
     deponent: "",
     templateName: "USER AFFIDAVIT & POA",
-    paymentAmount: 5000,
+    paymentAmount: 0,
   });
 
   const [loading, setLoading] = useState(false);
