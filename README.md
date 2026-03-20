@@ -60,7 +60,7 @@ root/
 
 ### Clone Repository
 
-git clone https://github.com/your-username/kbg.git  
+git clone https://github.com/sakshamjain98/kbg.git  
 cd kbg  
 
 ---
